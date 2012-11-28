@@ -1,0 +1,12 @@
+package Modele;
+
+public class Operateur {
+
+	String login;
+	String password;
+	
+	public Operateur(String login, String password){
+		this.login = login;
+		this.password = password;
+	}
+}

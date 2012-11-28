@@ -1,0 +1,3 @@
+INDEX VERSION 1.122+E:\PING\Ping41\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2844199207.index
+4254964523.index
