@@ -12,6 +12,8 @@
 package Controlleur;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,6 +51,10 @@ public class ConnexionOperateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// On récupére les valeurs pour le login/mdp
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("CODE_DE_MA_PAGE_HTML");
+		out.close();
 		String login = request.getParameter("login");
 		String mdp = request.getParameter("motDePasse");
 		//On teste si le login/mdp est null
