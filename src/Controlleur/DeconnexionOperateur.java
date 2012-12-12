@@ -40,7 +40,7 @@ public class DeconnexionOperateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : DeconnexionOperateur");
+		System.out.println("servlet : DeconnexionOperateurdd");
 		// Recupere la session
 		 HttpSession session = request.getSession(true);  
 		 session.invalidate();

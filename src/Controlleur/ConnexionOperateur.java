@@ -51,25 +51,7 @@ public class ConnexionOperateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// On récupére les valeurs pour le login/mdp
-		/**response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("CODE_DE_MA_PAGE_HTML");
-		out.close();
-		String login = request.getParameter("login");
-		String mdp = request.getParameter("motDePasse");
-		//On teste si le login/mdp est null
-		if(login == "" || mdp == ""){
-			System.out.println("login/mdp vide");
-		}else{
-			Operateur operateur = new Operateur(login,mdp);
-			if(operateur.tester()){
-				System.out.println("Utilisateur OK");
-				HttpSession session = request.getSession(true);  
-				session.putValue("utilisateur", operateur);
-			}else{
-				System.out.println("login/mdp incorrect");
-			}
-		}*/
+		
 		System.out.println("POST");
 		
 		
