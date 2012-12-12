@@ -51,7 +51,7 @@ public class ConnexionOperateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// On récupére les valeurs pour le login/mdp
-		response.setContentType("text/html;charset=UTF-8");
+		/*response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("CODE_DE_MA_PAGE_HTML");
 		out.close();
@@ -69,7 +69,8 @@ public class ConnexionOperateur extends HttpServlet {
 			}else{
 				System.out.println("login/mdp incorrect");
 			}
-		}
+		}*/
+		System.out.println("POST");
 		
 		
 	}
