@@ -1,0 +1,106 @@
+.hidden {
+   display: none;
+}
+
+.visible {
+   display: inline;
+    border-collapse: collapse; 
+	empty-cells: show;
+	font-family: Arial;
+}
+
+
+body
+{
+
+	font-family:verdana;
+	font-weight:bold;
+	font-size:11px;
+	padding:5px;
+	overflow:auto
+}
+
+h1
+{
+    color: #0067b4;
+	text-shadow: 3px 3px 2px grey;
+	font-family: Arial;
+	font-size:25px;
+}
+h2
+{
+	color: black;
+	font-family: Arial;
+}
+caption
+{
+	font-weight: bold;
+	font-family: Arial;
+	
+}
+.case
+{
+	text-align: left;
+	padding: 7px;
+	border:1px solid #AEAEAE;
+	font-family: Arial;
+}
+.tableau
+{
+    border-collapse: collapse; 
+	empty-cells: show;
+	font-family: Arial;
+}
+
+a:link 
+{ 
+font-size:13px;
+color: #0067b4;
+text-decoration:none;
+} /* lien non-visité */
+a:visited 
+{
+font-size:13px;
+ color: #0067b4;
+ text-decoration:none;
+ } /* lien visité */
+a:hover 
+{ 
+font-size:13px;
+	color:red;
+	display:inline;
+	text-decoration:underline;
+} /* lien survolé */
+a:active 
+{ 
+font-size:13px;
+color: #0067b4;
+text-decoration:none;
+} /* lien activé */ 
+
+/****************/
+/*menu haut******/
+/****************/
+.menu1
+{
+	font-size:26px;
+	width: 100%;
+	font-family: Arial;
+}
+.menu2
+{
+	width: 100%;
+	background-color:#0067b4;
+	font-family: Arial;
+	border-collapse: collapse; 
+}
+.frame
+{
+border:1px solid black;
+}
+.menu1 td
+{
+font-size:18px;
+ width: 10%;
+text-align:center;
+}

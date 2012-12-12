@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" href="../../../css/css.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ordonnancement - Liste à Servir</title>
+</head>
+<body>
+<center>
+<h1>Ordonnancement</h1>
+<h2>Liste à servir</h2>
+
+<form action="ListesDesManquants.html">
+	<table>
+	<tr>
+	<td>
+			<table class="tableau">
+				<tr>
+					<th class="case">
+						Article
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="article">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Quantité à fabriquer
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="nb_a_fabr">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Sté
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="ste">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						N° de Cde
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="num_cmd">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Code Client
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="code_client">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Réf. Cde Clt
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="ref_cde">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Date Cde
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="date_cde">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Mise en Fab.
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="mise_fab">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Délai Prv
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="delai_prv">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Délai Ddé
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="delai_dde">
+					</td>
+				</tr>
+				<tr>
+					<th class="case">
+						Fam. Gest
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="fam_gest">
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<table id="tableau2" class="tableau"  style="visibility: hidden;">
+				<tr>
+					<th class="case">
+						Article
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="article">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Quantité à fabriquer
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="nb_a_fabr">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Sté
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="ste">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						N° de Cde
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="num_cmd">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Code Client
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="code_client">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Réf. Cde Clt
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="ref_cde">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Date Cde
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="date_cde">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Mise en Fab.
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="mise_fab">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Délai Prv
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="delai_prv">
+					</td>
+				</tr>
+						<tr>
+					<th class="case">
+						Délai Ddé
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="delai_dde">
+					</td>
+				</tr>
+				<tr>
+					<th class="case">
+						Fam. Gest
+					</th>
+					<td class="case">
+						<input value="XXXXXXXXXXXXX" type="text" name="fam_gest">
+					</td>
+				</tr>
+			</table>
+	
+	
+	
+	
+		</td>
+	</tr>
+	
+	
+	</table>
+
+	<input type="submit" value="Liste des manquants"> 
+	
+</form>
+<input type="submit" onclick="javascript:hide('tableau2');" value="Ajouter une liste" >
+</center>
+</body>
+</html>
+
+<script>
+function hide(identifiant) {
+if (document.getElementById(identifiant).style.visibility == "hidden") {
+               document.getElementById(identifiant).style.visibility = "visible";
+            } else {
+               document.getElementById(identifiant).style.visibility = "hidden";
+            }
+   }
+</script> 
+   

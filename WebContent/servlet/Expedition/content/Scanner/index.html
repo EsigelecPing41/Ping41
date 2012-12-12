@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" href="../../../../css/css.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<h1>Expédition</h1>
+<h2>Scanner</h2>
+</center>
+
+<form action="detail_piece" method="POST">
+Numéro de série de la piéce :<br><input type="text" name="num_piece">
+<a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../../img/douchette.jpg" width="20px"></a>
+<div id="scanner" style="display : none;background-color:grey;">
+Scanner le code bar<br><input type="submit" value="Simule la récupération via la douchette"></a><br><a href="javascript:document.getElementById('scanner').style.display='none';document.getElementById('manuel').style.display='block'">Annuler</a>
+</div>
+<br>Designation de la piéce :<br><input type="text" name="design"><br>
+Localisation :<br><input type="text" name="loc">
+<div id="manuel">
+<input type="submit" value="Confirmer"></a>
+</div>
+</form>
+
+
+</body>
+</html>
