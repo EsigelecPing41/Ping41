@@ -17,6 +17,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.PieceDAO;
+
+import Modele.Piece;
 
 @WebServlet("/ChercherPiece")
 public class ChercherPiece extends HttpServlet {
@@ -42,6 +47,26 @@ public class ChercherPiece extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		PieceDAO pieceDao  = new PieceDAO();
+		
+		try { 
+			int i = Integer.parseInt(request.getParameter("id")); 
+			Piece piece = pieceDao.getPiece(i);
+			if(piece != null){
+				HttpSession session = request.getSession(true);  
+				session.putValue("pieceActive", piece);
+			}else{
+				System.out.println("piece OK");
+			}
+		}catch (Exception e) { 
+			System.out.println("ID invalable"); 
+		}
+		
+		
+		
+		
+		
+		
 	}
 
 }

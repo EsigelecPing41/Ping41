@@ -13,13 +13,18 @@ package Controlleur;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import Modele.Operateur;
 
 /**
  * Servlet implementation class ConnexionOperateur
  */
+@WebServlet(description = "Connexion d'un opérateur", urlPatterns = { "/ConnexionOperateur" })
 public class ConnexionOperateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,7 +48,24 @@ public class ConnexionOperateur extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// On récupére les valeurs pour le login/mdp
+		String login = request.getParameter("login");
+		String mdp = request.getParameter("motDePasse");
+		//On teste si le login/mdp est null
+		if(login == "" || mdp == ""){
+			System.out.println("login/mdp vide");
+		}else{
+			Operateur operateur = new Operateur(login,mdp);
+			if(operateur.tester()){
+				System.out.println("Utilisateur OK");
+				HttpSession session = request.getSession(true);  
+				session.putValue("utilisateur", operateur);
+			}else{
+				System.out.println("login/mdp incorrect");
+			}
+		}
+		
+		
 	}
 
 }
