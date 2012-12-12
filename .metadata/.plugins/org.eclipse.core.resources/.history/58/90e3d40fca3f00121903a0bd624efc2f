@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+PGE JEE V1 - Formulaire de connexion
+ 
+ 
+ 
+<h1>PGE JEE V1 - Connectez-vous!</h1>
+ 
+ 
+      <% // Affichage du message d'erreur s'il existe
+      String erreur = (String) request.getAttribute("erreur");
+      if (erreur != null) { %>
+            <strong>Erreur : </strong>
+ 
+ 
+ 
+<form method="post">
+ 
+            <label for="loginSaisi">Identifiant : </label>
+            <input name="loginSaisi" type="text" />
+            <label for="passSaisi">Mot de passe : </label>
+            <input name="passSaisi" type="password" />
+            <input name="Valider" type="submit" />
+ 
+</form>
