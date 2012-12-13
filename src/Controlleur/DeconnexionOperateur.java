@@ -13,6 +13,8 @@
 package Controlleur;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,10 +42,12 @@ public class DeconnexionOperateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : DeconnexionOperateurdd");
+		System.out.println("servlet : DeconnexionOperateur");
 		// Recupere la session
 		 HttpSession session = request.getSession(true);  
 		 session.invalidate();
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward( request, response );
 	}
 
 	/**

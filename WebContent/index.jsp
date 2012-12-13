@@ -1,12 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
     <head>
     <link rel="stylesheet" href="css/css.css" />
     </head>
     <body>
+ <% 
+	HttpSession ses = request.getSession(true);
+	String erreur = (String)ses.getAttribute("erreurConnexion");
+%>
 	    <center>
 		    <br><img src="servlet/img/SKFTracability.jpg" width="60%"><br><br><br>
-			<form method="post" action="connexionOperateur">
+			<form method="POST" action="connexionOperateur">
 			<table>
-				<tr/>
+				<tr>
+					<th colspan="2">
+						<%=erreur %>
+					</th>
+				</tr>
+				<tr>
 					<td>
 						Login : 
 					</td>
@@ -30,5 +43,5 @@
 			</form>
 		</center>
     </body>
-
+</html>
 

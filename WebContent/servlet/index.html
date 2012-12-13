@@ -6,8 +6,19 @@
 </head>
 <!--<FRAMESET border="0" class="frame" COLS="1200,*">-->
 	<FRAMESET border="1" ROWS="100px,10%">
-		<FRAME SCROLLING="NO" NORESIZE SRC="partie_haut/" NAME="test">
-		<FRAME SRC="accueil/" NAME="page">
+		<FRAME SCROLLING="NO" NORESIZE SRC="servlet/partie_haut/" NAME="test">
+		
+		
+		<FRAMESET class="frame" border="1" COLS="170px,700px">
+			<FRAMESET border="1" ROWS="75%,25%">
+				<FRAME Noresize Scrolling="NO" SRC="listePieceParService" NAME="menu_gauche">
+				<FRAME Noresize Scrolling="NO" SRC="servlet/Douchette/etatDouchette.jsp" NAME="menu_gauche_bas">
+			</FRAMESET>
+		<FRAME Noresize SRC="content/" NAME="page">
+	
+</FRAMESET>
+		
+		
 	</FRAMESET>
 <!--</FRAMESET>-->
 

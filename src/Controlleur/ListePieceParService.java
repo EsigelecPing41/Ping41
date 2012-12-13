@@ -1,17 +1,9 @@
-
-/*****************************************************
-* Module : Controlleur
-* Fichier : ChercherPiece
-* Description : Afficher la localisation d'une pièce
-* Projet : SKF Traceability
-* Auteur : GC
-* Date : 12/12/12
-* Version : 0.5
-******************************************************/
-
 package Controlleur;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,18 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.PieceDAO;
-
 import Modele.Piece;
 
-@WebServlet("/ChercherPiece")
-public class ChercherPiece extends HttpServlet {
+/**
+ * Servlet implementation class ListePieceParService
+ */
+@WebServlet("/listePieceParService")
+public class ListePieceParService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public ChercherPiece() {
+    public ListePieceParService() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -39,22 +33,14 @@ public class ChercherPiece extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		PieceDAO pieceDao = new PieceDAO();
-		
-		try { 
-			int i = Integer.parseInt(request.getParameter("id")); 
-			Piece piece = pieceDao.getPiece(i);
-			if(piece != null){
-				HttpSession session = request.getSession(true);  
-				session.setAttribute("pieceActive", piece);
-			}else{
-				System.out.println("piece KO");
-			}
-		}catch (Exception e) { 
-			System.out.println("ID invalable"); 
-		}
+		HttpSession session = request.getSession(true);  
+		ArrayList<Piece> pieces = new ArrayList<Piece>();
+		pieces.add(new Piece(1, "PIECE 1", "",3, 3,3));
+		pieces.add(new Piece(1, "PIECE 2", "",3, 3,3));
+		pieces.add(new Piece(1, "PIECE 3", "",3, 3,3));
+		session.setAttribute("listePiece", pieces);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/ListePieceParService/listePieceParService.jsp");
+		dispatcher.forward( request, response );						
 	}
 
 	/**
@@ -62,13 +48,6 @@ public class ChercherPiece extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }

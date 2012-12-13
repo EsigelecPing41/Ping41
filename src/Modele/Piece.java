@@ -103,4 +103,13 @@ public class Piece
 		return P_IDCommande;
 	}
 
+	@Override
+	public String toString() {
+		return "Piece [P_ID=" + P_ID + ", P_Nom=" + P_Nom + ", P_CodeBarre="
+				+ P_CodeBarre + ", P_IDLieu=" + P_IDLieu
+				+ ", P_ListOperations=" + P_ListOperations
+				+ ", P_IDFournisseur=" + P_IDFournisseur + ", P_IDCommande="
+				+ P_IDCommande + "]";
+	}
+
 }

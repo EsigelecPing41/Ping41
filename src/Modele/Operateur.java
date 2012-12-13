@@ -87,5 +87,10 @@ public class Operateur
 		return O_ZoneAcces;
 	}
 
+	public boolean tester() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
 
