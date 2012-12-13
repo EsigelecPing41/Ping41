@@ -1,16 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<link rel="stylesheet" href="../css/css.css" />
+<link rel="stylesheet" href="../../css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SKF Tracability Tools</title>
+<title>Magasin</title>
 </head>
-<FRAMESET class="frame" border="1" COLS="170px,700px">
-	<FRAMESET border="1" ROWS="75%,25%">
-		<FRAME Noresize Scrolling="NO" SRC="menu/" NAME="menu_gauche">
-		<FRAME Noresize Scrolling="NO" SRC="menu/menu2/" NAME="menu_gauche_bas">
-	</FRAMESET>
-	<FRAME Noresize SRC="content/" NAME="content">
-	
-</FRAMESET>
-
-
+<body>
+<center>
+<h1>Magasin</h1>
+<br><br>
+<form action="../content/magasin.html">
+Numéro de série de la pièce :<br><input type="text" name="num_pièce"><a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../img/douchette.jpg" width="20px"></a>
+<div id="scanner" style="display : none;background-color:grey;">
+Scanner le code bar<br><input type="submit" value="Simule la récupération via la douchette"></a><br><a href="javascript:document.getElementById('scanner').style.display='none';document.getElementById('manuel').style.display='block'">Annuler</a>
+</div>
+<div id="manuel">
+<input type="submit" value="Valider"></a>
+</div>
+</form>
+</ul>
+</center>
+</body>
+</html>

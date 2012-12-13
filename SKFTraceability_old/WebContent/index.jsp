@@ -14,10 +14,7 @@ PGE JEE V1 - Formulaire de connexion
 <h1>PGE JEE V1 - Connectez-vous!</h1>
  
  
-      <% // Affichage du message d'erreur s'il existe
-      String erreur = (String) request.getAttribute("erreur");
-      if (erreur != null) { %>
-            <strong>Erreur : </strong>
+    
  
  
  
