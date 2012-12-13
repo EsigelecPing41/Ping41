@@ -9,7 +9,7 @@ import Modele.Connexion;
 
 public class ClientDAO 
 {
-		private Connexion con;
+		private	 Connexion con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 		private static ClientDAO singleton;
 		private ClientDAO()

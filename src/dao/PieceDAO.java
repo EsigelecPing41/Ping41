@@ -349,9 +349,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				
-				ps = con.getConnection().prepareStatement("SELECT * FROM Piece");
-										
+				ps = con.getConnection().prepareStatement("SELECT * FROM Piece");				
 				//on execute la requete 
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat

@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ListePieceEnCours
  */
-@WebServlet(description = "Affiche la liste des pièces en cours de production", urlPatterns = { "/ListePieceEnCours" })
 public class ListePieceEnCours extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,6 +37,7 @@ public class ListePieceEnCours extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("servlet : ListePieceEnCours");
+		
 	}
 
 	/**
