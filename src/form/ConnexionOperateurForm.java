@@ -35,7 +35,6 @@ public final class ConnexionOperateurForm {
             setErreur( CHAMP_EMAIL, e.getMessage() );
         }
         utilisateur.setO_Nom(nom );
-
         /* Validation du champ mot de passe. */
         try {
             validationMotDePasse( motDePasse );

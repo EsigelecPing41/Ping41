@@ -94,11 +94,13 @@ public class ConnexionOperateur extends HttpServlet {
 		}	*/
 		 /* Préparation de l'objet formulaire */
         ConnexionOperateurForm form = new ConnexionOperateurForm();
+        System.out.println("Essai");
         /* Traitement de la requête et récupération du bean en résultant */
         Operateur utilisateur = form.connecterUtilisateur( request );
 
         /* Récupération de la session depuis la requête */
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
+        session.setAttribute("etatDouchette", false);
         RequestDispatcher dispatcher;
         /**
          * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
@@ -110,7 +112,7 @@ public class ConnexionOperateur extends HttpServlet {
             dispatcher = request.getRequestDispatcher("servlet/index.html");
             
         } else {
-        	System.out.println("Erreur");
+        	
             session.setAttribute( ATT_SESSION_USER, null );
             dispatcher = request.getRequestDispatcher("index.jsp");
         }
