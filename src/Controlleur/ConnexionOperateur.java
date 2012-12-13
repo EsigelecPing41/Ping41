@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.OperateurDAO;
 import dao.PieceDAO;
+import form.ConnexionOperateurForm;
 
 import Modele.Operateur;
 import Modele.Piece;
@@ -32,10 +33,12 @@ import Modele.Piece;
 /**
  * Servlet implementation class ConnexionOperateur
  */
-@WebServlet(description = "Connexion d'un opérateur", urlPatterns = { "/ConnexionOperateur" })
+@WebServlet(description = "Connexion d'un opï¿½rateur", urlPatterns = { "/ConnexionOperateur" })
 public class ConnexionOperateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	 public static final String ATT_USER         = "utilisateur";
+	 public static final String ATT_FORM         = "form";
+	 public static final String ATT_SESSION_USER = "sessionUtilisateur";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -57,8 +60,8 @@ public class ConnexionOperateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//On instancie un operateur DAO
-		OperateurDAO operateurDAO  = new OperateurDAO();
-		// On récupére les valeurs pour le login/mdp
+		/*OperateurDAO operateurDAO  = new OperateurDAO();
+		// On rï¿½cupï¿½re les valeurs pour le login/mdp
 		String login = request.getParameter("login");
 		String mdp = request.getParameter("motDePasse");
 		if(login == "" || mdp == ""){
@@ -67,29 +70,56 @@ public class ConnexionOperateur extends HttpServlet {
 			session.setAttribute("erreurConnexion", "login/mdp vide");
 			System.out.println("login/mdp vide");
 			//On affiche le formulaire de connexion
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			
 			dispatcher.forward( request, response );
 		}else{
-			//On récupere l'operateur suivant le login/mot de passe transmis
+			//On rï¿½cupere l'operateur suivant le login/mot de passe transmis
 			Operateur operateur = operateurDAO.getOperateur(login,mdp);
 			if(operateur != null){
-				//Si l'opérateur existe
+				//Si l'opï¿½rateur existe
 				System.out.println("Utilisateur OK");
 				HttpSession session = request.getSession(true);  
 				session.setAttribute("utilisateur", operateur);
 				session.setAttribute("etatDouchette", false);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/index.html");
-				dispatcher.forward( request, response );
+				
 			}else{		
-				//Si l'opérateur n'existe pas
+				//Si l'opï¿½rateur n'existe pas
 				HttpSession session = request.getSession(true);  
 				session.setAttribute("erreurConnexion", "login/mdp incorrect");
 				System.out.println("login/mdp incorrect");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward( request, response );
 			}
-		}	
-		
+		}	*/
+		 /* PrÃ©paration de l'objet formulaire */
+        ConnexionOperateurForm form = new ConnexionOperateurForm();
+        /* Traitement de la requÃªte et rÃ©cupÃ©ration du bean en rÃ©sultant */
+        Operateur utilisateur = form.connecterUtilisateur( request );
+
+        /* RÃ©cupÃ©ration de la session depuis la requÃªte */
+        HttpSession session = request.getSession();
+        RequestDispatcher dispatcher;
+        /**
+         * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
+         * Utilisateur Ã  la session, sinon suppression du bean de la session.
+         */
+        if ( form.getErreurs().isEmpty() ) {
+        	System.out.println("Pas d'erreur d'authentification");
+            session.setAttribute( ATT_SESSION_USER, utilisateur );
+            dispatcher = request.getRequestDispatcher("servlet/index.html");
+            
+        } else {
+        	System.out.println("Erreur");
+            session.setAttribute( ATT_SESSION_USER, null );
+            dispatcher = request.getRequestDispatcher("index.jsp");
+        }
+
+        /* Stockage du formulaire et du bean dans l'objet request */
+        request.setAttribute( ATT_FORM, form );
+        request.setAttribute( ATT_USER, utilisateur );
+    	
+        dispatcher.forward( request, response );
 		
 		
 	}
