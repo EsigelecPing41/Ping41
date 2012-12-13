@@ -59,45 +59,13 @@ public class ConnexionOperateur extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//On instancie un operateur DAO
-		/*OperateurDAO operateurDAO  = new OperateurDAO();
-		// On r�cup�re les valeurs pour le login/mdp
-		String login = request.getParameter("login");
-		String mdp = request.getParameter("motDePasse");
-		if(login == "" || mdp == ""){
-			//Si le login OU mdp est vide, on stocke l'erreur dans une variable de session
-			HttpSession session = request.getSession(true);  
-			session.setAttribute("erreurConnexion", "login/mdp vide");
-			System.out.println("login/mdp vide");
-			//On affiche le formulaire de connexion
-			
-			dispatcher.forward( request, response );
-		}else{
-			//On r�cupere l'operateur suivant le login/mot de passe transmis
-			Operateur operateur = operateurDAO.getOperateur(login,mdp);
-			if(operateur != null){
-				//Si l'op�rateur existe
-				System.out.println("Utilisateur OK");
-				HttpSession session = request.getSession(true);  
-				session.setAttribute("utilisateur", operateur);
-				session.setAttribute("etatDouchette", false);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/index.html");
-				
-			}else{		
-				//Si l'op�rateur n'existe pas
-				HttpSession session = request.getSession(true);  
-				session.setAttribute("erreurConnexion", "login/mdp incorrect");
-				System.out.println("login/mdp incorrect");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				dispatcher.forward( request, response );
-			}
-		}	*/
-		 /* Préparation de l'objet formulaire */
+
+		/* Préparation de l'objet formulaire */
         ConnexionOperateurForm form = new ConnexionOperateurForm();
         System.out.println("Essai");
         /* Traitement de la requête et récupération du bean en résultant */
         Operateur utilisateur = form.connecterUtilisateur( request );
-
+	
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession(true);
         session.setAttribute("etatDouchette", false);

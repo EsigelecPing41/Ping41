@@ -2,7 +2,7 @@
 /*****************************************************
 * Module : Controlleur
 * Fichier : ChercherPiece
-* Description : Afficher la localisation d'une pièce
+* Description : Afficher la localisation d'une piï¿½ce
 * Projet : SKF Traceability
 * Auteur : GC
 * Date : 12/12/12
@@ -41,7 +41,7 @@ public class ChercherPiece extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		PieceDAO pieceDao = new PieceDAO();
+		PieceDAO pieceDao =	PieceDAO.getInstance();
 		
 		try { 
 			int i = Integer.parseInt(request.getParameter("id")); 
