@@ -11,7 +11,17 @@ public class Operateur
     private String O_MotDePasse;
     private ArrayList<Lieu> O_ZoneAcces;
 
-    public int getO_ID()
+    public Operateur(int O_ID, String O_Nom, String O_Prenom) {
+		this.O_ID = O_ID;
+		this.O_Nom = O_Nom;
+		this.O_Prenom = O_Prenom;
+	}
+
+	public Operateur() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getO_ID()
     {
         return this.O_ID;
     }

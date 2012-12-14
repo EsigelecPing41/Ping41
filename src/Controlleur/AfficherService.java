@@ -1,7 +1,6 @@
 package Controlleur;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import javax.servlet.http.HttpSession;
 import Modele.Piece;
 
 /**
- * Servlet implementation class ListePieceParService
+ * Servlet implementation class AfficherService
  */
-@WebServlet("/listePieceParService")
-public class ListePieceParService extends HttpServlet {
+@WebServlet(description = "Permet d'afficher le service", urlPatterns = { "/AfficherService" })
+public class AfficherService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListePieceParService() {
+    public AfficherService() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +32,32 @@ public class ListePieceParService extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("chargement des pieces");
+		String valeurs[] = new String[10];
+		valeurs[0] = "Accueil";
+		valeurs[1] = "Magasin";
+		valeurs[2] = "Metrologie";
+		valeurs[3] = "Ordonnancement";
+		valeurs[4] = "R&D";
+		valeurs[5] = "Production";
+		valeurs[6] = "Qualite";
+		valeurs[7] = "Expedition";
+		valeurs[8] = "Aide";
+		
+		System.out.println("chargement du service");
 		HttpSession session = request.getSession(true);  
 		String s = request.getParameter("id");
-		ArrayList<Piece> pieces = new ArrayList<Piece>();
-		try {
-		    int serv = Integer.parseInt(s);
-		    for(int i=1;i<=serv;i++){
-				pieces.add(new Piece(1, "PIECE "+i, "",true));
-			}
-		} catch (NumberFormatException nfe) {
-			pieces.add(new Piece(1, "Aucune piéce", "",true));
-		    // traitement à faire dans ce cas
-		}
-		session.setAttribute("listePiece", pieces);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/ListePieceParService/listePieceParService.jsp");
-		dispatcher.forward( request, response );						
+		int i = 0;
+		System.out.println("s vaut : "+s);
+		if(s != null && s != ""){			
+			i = Integer.parseInt(s);			
+		}	
+		System.out.println("i vaut "+i);
+		HttpSession ses = request.getSession(true);
+		ses.setAttribute("id", i);
+		ses.setAttribute("page", valeurs[i]);
+		System.out.println("cv'est vide");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/service.jsp");
+		dispatcher.forward( request, response );	
 	}
 
 	/**

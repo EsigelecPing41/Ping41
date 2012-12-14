@@ -9,6 +9,7 @@
  <% 
 	HttpSession ses = request.getSession(true);
 	String erreur = (String)ses.getAttribute("erreurConnexion");
+	if(erreur == "" || erreur== null){erreur="";}
 %>
 	    <center>
 		    <br><img src="servlet/img/SKFTracability.jpg" width="60%"><br><br><br>

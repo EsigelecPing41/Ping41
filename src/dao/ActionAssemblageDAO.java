@@ -1,12 +1,12 @@
-package CoucheDAO;
+package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import CoucheDTO.ActionAssemblage;
-import CoucheDTO.Connexion;
-import CoucheDTO.Operateur;
+import Modele.ActionAssemblage;
+import Modele.Connexion;
+import Modele.Operateur;
 
 /**
  * Classe d'accès aux données contenues dans la table Action

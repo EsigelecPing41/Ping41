@@ -10,7 +10,14 @@ public class Fournisseur
     private String F_Description;
     public List<Piece> F_Pieces = new ArrayList<Piece> ();
 
-    public int getF_ID() 
+    public Fournisseur(int F_ID, String F_Nom, String F_Adresse, String F_Description) {
+		this.F_ID = F_ID;
+		this.F_Nom = F_Nom;
+		this.F_Adresse = F_Adresse;
+		this.F_Description = F_Description;
+	}
+
+	public int getF_ID() 
     {
         return this.F_ID;
     }

@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.PieceDAO;
 
+
 import Modele.Piece;
 
 @WebServlet("/ChercherPiece")

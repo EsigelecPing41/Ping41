@@ -1,12 +1,14 @@
-package CoucheDAO;
+package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import CoucheDTO.ActionPiece;
-import CoucheDTO.Connexion;
-import CoucheDTO.Operateur;
+import Modele.ActionPiece;
+import Modele.Connexion;
+import Modele.Operateur;
+
+
 
 /**
  * Classe d'accès aux données contenues dans la table Action
@@ -35,7 +37,7 @@ public class ActionPieceDAO {
 				 * @param a l'Action à ajouter
 				 * @return le nombre de lignes ajoutées dans la table
 				 */
-				public static int ajouter(ActionPiece a)
+				public static int ajouter(Modele.ActionPiece a)
 				{
 
 					PreparedStatement ps = null;

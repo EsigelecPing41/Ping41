@@ -154,11 +154,18 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>deconnexionDouchette</servlet-name>
-    <servlet-class>Controlleur.DeonnexionDouchette</servlet-class>
+    <servlet-class>Controlleur.DeconnexionDouchette</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>deconnexionDouchette</servlet-name>
     <url-pattern>/deconnexionDouchette</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>afficherService</servlet-name>
+    <servlet-class>Controlleur.AfficherService</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>afficherService</servlet-name>
+    <url-pattern>/afficherService</url-pattern>
+  </servlet-mapping>
 </web-app>

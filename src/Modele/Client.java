@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Client 
 {
-    private String C_ID;
+    private int C_ID;
 
     private String C_Nom;
     private String C_Adresse;
@@ -12,7 +12,14 @@ public class Client
     public List<BonExpedition> C_BonExpedition = new ArrayList<BonExpedition> ();
 
 
-    public String getC_ID() 
+    public Client(int C_ID, String C_Nom, String C_Adresse, String C_Description) {
+		this.C_ID = C_ID;
+		this.C_Nom = C_Nom;
+		this.C_Adresse = C_Adresse;
+		this.C_Description = C_Description;
+	}
+
+	public int getC_ID() 
     {
         return this.C_ID;
     }
@@ -32,7 +39,7 @@ public class Client
         return this.C_Description;
     }
 
-    public void setC_ID(final String value) 
+    public void setC_ID(final int value) 
     {
         this.C_ID = value;
     }
@@ -66,5 +73,10 @@ public class Client
     public void AfficherClient()
     {
     }
+
+	public String getC_Mdp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
