@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="Modele.Piece"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -6,6 +9,14 @@
 <title>Qualité</title>
 </head>
 <body>
+ <% 
+	Piece piece = (Piece)request.getAttribute("piece");
+	if(piece== null){
+%>
+	Erreur avec la piece
+<%
+	}else{
+%>
 <center>
 <h1>Qualité</h1>
 <br><br>
@@ -14,13 +25,13 @@
 	<tr>
 		<th>N° du Code Barre
 		</th>
-		<td>xxxxxxxxxxxxxxxxxxx
+		<td><%=piece.getP_CodeBarre() %>
 		</td>
 	</tr>
 	<tr>
 		<th>Nom de la piéce
 		</th>
-		<td>
+		<td><%=piece.getP_Nom() %>
 		</td>
 	</tr>
 	<tr>
@@ -71,5 +82,8 @@
 </div>
 </form>
 </center>
+<% 
+	}
+%>
 </body>
 </html>

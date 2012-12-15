@@ -63,32 +63,38 @@ public class ConnexionOperateur extends HttpServlet {
 
 		/* Préparation de l'objet formulaire */
         ConnexionOperateurForm form = new ConnexionOperateurForm();
-        System.out.println("Essai");
-        /* Traitement de la requête et récupération du bean en résultant */
-        Operateur utilisateur = form.connecterUtilisateur( request );
-	
+        
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession(true);
         session.setAttribute("etatDouchette", false);
         RequestDispatcher dispatcher;
-        /**
-         * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
-         * Utilisateur à la session, sinon suppression du bean de la session.
-         */
-        if ( form.getErreurs().isEmpty() ) {
-        	System.out.println("Pas d'erreur d'authentification");
-            session.setAttribute( ATT_SESSION_USER, utilisateur );
-            dispatcher = request.getRequestDispatcher("servlet/index.html");
-            
-        } else {
+        
+        /* Traitement de la requête et récupération du bean en résultant */
+        if ( form.connecterUtilisateur( request ) ) {
         	
+        	
+    		try {
+    			OperateurDAO operateurDao = OperateurDAO.getInstance();
+    			Operateur operateur = operateurDao.getOperateur(form.getValeur("login"),form.getValeur("password"));
+        		session.setAttribute( ATT_SESSION_USER, operateur );
+        		session.setAttribute("LIB_ERREUR", "");
+                session.setMaxInactiveInterval(operateur.getO_Parametre().getP_DureeVie());
+                dispatcher = request.getRequestDispatcher("servlet/index.html");
+    		}
+        	catch (Exception e) {
+        		session.setAttribute("LIB_ERREUR", e.getMessage());
+                session.setAttribute( ATT_SESSION_USER, null );
+                dispatcher = request.getRequestDispatcher("index.jsp");
+        	}
+        } else {
+        	session.setAttribute("LIB_ERREUR", form.getErreurs().toString());
             session.setAttribute( ATT_SESSION_USER, null );
             dispatcher = request.getRequestDispatcher("index.jsp");
         }
 
         /* Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute( ATT_FORM, form );
-        request.setAttribute( ATT_USER, utilisateur );
+        request.setAttribute( ATT_USER, null );
     	
         dispatcher.forward( request, response );
 		

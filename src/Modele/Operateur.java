@@ -10,15 +10,26 @@ public class Operateur
     private String O_Login;
     private String O_MotDePasse;
     private ArrayList<Lieu> O_ZoneAcces;
+    private Parametre O_Parametre;
 
     public Operateur(int O_ID, String O_Nom, String O_Prenom) {
 		this.O_ID = O_ID;
 		this.O_Nom = O_Nom;
 		this.O_Prenom = O_Prenom;
+		this.O_Parametre = new Parametre();
 	}
 
 	public Operateur() {
 		// TODO Auto-generated constructor stub
+		this.O_Parametre = new Parametre();
+	}
+
+	public Parametre getO_Parametre() {
+		return O_Parametre;
+	}
+
+	public void setO_Parametre(Parametre o_Parametre) {
+		O_Parametre = o_Parametre;
 	}
 
 	public int getO_ID()

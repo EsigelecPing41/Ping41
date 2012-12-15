@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import Modele.Operateur;
 
 public final class ConnexionOperateurForm {
-    private static final String CHAMP_EMAIL  = "nom";
-    private static final String CHAMP_PASS   = "mdp";
+    private static final String CHAMP_LOGIN  = "login";
+    private static final String CHAMP_PASS   = "password";
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
+    private Map<String, String> valeurs      = new HashMap<String, String>();
 
     public String getResultat() {
         return resultat;
@@ -21,44 +22,44 @@ public final class ConnexionOperateurForm {
         return erreurs;
     }
 
-    public Operateur connecterUtilisateur( HttpServletRequest request ) {
-        /* Récupération des champs du formulaire */
-        String nom = getValeurChamp( request, CHAMP_EMAIL );
-        String motDePasse = getValeurChamp( request, CHAMP_PASS );
+    public boolean connecterUtilisateur( HttpServletRequest request ) {
+    	erreurs.clear();
+    	/* Récupération des champs du formulaire */
+        String login = getValeurChamp( request, CHAMP_LOGIN );
+        String password = getValeurChamp( request, CHAMP_PASS );
 
-        Operateur utilisateur = new Operateur();
-
-        /* Validation du champ email. */
+        
+        /* Validation du champ login. */
         try {
-            validationNom( nom );
+            validationLogin( login );
+            setValeur( CHAMP_LOGIN, login );
         } catch ( Exception e ) {
-            setErreur( CHAMP_EMAIL, e.getMessage() );
+            setErreur( CHAMP_LOGIN, e.getMessage() );
         }
-        utilisateur.setO_Nom(nom );
         /* Validation du champ mot de passe. */
         try {
-            validationMotDePasse( motDePasse );
+            validationMotDePasse( password );
+            setValeur( CHAMP_PASS, password );
         } catch ( Exception e ) {
             setErreur( CHAMP_PASS, e.getMessage() );
-        }
-        utilisateur.setO_MotDePasse( motDePasse );
-
+        }        
+        System.out.println(erreurs.toString());
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty() ) {
-            resultat = "Succès de la connexion.";
+            resultat = "Succes de la connexion.";
+            return true;
         } else {
-            resultat = "Échec de la connexion.";
-        }
-
-        return utilisateur;
+            resultat = "Echec de la connexion.";
+            return false;
+        }        
     }
 
     /**
      * Valide l'adresse email saisie.
      */
-    private void validationNom( String nom ) throws Exception {
-        if ( nom != null ) {
-            throw new Exception( "Le champs nom est nul" );
+    private void validationLogin( String login ) throws Exception {
+    	if ( login == null ) {
+    		throw new Exception( "Le champs login est nul" );
         }
     }
 
@@ -80,6 +81,20 @@ public final class ConnexionOperateurForm {
      */
     private void setErreur( String champ, String message ) {
         erreurs.put( champ, message );
+    }
+    
+    /*
+     * Ajoute la valeur du champs correspondant a la map des valeurs
+     */
+    private void setValeur( String champ, String message ) {
+        valeurs.put( champ, message );
+    }
+    
+    /*
+     * Ajoute la valeur du champs correspondant a la map des valeurs
+     */
+    public String getValeur( String champ) {
+        return valeurs.get( champ);
     }
 
     /*

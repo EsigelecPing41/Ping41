@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.ActionPiece;
-import Modele.Connexion;
 import Modele.Operateur;
 
 
@@ -17,18 +16,20 @@ import Modele.Operateur;
 public class ActionPieceDAO {
 
 			private static final Date AP_Date = null;
-			private static Connexion con;
+			private static Connection con;
 			//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 			private static ActionPieceDAO singleton;
-			private  ActionPieceDAO()
+			private  ActionPieceDAO() throws Exception
 			{
-				con = new Connexion();
+				Connexion connect;
+				connect = new Connexion();
+				con = connect.getConnection();	
 			}
 
-			public ActionPieceDAO getInstance()
+			public ActionPieceDAO getInstance() throws Exception
 			{
 				if(ActionPieceDAO.singleton==null)
-					singleton=new ActionPieceDAO();
+					singleton=new ActionPieceDAO();					
 				return singleton;
 			}
 		
@@ -46,11 +47,11 @@ public class ActionPieceDAO {
 					//connexion a la base de données
 					try {
 
-						ps = con.getConnection().prepareStatement("INSERT INTO ActionPiece (AP_Date ,AP_IDPiece, AP_IDOperateur, AP_IDOperation) VALUES (?,?,?,?)");
-						ps.setDate(1,(Date) a.getAP_Date());
+						ps = con.prepareStatement("INSERT INTO ActionPiece (AP_Date ,AP_IDPiece, AP_IDOperateur, AP_IDOperation) VALUES (?,?,?,?)");
+						ps.setDate(1,(Date) a.getA_Date());
 						ps.setInt(2,a.getAP_IDPiece());
-						ps.setInt(3,a.getAP_IDOperateur());
-						ps.setInt(4,a.getAP_IDOperation());
+						ps.setInt(3,a.getA_IDOperateur());
+						ps.setInt(4,a.getA_IDOperation());
 						
 						
 						//on execute la requete 
@@ -79,7 +80,7 @@ public class ActionPieceDAO {
 					
 					//connexion a la base de données
 					try {
-						ps = con.getConnection().prepareStatement("DELETE FROM Action WHERE AP_Date=?");
+						ps = con.prepareStatement("DELETE FROM Action WHERE AP_Date=?");
 						ps.setDate(1,AP_Date);
 			
 									
@@ -114,13 +115,13 @@ public class ActionPieceDAO {
 					//connexion a la base de données
 					try {
 
-						ps = con.getConnection().prepareStatement("SELECT * FROM Action WHERE AP_Date LIKE ?");
+						ps = con.prepareStatement("SELECT * FROM Action WHERE AP_Date LIKE ?");
 						ps.setDate(1,AP_Date);
 									
 						//on execute la requete 
 						rs=ps.executeQuery();
 						if(rs.next())
-							retour=new ActionPiece ();
+							retour=new ActionPiece (AP_Date, 0, 0, 0);
 						
 
 					} catch (Exception ee) {
@@ -149,13 +150,13 @@ public class ActionPieceDAO {
 				
 					//connexion a la base de données
 					try {
-						ps = con.getConnection().prepareStatement("SELECT * FROM Action");
+						ps = con.prepareStatement("SELECT * FROM Action");
 												
 						//on execute la requete 
 						rs=ps.executeQuery();
 						//on parcourt les lignes du resultat
 						while(rs.next())
-							retour.add(new ActionPiece ());
+							retour.add(new ActionPiece (null, 0, 0, 0));
 						
 
 					} catch (Exception ee) {
@@ -170,10 +171,16 @@ public class ActionPieceDAO {
 				}
 				
 				
-				
+			/*	
 				//main permettant de tester la classe
 				public static void main(int[] args){
-					ActionPieceDAO ActionDAO=new ActionPieceDAO();
+					ActionPieceDAO ActionDAO;
+					try {
+						ActionDAO = new ActionPieceDAO();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					System.out.println("\n********************");
 					System.out.println("Test de la méthode ajouter");
@@ -215,6 +222,6 @@ public class ActionPieceDAO {
 					List<ActionPiece> liste=ActionDAO.getListActionPiece();
 					System.out.println(liste);
 					
-				}         
+				}         */
 	}
 

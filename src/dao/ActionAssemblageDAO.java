@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.ActionAssemblage;
-import Modele.Connexion;
 import Modele.Operateur;
 
 /**
@@ -15,15 +14,17 @@ import Modele.Operateur;
 public class ActionAssemblageDAO {
 
 			private static final Date AA_Date = null;
-			private static Connexion con;
+			private static Connection con;
 			//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 			private static ActionAssemblageDAO singleton;
-			private  ActionAssemblageDAO()
+			private  ActionAssemblageDAO() throws Exception
 			{
-				con = new Connexion();
+				Connexion connect;
+				connect = new Connexion();
+				con = connect.getConnection();	
 			}
 
-			public ActionAssemblageDAO getInstance()
+			public ActionAssemblageDAO getInstance() throws Exception
 			{
 				if(ActionAssemblageDAO.singleton==null)
 					singleton=new ActionAssemblageDAO();
@@ -44,11 +45,11 @@ public class ActionAssemblageDAO {
 					//connexion a la base de données
 					try {
 
-						ps = con.getConnection().prepareStatement("INSERT INTO ActionAssemblageDAO (AA_Date ,AA_IDAssemblage, AA_IDOperateur, AA_IDOperation) VALUES (?,?,?,?)");
-						ps.setDate(1,(Date) a.getAA_Date());
+						ps = con.prepareStatement("INSERT INTO ActionAssemblageDAO (AA_Date ,AA_IDAssemblage, AA_IDOperateur, AA_IDOperation) VALUES (?,?,?,?)");
+						ps.setDate(1,(Date) a.getA_Date());
 						ps.setInt(2,a.getAA_IDAssemblage());
-						ps.setInt(3,a.getAA_IDOperateur());
-						ps.setInt(4,a.getAA_IDOperateur());
+						ps.setInt(3,a.getA_IDOperateur());
+						ps.setInt(4,a.getA_IDOperateur());
 						
 						
 						//on execute la requete 
@@ -78,7 +79,7 @@ public class ActionAssemblageDAO {
 					
 					//connexion a la base de données
 					try {
-						ps = con.getConnection().prepareStatement("DELETE FROM Action WHERE AA_Date=?");
+						ps = con.prepareStatement("DELETE FROM Action WHERE AA_Date=?");
 						ps.setDate(1,AA_Date);
 			
 									
@@ -113,7 +114,7 @@ public class ActionAssemblageDAO {
 					//connexion a la base de données
 					try {
 
-						ps = con.getConnection().prepareStatement("SELECT * FROM Action WHERE AA_Date LIKE ?");
+						ps = con.prepareStatement("SELECT * FROM Action WHERE AA_Date LIKE ?");
 						ps.setDate(1,AA_Date);
 									
 						//on execute la requete 
@@ -148,7 +149,7 @@ public class ActionAssemblageDAO {
 				
 					//connexion a la base de données
 					try {
-						ps = con.getConnection().prepareStatement("SELECT * FROM Action");
+						ps = con.prepareStatement("SELECT * FROM Action");
 												
 						//on execute la requete 
 						rs=ps.executeQuery();
@@ -168,7 +169,7 @@ public class ActionAssemblageDAO {
 				
 				}
 				
-				
+			/*	
 				
 				//main permettant de tester la classe
 				public static void main(int[] args){
@@ -214,6 +215,6 @@ public class ActionAssemblageDAO {
 					List<ActionAssemblageDAO> liste=ActionAssemblageDAO.getListActionAssemblageDAO();
 					System.out.println(liste);
 					
-				}        
+				}  */      
 	}
 

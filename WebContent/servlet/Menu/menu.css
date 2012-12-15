@@ -51,31 +51,6 @@ caption
 	font-family: Arial;
 }
 
-a:link 
-{ 
-font-size:13px;
-color: #0067b4;
-text-decoration:none;
-} /* lien non-visité */
-a:visited 
-{
-font-size:13px;
- color: #0067b4;
- text-decoration:none;
- } /* lien visité */
-a:hover 
-{ 
-font-size:13px;
-	color:red;
-	display:inline;
-	text-decoration:underline;
-} /* lien survolé */
-a:active 
-{ 
-font-size:13px;
-color: #0067b4;
-text-decoration:none;
-} /* lien activé */ 
 
 /****************/
 /*menu haut******/
@@ -104,7 +79,31 @@ font-size:18px;
 text-align:center;
 }
 
-.menu1 a:HOVER
+.menu1 td:HOVER
 {
+	font-color:white;
+ 	text-decoration:none;
+}
+.menu1 td
+{	
+	text-decoration:none;
+	font-size:13px;
+	color: #0067b4;
+	background-color:white;
+	
+}
+
+.menu1 a
+{	
+	color:#0067b4;
+	text-decoration:none;
+}
+
+.menu1 a:hover
+{	
+	color:white;
+	text-decoration:none;
 	background-color:#0067b4;
 }
+
+

@@ -42,9 +42,9 @@ public class ChercherPiece extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		PieceDAO pieceDao =	PieceDAO.getInstance();
-		
-		try { 
+		PieceDAO pieceDao;
+		try {
+			pieceDao = PieceDAO.getInstance();
 			int i = Integer.parseInt(request.getParameter("id")); 
 			Piece piece = pieceDao.getPiece(i);
 			if(piece != null){
@@ -53,9 +53,11 @@ public class ChercherPiece extends HttpServlet {
 			}else{
 				System.out.println("piece KO");
 			}
-		}catch (Exception e) { 
-			System.out.println("ID invalable"); 
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
 	}
 
 	/**

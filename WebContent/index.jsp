@@ -8,7 +8,7 @@
     <body>
  <% 
 	HttpSession ses = request.getSession(true);
-	String erreur = (String)ses.getAttribute("erreurConnexion");
+	String erreur = (String)ses.getAttribute("LIB_ERREUR");
 	if(erreur == "" || erreur== null){erreur="";}
 %>
 	    <center>
@@ -33,7 +33,7 @@
 						MDP :
 					</td>
 					<td>
-						<input type="mdp" name="mdp">
+						<input type="mdp" name="password">
 					</td>
 				</tr>
 			</table>

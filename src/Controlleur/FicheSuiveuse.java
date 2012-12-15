@@ -26,13 +26,13 @@ import Modele.Piece;
  * Servlet implementation class FicheQualitePiece
  */
 @WebServlet(description = "Charger la fiche qualité d'une pièce", urlPatterns = { "/FicheQualitePiece" })
-public class FicheQualitePiece extends HttpServlet {
+public class FicheSuiveuse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FicheQualitePiece() {
+    public FicheSuiveuse() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class FicheQualitePiece extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : FicheQualitePieceGET");
+		System.out.println("servlet : FicheSuiveusePieceGET");
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class FicheQualitePiece extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : FicheQualitePiecePOST");
+		System.out.println("servlet : FicheSuiveusePOST");
 		request.setAttribute("piece",new Piece(1, "la piece", "codebarre", true));
-		RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/Qualite/ficheQualite.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/Production/fiche_suiveuse.jsp");
 		dispatcher.forward( request, response );	
 	}
 

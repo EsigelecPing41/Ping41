@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.Fournisseur;
-import Modele.Connexion;
 
 public class FournisseurDAO 
 {
-		private Connexion con;
+		private Connection con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 		private static FournisseurDAO singleton;
-		private FournisseurDAO()
+		private FournisseurDAO() throws Exception
 		{
-			con = new Connexion();
+			Connexion connect;
+			connect = new Connexion();
+			con = connect.getConnection();			
 		}
 
-		public static FournisseurDAO getInstance()
+		public static FournisseurDAO getInstance() throws Exception
 		{
 			if(FournisseurDAO.singleton==null)
 				singleton=new FournisseurDAO();
@@ -37,7 +38,7 @@ public class FournisseurDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("INSERT INTO Fournisseur (F_Nom,F_Adresse,F_Description) VALUES (?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Fournisseur (F_Nom,F_Adresse,F_Description) VALUES (?,?,?)");
 				ps.setString(1,f.getF_Nom());
 				ps.setString(2,f.getF_Adresse());
 				ps.setString(3,f.getF_Description());
@@ -79,7 +80,7 @@ public class FournisseurDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("DELETE FROM Fournisseur WHERE F_ID=?");
+				ps = con.prepareStatement("DELETE FROM Fournisseur WHERE F_ID=?");
 				ps.setInt(1,ID);
 	
 				//on execute la requete 
@@ -120,7 +121,7 @@ public class FournisseurDAO
 			//connexion a la base de donn�es
 			try 
 			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Fournisseur WHERE F_ID=?");
+				ps = con.prepareStatement("SELECT * FROM Fournisseur WHERE F_ID=?");
 				ps.setInt(1,ID);
 							
 				//on execute la requete 
@@ -173,7 +174,7 @@ public class FournisseurDAO
 			//connexion a la base de donn�es
 			try 
 			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Fournisseur WHERE F_Nom=?");
+				ps = con.prepareStatement("SELECT * FROM Fournisseur WHERE F_Nom=?");
 				ps.setString(1,nom);
 							
 				//on execute la requete 
@@ -224,7 +225,7 @@ public class FournisseurDAO
 			try 
 			{
 				
-				ps = con.getConnection().prepareStatement("SELECT * FROM Fournisseur");
+				ps = con.prepareStatement("SELECT * FROM Fournisseur");
 										
 				//on execute la requete 
 				rs=ps.executeQuery();

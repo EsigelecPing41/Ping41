@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.Client;
-import Modele.Connexion;
 
 public class ClientDAO 
 {
-		private	 Connexion con;
+		private	 Connection con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 		private static ClientDAO singleton;
-		private ClientDAO()
+		private ClientDAO() throws Exception
 		{
-			con = new Connexion();
+			Connexion connect;
+			connect = new Connexion();
+			con = connect.getConnection();	
 		}
 
-		public static ClientDAO getInstance()
+		public static ClientDAO getInstance() throws Exception
 		{
 			if(ClientDAO.singleton==null)
 				singleton=new ClientDAO();
@@ -37,7 +38,7 @@ public class ClientDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("INSERT INTO Client (C_Nom,C_Adresse,C_Description,C_Mdp) VALUES (?,?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Client (C_Nom,C_Adresse,C_Description,C_Mdp) VALUES (?,?,?,?)");
 				ps.setString(1,c.getC_Nom());
 				ps.setString(2,c.getC_Adresse());
 				ps.setString(3,c.getC_Description());
@@ -80,7 +81,7 @@ public class ClientDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("DELETE FROM Client WHERE C_ID=?");
+				ps = con.prepareStatement("DELETE FROM Client WHERE C_ID=?");
 				ps.setInt(1,ID);
 	
 				//on execute la requete 
@@ -121,7 +122,7 @@ public class ClientDAO
 			//connexion a la base de donn�es
 			try 
 			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Client WHERE C_ID=?");
+				ps = con.prepareStatement("SELECT * FROM Client WHERE C_ID=?");
 				ps.setInt(1,ID);
 							
 				//on execute la requete 
@@ -174,7 +175,7 @@ public class ClientDAO
 			//connexion a la base de donn�es
 			try 
 			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Client WHERE C_Nom=?");
+				ps = con.prepareStatement("SELECT * FROM Client WHERE C_Nom=?");
 				ps.setString(1,nom);
 							
 				//on execute la requete 
@@ -226,7 +227,7 @@ public class ClientDAO
 			try 
 			{
 				
-				ps = con.getConnection().prepareStatement("SELECT * FROM CLient");
+				ps = con.prepareStatement("SELECT * FROM CLient");
 										
 				//on execute la requete 
 				rs=ps.executeQuery();

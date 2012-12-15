@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.Piece;
-import Modele.Connexion;
 
 public class PieceDAO 
 {
-		private Connexion con;
+		private Connection con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 		private static PieceDAO singleton;
-		private PieceDAO()
+		private PieceDAO() throws Exception
 		{
-			con = new Connexion();
+			Connexion connect;
+			connect = new Connexion();
+			con = connect.getConnection();
 		}
 
-		public static PieceDAO getInstance()
+		public static PieceDAO getInstance() throws Exception
 		{
 			if(PieceDAO.singleton==null)
 				singleton=new PieceDAO();
@@ -37,7 +38,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("INSERT INTO Piece (P_Nom,P_CodeBarre,P_Statut) VALUES (?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Piece (P_Nom,P_CodeBarre,P_Statut) VALUES (?,?,?)");
 				ps.setString(1,p.getP_Nom());
 				ps.setString(2,p.getP_CodeBarre());
 				ps.setBoolean(3,p.getP_Statut());
@@ -71,7 +72,7 @@ public class PieceDAO
 	* @param piece � modifier
 	* @return nombre de lignes modifi�es dans la table Piece
 	*/
-	public int modifier(int ID)
+	public int modifier(int ID) throws Exception
 	{
 			Piece p = getPiece(ID);
 			PreparedStatement ps = null;
@@ -80,7 +81,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("UPDATE Piece SET P_Nom=?,P_CodeBarre=?,P_Statut=? WHERE P_ID=?");
+				ps = con.prepareStatement("UPDATE Piece SET P_Nom=?,P_CodeBarre=?,P_Statut=? WHERE P_ID=?");
 				ps.setString(1,p.getP_Nom());
 				ps.setString(2,p.getP_CodeBarre());
 				ps.setBoolean(3,p.getP_Statut());
@@ -125,7 +126,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("UPDATE Piece SET P_Nom=?,P_CodeBarre=?,P_Statut=? WHERE P_CodeBarre=?");
+				ps = con.prepareStatement("UPDATE Piece SET P_Nom=?,P_CodeBarre=?,P_Statut=? WHERE P_CodeBarre=?");
 				ps.setString(1,p.getP_Nom());
 				ps.setString(2,p.getP_CodeBarre());
 				ps.setBoolean(3,p.getP_Statut());
@@ -168,7 +169,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("DELETE FROM Piece WHERE P_ID=?");
+				ps = con.prepareStatement("DELETE FROM Piece WHERE P_ID=?");
 				ps.setInt(1,ID);
 	
 				//on execute la requete 
@@ -206,7 +207,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("DELETE FROM Piece WHERE P_CodeBarre=?");
+				ps = con.prepareStatement("DELETE FROM Piece WHERE P_CodeBarre=?");
 				ps.setString(1,CB);
 	
 				//on execute la requete 
@@ -237,7 +238,7 @@ public class PieceDAO
 		 * @return la piece
 		 * @return null si aucune piece ne correspond � cet id
 		 */
-		public Piece getPiece(int ID)
+		public Piece getPiece(int ID) throws Exception
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -245,42 +246,20 @@ public class PieceDAO
 	
 		
 			//connexion a la base de donn�es
-			try 
-			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Piece WHERE P_ID=?");
-				ps.setInt(1,ID);
+			ps = con.prepareStatement("SELECT * FROM Piece WHERE P_ID=?");
+			ps.setInt(1,ID);
 							
-				//on execute la requete 
-				rs = ps.executeQuery();
-				if(rs.next())
-					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Statut"));
-			}
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-			} 
-			finally 
-			{
-				try 
-				{
-					if (rs != null)
-					rs.close();
-				} 
-				catch (Exception t)
-				{
-					
-				}
-				
-				try 
-				{
-					if (ps != null)
-						ps.close();
-				} 
-				catch (Exception t) 
-				{
-					
-				}
-			}
+			//on execute la requete 
+			rs = ps.executeQuery();
+			if(rs.next())
+				PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Statut"));
+			
+			if (rs != null)
+				rs.close();
+			
+			if (ps != null)
+				ps.close();
+			
 			return PieceRetourne;
 		}
 		
@@ -299,7 +278,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Piece WHERE P_CodeBarre=?");
+				ps = con.prepareStatement("SELECT * FROM Piece WHERE P_CodeBarre=?");
 				ps.setString(1,CB);
 							
 				//on execute la requete 
@@ -349,7 +328,7 @@ public class PieceDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("SELECT * FROM Piece");				
+				ps = con.prepareStatement("SELECT * FROM Piece");				
 				//on execute la requete 
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat

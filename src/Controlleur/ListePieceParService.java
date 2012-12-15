@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.PieceDAO;
+
 import Modele.Piece;
 
 /**
@@ -39,10 +41,11 @@ public class ListePieceParService extends HttpServlet {
 		ArrayList<Piece> pieces = new ArrayList<Piece>();
 		try {
 		    int serv = Integer.parseInt(s);
+		    PieceDAO pieceDao = PieceDAO.getInstance();
 		    for(int i=1;i<=serv;i++){
-				pieces.add(new Piece(1, "PIECE "+i, "",true));
+				pieces.add(pieceDao.getPiece(i));
 			}
-		} catch (NumberFormatException nfe) {
+		} catch (Exception e) {
 			pieces.add(new Piece(1, "Aucune piéce", "",true));
 		    // traitement à faire dans ce cas
 		}

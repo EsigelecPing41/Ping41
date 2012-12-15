@@ -20,16 +20,19 @@
 	<FRAMESET border="1" ROWS="75%,25%">
 		<% 
 			HttpSession ses = request.getSession(true);
-			int idService = (Integer)ses.getAttribute("id");
+			String idService = (String)ses.getAttribute("id");
 		%>
 		<FRAME Noresize Scrolling="NO" SRC="listePieceParService?id=<%=idService%>" NAME="menu_gauche">
-		<FRAME Noresize Scrolling="NO" SRC="servlet/Douchette/etatDouchette.jsp" NAME="menu_gauche_bas">
+		<FRAME Noresize Scrolling="NO" SRC="etatDouchette?etat=1" NAME="menu_gauche_bas">
 	</FRAMESET>
 	<% 
-		String dossier = (String)ses.getAttribute("page");
+		String dossier = (String)ses.getAttribute("dossier");
 		if(dossier == "" || dossier== null){dossier="Accueil";}
+		String lien = "servlet/"+dossier+"/";
+		String scanner = (String)ses.getAttribute("scan");
+		if(scanner != null ){if(scanner.equals("1") ){lien="servlet/ScannerCodeBarre/scanner.jsp";}}
 	%>
-	<FRAME Noresize SRC="servlet/<%=dossier%>/" NAME="page">
+	<FRAME Noresize SRC="<%=lien%>" NAME="page">
 </FRAMESET>
 		
 		

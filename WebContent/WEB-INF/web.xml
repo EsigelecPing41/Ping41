@@ -105,6 +105,14 @@
     <url-pattern>/ficheQualite</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ficheSuiveuse</servlet-name>
+    <servlet-class>Controlleur.FicheSuiveuse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ficheSuiveuse</servlet-name>
+    <url-pattern>/ficheSuiveuse</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>valideFicheQualite</servlet-name>
     <servlet-class>Controlleur.ValideFicheQualite</servlet-class>
   </servlet>
@@ -145,20 +153,12 @@
     <url-pattern>/listePieceParService</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>connexionDouchette</servlet-name>
-    <servlet-class>Controlleur.ConnexionDouchette</servlet-class>
+    <servlet-name>etatDouchette</servlet-name>
+    <servlet-class>Controlleur.EtatDouchette</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>connexionDouchette</servlet-name>
-    <url-pattern>/connexionDouchette</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>deconnexionDouchette</servlet-name>
-    <servlet-class>Controlleur.DeconnexionDouchette</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>deconnexionDouchette</servlet-name>
-    <url-pattern>/deconnexionDouchette</url-pattern>
+    <servlet-name>etatDouchette</servlet-name>
+    <url-pattern>/etatDouchette</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>afficherService</servlet-name>

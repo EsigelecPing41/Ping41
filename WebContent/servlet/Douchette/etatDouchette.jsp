@@ -22,14 +22,18 @@
 	Boolean etat = (Boolean)ses.getAttribute("etatDouchette");
 	if(etat){
 %>
-	la douchette est connecte
+	<center>
+		la douchette est connecte<br>
+		<img src="servlet/img/douchette.jpg" width="20%"><br>
+		<a href="etatDouchette?etat=0">Simuler la deconnexion</a>
+	</center>
 <% 
 	}else{
 %>
 	<center>
 		Veuillez connecter la douchette<br>
 		<img src="servlet/img/douchette.jpg" width="20%"><br>
-		<a href="/SKFTraceability/connexionDouchette">Simuler la connexion</a>
+		<a href="etatDouchette?etat=1">Simuler la connexion</a>
 	</center>
 <% 
 	}

@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.Operateur;
-import Modele.Connexion;
 
 public class OperateurDAO 
 {
-		private Connexion con;
+		private Connection con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 		private static OperateurDAO singleton;
-		private OperateurDAO()
+		private OperateurDAO() throws Exception
 		{
-			con = new Connexion();
+			Connexion connect;
+			connect = new Connexion();
+			con = connect.getConnection();
 		}
 
-		public static OperateurDAO getInstance()
+		public static OperateurDAO getInstance() throws Exception
 		{
 			if(OperateurDAO.singleton==null)
 				singleton=new OperateurDAO();
@@ -37,7 +38,7 @@ public class OperateurDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("INSERT INTO Operateur (O_Nom,O_Prenom,O_MotDePasse) VALUES (?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Operateur (O_Nom,O_Prenom,O_MotDePasse) VALUES (?,?,?)");
 				ps.setString(1,o.getO_Nom());
 				ps.setString(2,o.getO_Prenom());
 				ps.setString(3,o.getO_MotDePasse());
@@ -79,7 +80,7 @@ public class OperateurDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.getConnection().prepareStatement("DELETE FROM Operateur WHERE O_ID=?");
+				ps = con.prepareStatement("DELETE FROM Operateur WHERE O_ID=?");
 				ps.setInt(1,ID);
 	
 				//on execute la requete 
@@ -120,7 +121,7 @@ public class OperateurDAO
 			//connexion a la base de donn�es
 			try 
 			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Operateur WHERE O_ID=?");
+				ps = con.prepareStatement("SELECT * FROM Operateur WHERE O_ID=?");
 				ps.setInt(1,ID);
 							
 				//on execute la requete 
@@ -158,12 +159,12 @@ public class OperateurDAO
 		}
 		
 		/**
-		 * Permet de r�cup�rer un operateur � partir de son nom et prenom
+		 * Permet de r�cup�rer un operateur � partir de son login / mot de passe
 		 * @param nom et prenom de l'operateur � r�cup�rer
 		 * @return l'operateur
-		 * @return null si aucun operateur ne correspond � ces nom et prenom
+		 * @return null si aucun operateur ne correspond � ces login / mot de passe
 		 */
-		public Operateur getOperateur(String nom,String prenom)
+		public Operateur getOperateur(String login,String password) throws Exception
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -171,42 +172,37 @@ public class OperateurDAO
 	
 		
 			//connexion a la base de donn�es
-			try 
-			{	
-				ps = con.getConnection().prepareStatement("SELECT * FROM Operateur WHERE O_Nom=? AND O_Prenom=?");
-				ps.setString(1,nom);
-				ps.setString(2,prenom);
-							
-				//on execute la requete 
-				rs = ps.executeQuery();
-				if(rs.next())
-					OperateurRetourne = new Operateur(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Prenom"));
+			
+			ps = con.prepareStatement("SELECT * FROM operateur WHERE O_Login=? AND O_Password=?");
+			ps.setString(1,login);
+			ps.setString(2,password);
+						
+			//on execute la requete 
+			rs = ps.executeQuery();
+			if(rs.next()){
+				OperateurRetourne = new Operateur(rs.getInt("O_ID"),rs.getString("O_Nom"),rs.getString("O_Prenom"));
+			}else{
+				throw new Exception("Erreur Login/MDP");
 			}
-			catch (Exception e) 
+			
+			try 
 			{
-				e.printStackTrace();
+				if (rs != null)
+				rs.close();
 			} 
-			finally 
+			catch (Exception t)
 			{
-				try 
-				{
-					if (rs != null)
-					rs.close();
-				} 
-				catch (Exception t)
-				{
-					
-				}
 				
-				try 
-				{
-					if (ps != null)
-						ps.close();
-				} 
-				catch (Exception t) 
-				{
-					
-				}
+			}
+			
+			try 
+			{
+				if (ps != null)
+					ps.close();
+			} 
+			catch (Exception t) 
+			{
+				
 			}
 			return OperateurRetourne;
 		}
@@ -225,7 +221,7 @@ public class OperateurDAO
 			try 
 			{
 				
-				ps = con.getConnection().prepareStatement("SELECT * FROM Operateur");
+				ps = con.prepareStatement("SELECT * FROM Operateur");
 										
 				//on execute la requete 
 				rs=ps.executeQuery();
