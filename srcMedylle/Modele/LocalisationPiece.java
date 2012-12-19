@@ -2,7 +2,6 @@ package Modele;
 
 import java.util.Date;
 
-
 public class LocalisationPiece 
 {
 	private int LP_ID;

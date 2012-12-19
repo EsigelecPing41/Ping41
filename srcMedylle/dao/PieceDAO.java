@@ -69,24 +69,21 @@ public class PieceDAO
 	}
 	
 	/**
-	* Permet de modifier une piece dans la table Piece
-	* @param ID de la piece à modifier
+	* Permet de modifier le statut d'une piece dans la table Piece
+	* @param ID de la piece à modifier et le nouveau statut
 	* @return nombre de lignes modifiées dans la table Piece
 	*/
-	public int modifier(int ID)
+	public int modifierStatut(int ID,String statut)
 	{
-			Piece p = getPiece(ID);
 			PreparedStatement ps = null;
 			int retour=0;
 		
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Piece SET P_Nom=?,P_CodeBarre=?,P_Statut=? WHERE P_ID=?");
-				ps.setString(1,p.getP_Nom());
-				ps.setString(2,p.getP_CodeBarre());
-				ps.setBoolean(3,p.getP_Statut());
-				ps.setInt(4,ID);
+				ps = con.prepareStatement("UPDATE Piece SET P_Statut=? WHERE P_ID=?");
+				ps.setString(1,statut);
+				ps.setInt(2,ID);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -112,26 +109,22 @@ public class PieceDAO
 		
 	}
 
-		
 	/**
-	* Permet de modifier une piece dans la table Piece
-	* @param CB de la piece à modifier
+	* Permet de modifier le code barre d'une piece dans la table Piece
+	* @param ID de la piece à modifier et le nouveau code barre
 	* @return nombre de lignes modifiées dans la table Piece
 	*/
-	public int modifier(String CB)
+	public int modifierCB(int ID,String CB)
 	{
-			Piece p = getPiece(CB);
 			PreparedStatement ps = null;
 			int retour=0;
 		
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Piece SET P_Nom=?,P_CodeBarre=?,P_Statut=? WHERE P_CodeBarre=?");
-				ps.setString(1,p.getP_Nom());
-				ps.setString(2,p.getP_CodeBarre());
-				ps.setBoolean(3,p.getP_Statut());
-				ps.setString(4,CB);
+				ps = con.prepareStatement("UPDATE Piece SET P_CodeBarre=? WHERE P_ID=?");
+				ps.setString(1,CB);
+				ps.setInt(2,ID);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -154,7 +147,9 @@ public class PieceDAO
 				}
 			 }
 			 return retour;
+		
 	}
+
 	
 	/**
 	 * Permet de supprimer une piece de la table Piece à partir de son ID
