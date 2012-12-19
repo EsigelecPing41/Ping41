@@ -1,20 +1,16 @@
 package Modele;
 
-enum Etat
-{
-	Annule,Suspendu,EnCours,Fait,ControleOK,EnAttente;
-}
-
 public class Operation 
 {
     private int Op_ID;
     private String Op_Libelle;
-    private Etat Op_Etat;
+    private int Op_EO_ID;
     
-    public Operation(int ID, String nom)
+    public Operation(int ID, String libelle,int EO_ID)
     {
     	this.Op_ID =ID;
-    	this.Op_Libelle=nom;
+    	this.Op_Libelle=libelle;
+    	this.Op_EO_ID=EO_ID;
     }
     
     public int getOp_ID()
@@ -22,7 +18,7 @@ public class Operation
         return this.Op_ID;
     }
 
-    public void setOp_ID(final int value) 
+    public void setOp_ID(int value) 
     {
         this.Op_ID = value;
     }
@@ -32,19 +28,19 @@ public class Operation
         return this.Op_Libelle;
     }
 
-    public void setOp_Libelle(final String value)
+    public void setOp_Libelle(String value)
     {
         this.Op_Libelle = value;
     }
 
-	public void setOp_Etat(Etat op_Etat)
+	public void setOp_EO_ID(int op_EO_ID) 
 	{
-		Op_Etat = op_Etat;
+		Op_EO_ID = op_EO_ID;
 	}
 
-	public Etat getOp_Etat() 
+	public int getOp_EO_ID() 
 	{
-		return Op_Etat;
+		return Op_EO_ID;
 	}
 
 }

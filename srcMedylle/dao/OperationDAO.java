@@ -39,9 +39,9 @@ public class OperationDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Operation (Op_Libelle,Op_Etat) VALUES (?,?)");
+				ps = con.prepareStatement("INSERT INTO Operation (Op_Libelle,Op_EO_ID) VALUES (?,?)");
 				ps.setString(1,Op.getOp_Libelle());
-				//ps.setString(2,Op.getOp_Etat());
+				ps.setInt(2,Op.getOp_EO_ID());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -82,6 +82,48 @@ public class OperationDAO
 			{
 				ps = con.prepareStatement("UPDATE Operation SET Op_Libelle=? WHERE Op_ID=?");
 				ps.setString(1,libelle);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+
+	/**
+	* Permet de modifier l'etat d'une operation 
+	* @param ID de l'operation à modifier et nouvel etat
+	* @return nombre de lignes modifiées dans la table Operation
+	* */
+	public int modifier(int ID,int EO)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Operation SET Op_EO_ID=? WHERE Op_ID=?");
+				ps.setInt(1,EO);
 				ps.setInt(2,ID);
 				
 				//on execute la requete 
@@ -207,7 +249,7 @@ public class OperationDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"));
+					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
 			}
 			catch (Exception e) 
 			{
@@ -259,7 +301,7 @@ public class OperationDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"));
+					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
 			}
 			catch (Exception e) 
 			{
@@ -310,7 +352,7 @@ public class OperationDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle")));
+					ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
 			} 
 			catch (Exception e) 
 			{
