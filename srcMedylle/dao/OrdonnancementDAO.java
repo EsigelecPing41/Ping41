@@ -116,6 +116,48 @@ public class OrdonnancementDAO
 			}
 				return retour;	
 	}	
+	
+	/**
+	* Permet de modifier la quantité ordonnée 
+	* @param ID de l'ordonnancement et nouvelle quantité
+	* @return nombre de lignes modifiées dans la table Ordonnancement
+	* */
+	public int modifier(int ID,int Qte)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Ordonnancement SET Ord_QteFab =? WHERE Ord_ID=?");
+				ps.setInt(1,Qte);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+
 		
 		/**
 		 * Permet de recuperer un ordonnancement partir de son id

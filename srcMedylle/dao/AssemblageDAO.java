@@ -39,12 +39,10 @@ public class AssemblageDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Assemblage(A_Nom,A_Ref,A_IDPieces) VALUES (?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Assemblage(A_Nom,A_Ref) VALUES (?,?)");
 				ps.setString(1,a.getA_Nom());
 				ps.setString(2,a.getA_Ref());
-				ps.setArray(3,a.getA_IDPieces());
 
-				
 				//on execute la requete 
 				retour=ps.executeUpdate();
 				
@@ -67,6 +65,26 @@ public class AssemblageDAO
 			 }
 			 return retour;
 		
+	}
+	
+	/**
+	 * Permet d'ajouter une piece dans un assemblage à partir de l'id de la piece
+	 * @param l'assemblage dans lequel on veut ajouter la pice et l'id de la piece
+	 *@return true ajout avec succes, false si erreur
+	 */
+	public boolean ajouterPiece(Assemblage a,int ID)
+	{
+		return a.ajouterPieceAssemblage(ID);
+	}
+	
+	/**
+	 * Permet de supprimer une piece dans un assemblage à partir de l'id de la piece
+	 * @param l'assemblage dans lequel on veut supprimer la pice et l'id de la piece
+	 *@return true suppression avec succes, false si erreur
+	 */
+	public boolean supprimerPiece(Assemblage a,int ID)
+	{
+		return a.supprimerPieceAssemblage(ID);
 	}
 		
 	/**
@@ -167,7 +185,7 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"),rs.getArray("A_IDPieces"));
+					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"));
 			}
 			catch (Exception e) 
 			{
@@ -220,7 +238,7 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"),rs.getArray("A_IDPieces"));
+					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"));
 			}
 			catch (Exception e) 
 			{
@@ -272,7 +290,7 @@ public class AssemblageDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"),rs.getArray("A_IDPieces")));
+					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref")));
 			} 
 			catch (Exception e) 
 			{

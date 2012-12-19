@@ -68,13 +68,12 @@ public class OperationDAO
 	}
 	
 	/**
-	* Permet de modifier une operation dans la table Operation
-	* @param ID de l'operation à modifier
+	* Permet de modifier le nom d'une operation 
+	* @param ID de l'operation à modifier et nouveau nom
 	* @return nombre de lignes modifiées dans la table Operation
 	* */
-	public int modifier(int ID)
+	public int modifier(int ID,String libelle)
 	{
-			Operation Op = getOperation(ID);
 			PreparedStatement ps = null;
 			int retour=0;
 		
@@ -82,7 +81,7 @@ public class OperationDAO
 			try 
 			{
 				ps = con.prepareStatement("UPDATE Operation SET Op_Libelle=? WHERE Op_ID=?");
-				ps.setString(1,Op.getOp_Libelle());
+				ps.setString(1,libelle);
 				ps.setInt(2,ID);
 				
 				//on execute la requete 

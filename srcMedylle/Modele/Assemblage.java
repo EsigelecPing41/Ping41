@@ -1,20 +1,45 @@
 package Modele;
 
-import java.sql.Array;
+import java.util.ArrayList;
 
 public class Assemblage 
 {
     private int A_ID;
     private String A_Nom;
     private String A_Ref;
-    private Array A_IDPieces;
+    private ArrayList<Integer> A_ListPiece;
 
-    public Assemblage(int ID, String nom, String ref,Array Pieces)
+    public Assemblage(int ID, String nom, String ref)
     {
     	this.A_ID=ID;
     	this.A_Nom=nom;
     	this.A_Ref=ref;
-    	this.A_IDPieces = Pieces;
+    }
+    
+    public boolean ajouterPieceAssemblage(int ID)
+    {
+    	if(!this.A_ListPiece.contains(ID))
+    	{
+    		this.A_ListPiece.add(ID);
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    public boolean supprimerPieceAssemblage(int ID)
+    {
+    	if(this.A_ListPiece.contains(ID))
+    	{
+    		this.A_ListPiece.remove(ID);
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
     }
     
     public int getA_ID() 
@@ -47,14 +72,15 @@ public class Assemblage
 		return A_Ref;
 	}
 
-	public void setA_IDPieces(Array a_IDPieces) 
+	public void setA_List(ArrayList<Integer> a_List) 
 	{
-		A_IDPieces = a_IDPieces;
+		A_ListPiece = a_List;
 	}
 
-	public Array getA_IDPieces() 
+	public ArrayList<Integer> getA_List() 
 	{
-		return A_IDPieces;
+		return A_ListPiece;
 	}
+
 
 }
