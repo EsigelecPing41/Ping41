@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.util.Enumeration;
 
 public class Connexion 
 {
