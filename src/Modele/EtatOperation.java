@@ -1,18 +1,31 @@
 package Modele;
-public class EtatOperation 
+
+public class EtatOperation
 {
-    private int E_ID;
-    public Piece E_Piece;
-    private enum E_Etat {Annule, Suspendu, EnCours, Fait, ControleOK, EnAttente};
-    	
+	private int E_ID;
+	private String E_Etat;
 
-    public int getE_ID() 
-    {
-    	return this.E_ID;
-    }
+	public EtatOperation(int ID,String etat)
+	{
+		this.E_ID=ID;
+		this.E_Etat=etat;
+	}
 
-    public void setE_ID(final int value) 
-    {
-        this.E_ID = value;
-    }
+	public void setE_ID(int e_ID)
+	{
+		E_ID = e_ID;
+	}
+	public int getE_ID() 
+	{
+		return E_ID;
+	}
+	public void setE_Etat(String e_Etat) 
+	{
+		E_Etat = e_Etat;
+	}
+	public String getE_Etat() 
+	{
+		return E_Etat;
+	}
+
 }

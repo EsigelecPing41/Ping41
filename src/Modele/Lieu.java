@@ -1,9 +1,16 @@
 package Modele;
+
 public class Lieu 
 {
     private int L_ID;
     private String L_Nom;
 
+    public Lieu(int ID, String Nom)
+    {
+    	this.L_ID=ID;
+    	this.L_Nom=Nom;
+    }
+    
     public int getL_ID()
     {
         return this.L_ID;

@@ -1,15 +1,47 @@
-
 package Modele;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Assemblage 
 {
     private int A_ID;
     private String A_Nom;
-    public BonExpedition A_BonExpedition;
-    public List<Piece> A_Pieces = new ArrayList<Piece> ();
+    private String A_Ref;
+    private ArrayList<Integer> A_ListPiece;
 
+    public Assemblage(int ID, String nom, String ref)
+    {
+    	this.A_ID=ID;
+    	this.A_Nom=nom;
+    	this.A_Ref=ref;
+    }
+    
+    public boolean ajouterPieceAssemblage(int ID)
+    {
+    	if(!this.A_ListPiece.contains(ID))
+    	{
+    		this.A_ListPiece.add(ID);
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    public boolean supprimerPieceAssemblage(int ID)
+    {
+    	if(this.A_ListPiece.contains(ID))
+    	{
+    		this.A_ListPiece.remove(ID);
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
     public int getA_ID() 
     {
         return this.A_ID;
@@ -30,20 +62,25 @@ public class Assemblage
         this.A_Nom = value;
     }
 
-    public void creerAssemblage() 
-    {
-    }
+	public void setA_Ref(String a_Ref) 
+	{
+		A_Ref = a_Ref;
+	}
 
-    public void ModifierAssemblage() 
-    {
-    }
+	public String getA_Ref() 
+	{
+		return A_Ref;
+	}
 
-    public void SupprimerAssemblage() 
-    {
-    }
+	public void setA_List(ArrayList<Integer> a_List) 
+	{
+		A_ListPiece = a_List;
+	}
 
-    public void AfficherAssemblage() 
-    {
-    }
+	public ArrayList<Integer> getA_List() 
+	{
+		return A_ListPiece;
+	}
+
 
 }

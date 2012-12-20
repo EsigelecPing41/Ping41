@@ -1,6 +1,4 @@
 package Modele;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Fournisseur 
 {
@@ -8,16 +6,16 @@ public class Fournisseur
     private String F_Nom;
     private String F_Adresse;
     private String F_Description;
-    public List<Piece> F_Pieces = new ArrayList<Piece> ();
+    
+    public Fournisseur(int ID, String Nom, String Adresse, String Description)
+    {
+    	this.F_ID = ID;
+    	this.F_Nom = Nom;
+    	this.F_Adresse = Adresse;
+    	this.F_Description=Description;
+    }
 
-    public Fournisseur(int F_ID, String F_Nom, String F_Adresse, String F_Description) {
-		this.F_ID = F_ID;
-		this.F_Nom = F_Nom;
-		this.F_Adresse = F_Adresse;
-		this.F_Description = F_Description;
-	}
-
-	public int getF_ID() 
+    public int getF_ID() 
     {
         return this.F_ID;
     }
@@ -55,22 +53,6 @@ public class Fournisseur
     public void setF_Description(final String value) 
     {
         this.F_Description = value;
-    }
-
-    public void CreerFournisseur() 
-    {
-    }
-
-    public void ModifierFournisseur() 
-    {
-    }
-
-    public void SupprimerFournisseur()
-    {
-    }
-
-    public void AfficherFournisseur() 
-    {
     }
 
 }

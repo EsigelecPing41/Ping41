@@ -1,25 +1,30 @@
 package Modele;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Client 
 {
     private int C_ID;
-
     private String C_Nom;
     private String C_Adresse;
     private String C_Description;
-    public List<BonExpedition> C_BonExpedition = new ArrayList<BonExpedition> ();
+    private String C_Mdp;
+    
+    public Client(int ID, String Nom, String Adresse, String Description,String mdp)
+    {
+    	this.C_ID = ID;
+    	this.C_Nom = Nom;
+    	this.C_Adresse = Adresse;
+    	this.C_Description=Description;
+    	this.C_Mdp=mdp;
+    }
 
-
-    public Client(int C_ID, String C_Nom, String C_Adresse, String C_Description) {
-		this.C_ID = C_ID;
-		this.C_Nom = C_Nom;
-		this.C_Adresse = C_Adresse;
-		this.C_Description = C_Description;
-	}
-
-	public int getC_ID() 
+    public Client(int ID, String Nom, String Adresse, String Description)
+    {
+    	this.C_ID = ID;
+    	this.C_Nom = Nom;
+    	this.C_Adresse = Adresse;
+    	this.C_Description=Description;
+    }
+    public int getC_ID() 
     {
         return this.C_ID;
     }
@@ -39,44 +44,33 @@ public class Client
         return this.C_Description;
     }
 
-    public void setC_ID(final int value) 
+    public void setC_ID(int value) 
     {
         this.C_ID = value;
     }
 
-    public void setC_Adresse(final String value)
+    public void setC_Adresse(String value)
     {
         this.C_Adresse = value;
     }
 
-    public void setC_Description(final String value)
+    public void setC_Description(String value)
     {
         this.C_Description = value;
     }
 
-    public void setC_Nom(final String value) 
+    public void setC_Nom(String value) 
     {
         this.C_Nom = value;
     }
 
-    public void CreerClient()
-    {
-    }
-    public void ModifierClient() 
-    {
-    }
+	public void setC_Mdp(String c_Mdp) {
+		C_Mdp = c_Mdp;
+	}
 
-    public void SupprimerClient() 
-    {
-    }
-
-    public void AfficherClient()
-    {
-    }
 
 	public String getC_Mdp() {
-		// TODO Auto-generated method stub
-		return null;
+		return C_Mdp;
 	}
 
 }

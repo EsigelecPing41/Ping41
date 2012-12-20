@@ -8,14 +8,14 @@ import Modele.Fournisseur;
 
 public class FournisseurDAO 
 {
-		private Connection con;
+		private	 Connection con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
 		private static FournisseurDAO singleton;
 		private FournisseurDAO() throws Exception
 		{
 			Connexion connect;
 			connect = new Connexion();
-			con = connect.getConnection();			
+			con = connect.getConnection();	
 		}
 
 		public static FournisseurDAO getInstance() throws Exception
@@ -25,17 +25,18 @@ public class FournisseurDAO
 			return singleton;
 		}
 		
+		
 		/**
 		 * Permet d'ajouter un Fournisseur dans la table Fournisseur
-		 * @param Fournisseur ï¿½ ajouter
-		 * @return nombre de lignes ajoutï¿½es dans la table Fournisseur
+		 * @param Fournisseur à ajouter
+		 * @return nombre de lignes ajoutées dans la table Fournisseur
 		 */
 	public int ajouter(Fournisseur f)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{
 				ps = con.prepareStatement("INSERT INTO Fournisseur (F_Nom,F_Adresse,F_Description) VALUES (?,?,?)");
@@ -69,15 +70,15 @@ public class FournisseurDAO
 		
 		/**
 		 * Permet de supprimer un Fournisseur de la table Fournisseur
-		 * @param ID du Fournisseur ï¿½ supprimer
-		 *@return null si aucun Fournisseur ne correspond ï¿½ cet id
+		 * @param ID du Fournisseur à supprimer
+		 *@return null si aucun Fournisseur ne correspond à cet id
 		 */
 	public int supprimer(int ID)
 	{
 			PreparedStatement ps=null;
 			int retour=0;
 			
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{
 				ps = con.prepareStatement("DELETE FROM Fournisseur WHERE F_ID=?");
@@ -106,10 +107,10 @@ public class FournisseurDAO
 	}	
 		
 		/**
-		 * Permet de rï¿½cupï¿½rer un Fournisseur ï¿½ partir de son id
-		 * @param id du Fournisseur ï¿½ rï¿½cupï¿½rer
+		 * Permet de récupérer un Fournisseur à partir de son id
+		 * @param id du Fournisseur à récupérer
 		 * @return le Fournisseur
-		 * @return null si aucun Fournisseur ne correspond ï¿½ cet id
+		 * @return null si aucun Fournisseur ne correspond à cet id
 		 */
 		public Fournisseur getFournisseur(int ID)
 		{
@@ -118,7 +119,7 @@ public class FournisseurDAO
 			Fournisseur FournisseurRetourne = null;
 	
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Fournisseur WHERE F_ID=?");
@@ -159,10 +160,10 @@ public class FournisseurDAO
 		}
 		
 		/**
-		 * Permet de rï¿½cupï¿½rer un Fournisseur ï¿½ partir de son nom
-		 * @param nom du Fournisseur ï¿½ rï¿½cupï¿½rer
+		 * Permet de récupérer un Fournisseur à partir de son nom
+		 * @param nom du Fournisseur à récupérer
 		 * @return le Fournisseur
-		 * @return null si aucun Fournisseur ne correspond ï¿½ ce nom
+		 * @return null si aucun Fournisseur ne correspond à ce nom
 		 */
 		public Fournisseur getFournisseur(String nom)
 		{
@@ -171,7 +172,7 @@ public class FournisseurDAO
 			Fournisseur FournisseurRetourne = null;
 	
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Fournisseur WHERE F_Nom=?");
@@ -212,7 +213,7 @@ public class FournisseurDAO
 		}
 		
 		/**
-		 * Permet de rï¿½cupï¿½rer tous les Fournisseurs de la table
+		 * Permet de récupérer tous les Fournisseurs de la table
 		 * @return la liste des Fournisseurs
 		 */
 		public List<Fournisseur> getListFournisseur()
@@ -221,7 +222,7 @@ public class FournisseurDAO
 			ResultSet rs=null;
 			List<Fournisseur> ListeFournisseur = new ArrayList<Fournisseur>();
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{
 				

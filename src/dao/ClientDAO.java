@@ -25,17 +25,19 @@ public class ClientDAO
 			return singleton;
 		}
 		
+		
+		
 	/**
 	* Permet d'ajouter un client dans la table Client
-	* @param client ï¿½ ajouter
-	* @return nombre de lignes ajoutï¿½es dans la table Client
+	* @param client à ajouter
+	* @return nombre de lignes ajoutées dans la table Client
 	*/
 	public int ajouter(Client c)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{
 				ps = con.prepareStatement("INSERT INTO Client (C_Nom,C_Adresse,C_Description,C_Mdp) VALUES (?,?,?,?)");
@@ -70,15 +72,15 @@ public class ClientDAO
 		
 	/**
 	 * Permet de supprimer un client de la table CLient
-	 * @param ID du client ï¿½ supprimer
-	 *@return null si aucun client ne correspond ï¿½ cet id
+	 * @param ID du client à supprimer
+	 *@return null si aucun client ne correspond à cet id
 	 */
 	public int supprimer(int ID)
 	{
 			PreparedStatement ps=null;
 			int retour=0;
 			
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{
 				ps = con.prepareStatement("DELETE FROM Client WHERE C_ID=?");
@@ -107,10 +109,10 @@ public class ClientDAO
 	}	
 		
 		/**
-		 * Permet de rï¿½cupï¿½rer un client ï¿½ partir de son id
-		 * @param id du client ï¿½ rï¿½cupï¿½rer
+		 * Permet de récupérer un client à partir de son id
+		 * @param id du client à récupérer
 		 * @return le client
-		 * @return null si aucun client ne correspond ï¿½ cet id
+		 * @return null si aucun client ne correspond à cet id
 		 */
 		public Client getCLient(int ID)
 		{
@@ -119,7 +121,7 @@ public class ClientDAO
 			Client ClientRetourne = null;
 	
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Client WHERE C_ID=?");
@@ -160,10 +162,10 @@ public class ClientDAO
 		}
 		
 		/**
-		 * Permet de rï¿½cupï¿½rer un client ï¿½ partir de son nom
-		 * @param nom du client ï¿½ rï¿½cupï¿½rer
+		 * Permet de récupérer un client à partir de son nom
+		 * @param nom du client à récupérer
 		 * @return le client
-		 * @return null si aucun client ne correspond ï¿½ ce nom
+		 * @return null si aucun client ne correspond à ce nom
 		 */
 		public Client getCLient(String nom)
 		{
@@ -172,7 +174,7 @@ public class ClientDAO
 			Client ClientRetourne = null;
 	
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Client WHERE C_Nom=?");
@@ -214,7 +216,7 @@ public class ClientDAO
 		
 		
 		/**
-		 * Permet de rï¿½cupï¿½rer tous les clients de la table
+		 * Permet de récupérer tous les clients de la table
 		 * @return la liste des clients
 		 */
 		public List<Client> getListClient()
@@ -223,7 +225,7 @@ public class ClientDAO
 			ResultSet rs=null;
 			List<Client> ListeClient = new ArrayList<Client>();
 		
-			//connexion a la base de donnï¿½es
+			//connexion a la base de données
 			try 
 			{
 				
