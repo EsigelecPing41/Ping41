@@ -108,6 +108,171 @@ public class ClientDAO
 				return retour;	
 	}	
 		
+	/**
+	* Permet de modifier le nom du client
+	* @param ID du client et le nouveau nom
+	* @return nombre de lignes modifiées dans la table Client
+	* */
+	public int modifierNom(int ID,String nom)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Client SET C_Nom =? WHERE C_ID=?");
+				ps.setString(1,nom);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	
+	/**
+	* Permet de modifier l'adresse du client
+	* @param ID du client et la nouvelle adresse
+	* @return nombre de lignes modifiées dans la table Client
+	* */
+	public int modifierAdresse(int ID,String adresse)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Client SET C_Adresse =? WHERE C_ID=?");
+				ps.setString(1,adresse);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier la description du client
+	* @param ID du client et la nouvelle description
+	* @return nombre de lignes modifiées dans la table Client
+	* */
+	public int modifierDescription(int ID,String description)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Client SET C_Description =? WHERE C_ID=?");
+				ps.setString(1,description);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier le mot de passe du client
+	* @param ID du client et le nouveau mot de passe
+	* @return nombre de lignes modifiées dans la table Client
+	* */
+	public int modifierMdp(int ID,String mdp)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Client SET C_Mdp =? WHERE C_ID=?");
+				ps.setString(1,mdp);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
 		/**
 		 * Permet de récupérer un client à partir de son id
 		 * @param id du client à récupérer
@@ -130,7 +295,7 @@ public class ClientDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					ClientRetourne = new Client(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"));
+					ClientRetourne = new Client(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"),rs.getString("C_Mdp"));
 			}
 			catch (Exception e) 
 			{
@@ -183,7 +348,7 @@ public class ClientDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					ClientRetourne = new Client(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"));
+					ClientRetourne = new Client(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"),rs.getString("C_Mdp"));
 			}
 			catch (Exception e) 
 			{
@@ -235,7 +400,7 @@ public class ClientDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeClient.add(new Client(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description")));
+					ListeClient.add(new Client(rs.getInt("C_ID"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"),rs.getString("C_Mdp")));
 			} 
 			catch (Exception e) 
 			{

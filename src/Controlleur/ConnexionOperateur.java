@@ -72,14 +72,13 @@ public class ConnexionOperateur extends HttpServlet {
         /* Traitement de la requête et récupération du bean en résultant */
         if ( form.connecterUtilisateur( request ) ) {
         	
-        	
-    		try {
-    			OperateurDAO operateurDao = OperateurDAO.getInstance();
+        	try {
+        		OperateurDAO operateurDao = OperateurDAO.getInstance();
     			Operateur operateur = operateurDao.getOperateur(form.getValeur("login"),form.getValeur("password"));
-        		session.setAttribute( ATT_SESSION_USER, operateur );
+    			session.setAttribute( ATT_SESSION_USER, operateur );
         		session.setAttribute("LIB_ERREUR", "");
-                session.setMaxInactiveInterval(operateur.getO_Parametre().getP_DureeVie());
-                dispatcher = request.getRequestDispatcher("servlet/index.html");
+        		session.setMaxInactiveInterval(operateur.getO_Parametre().getP_DureeVie());
+        		dispatcher = request.getRequestDispatcher("servlet/index.html");
     		}
         	catch (Exception e) {
         		session.setAttribute("LIB_ERREUR", e.getMessage());

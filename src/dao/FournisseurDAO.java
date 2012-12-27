@@ -106,6 +106,130 @@ public class FournisseurDAO
 				return retour;	
 	}	
 		
+	/**
+	* Permet de modifier le nom du fournisseur
+	* @param ID du fournisseur et le nouveau nom
+	* @return nombre de lignes modifiées dans la table Fournisseur
+	* */
+	public int modifierNom(int ID,String nom)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Fournisseur SET F_Nom =? WHERE F_ID=?");
+				ps.setString(1,nom);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier l'adresse du fournisseur
+	* @param ID du fournisseur et la nouvelle adresse
+	* @return nombre de lignes modifiées dans la table Fournisseur
+	* */
+	public int modifierAdresse(int ID,String adresse)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Fournisseur SET F_Adresse =? WHERE F_ID=?");
+				ps.setString(1,adresse);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier la description d'un fournisseur
+	* @param ID du fournisseur et la nouvelle description
+	* @return nombre de lignes modifiées dans la table Fournisseur
+	* */
+	public int modifierDescription(int ID,String description)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Fournisseur SET F_Description =? WHERE F_ID=?");
+				ps.setString(1,description);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	
 		/**
 		 * Permet de récupérer un Fournisseur à partir de son id
 		 * @param id du Fournisseur à récupérer

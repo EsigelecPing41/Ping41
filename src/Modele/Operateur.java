@@ -17,20 +17,20 @@ public class Operateur
     	this.O_Parametre = new Parametre();
     }
     
-    public Parametre getO_Parametre() {
+	public Operateur() 
+	{
+		this.O_Parametre = new Parametre();
+	}
+
+	public Parametre getO_Parametre()
+	{
 		return O_Parametre;
 	}
 
-	public void setO_Parametre(Parametre o_Parametre) {
+	public void setO_Parametre(Parametre o_Parametre)
+	{
 		O_Parametre = o_Parametre;
 	}
-
-	public Operateur(int ID,String nom,String prenom)
-    {
-    	this.O_ID= ID;
-    	this.O_Nom= nom;
-    	this.O_Prenom= prenom;
-    }
     
     public int getO_ID()
     {

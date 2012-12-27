@@ -2,7 +2,7 @@ package Modele;
 
 import java.util.Date;
 
-public class Action {
+public class Action{
 	private Date A_Date;
     private int A_IDOperateur;
     private int A_IDOperation;

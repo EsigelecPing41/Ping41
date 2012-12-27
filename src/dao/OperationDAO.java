@@ -111,7 +111,7 @@ public class OperationDAO
 
 	/**
 	* Permet de modifier l'etat d'une operation 
-	* @param ID de l'operation à modifier et nouvel etat
+	* @param ID de l'operation à modifier et l'ID du nouvel etat
 	* @return nombre de lignes modifiées dans la table Operation
 	* */
 	public int modifier(int ID,int EO)

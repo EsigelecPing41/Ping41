@@ -39,7 +39,7 @@ public class LocalisationPieceDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO "+BDD_LOCALISATION_PIECE+" (LocP_Date ,LocP_O_ID ,LocP_L_ID,LocP_P_ID) VALUES (?,?,?,?)");
+				ps = con.prepareStatement("INSERT INTO "+BDD_LOCALISATION_PIECE+" (LocP_Date ,LocP_O_ID ,LocP_L_ID ,LocP_P_ID) VALUES (?,?,?,?)");
 				ps.setDate(1,(Date)lp.getLP_Date());
 				ps.setInt(2,lp.getLP_O_ID());
 				ps.setInt(3,lp.getLP_L_ID());
@@ -106,6 +106,172 @@ public class LocalisationPieceDAO
 			}
 				return retour;	
 	}	
+	
+	/**
+	* Permet de modifier la date d'une localisation piece
+	* @param ID de la localisation piece et la nouvelle date
+	* @return nombre de lignes modifiées dans la table LocalisationPiece
+	* */
+	public int modifierDate(int ID,Date d)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationPiece SET LocP_Date =? WHERE LocP_ID=?");
+				ps.setDate(1,d);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	
+	/**
+	* Permet de modifier l'ID operateur d'une localisation piece
+	* @param ID de la localisation piece et le nouvel ID operateur
+	* @return nombre de lignes modifiées dans la table LocalisationPiece
+	* */
+	public int modifierOperateur(int ID,int O)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationPiece SET LocP_O_ID =? WHERE LocP_ID=?");
+				ps.setInt(1,O);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier l'ID lieu d'une localisation piece
+	* @param ID de la localisation piece et le nouvel ID lieu
+	* @return nombre de lignes modifiées dans la table LocalisationPiece
+	* */
+	public int modifierLieu(int ID,int L)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationPiece SET LocP_L_ID =? WHERE LocP_ID=?");
+				ps.setInt(1,L);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier l'ID piece d'une localisation piece
+	* @param ID de la localisation piece et le nouvel ID piece
+	* @return nombre de lignes modifiées dans la table LocalisationPiece
+	* */
+	public int modifierPiece(int ID,int P)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationPiece SET LocP_P_ID =? WHERE LocP_ID=?");
+				ps.setInt(1,P);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
 		
 		/**
 		 * Permet de recuperer une localisationPiece a partir de son id
@@ -129,7 +295,7 @@ public class LocalisationPieceDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					LocalisationPieceRetourne = new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("Loc_O_ID"),rs.getInt("Loc_L_ID"),rs.getInt("Loc_P_ID"));
+					LocalisationPieceRetourne = new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("LocP_L_ID"),rs.getInt("LocP_P_ID"));
 			}
 			catch (Exception e) 
 			{
@@ -182,7 +348,7 @@ public class LocalisationPieceDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					LocalisationPieceRetourne = new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("Loc_L_ID"),rs.getInt("LocP_P_ID"));
+					LocalisationPieceRetourne = new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("LocP_L_ID"),rs.getInt("LocP_P_ID"));
 			}
 			catch (Exception e) 
 			{
@@ -234,7 +400,7 @@ public class LocalisationPieceDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeLocalisationPiece.add(new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("LocP_L_ID"),rs.getInt("Loc_P_ID")));
+					ListeLocalisationPiece.add(new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("LocP_L_ID"),rs.getInt("LocP_P_ID")));
 			} 
 			catch (Exception e) 
 			{
@@ -280,14 +446,14 @@ public class LocalisationPieceDAO
 			try 
 			{
 				
-				ps = con.prepareStatement("SELECT * FROM "+BDD_LOCALISATION_PIECE+" where LocP_L_ID=?");
+				ps = con.prepareStatement("SELECT * FROM "+BDD_LOCALISATION_PIECE+" WHERE LocP_L_ID=?");
 				ps.setInt(1,L_ID);
 										
 				//on execute la requete 
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeLocalisationPiece.add(new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("Loc_L_ID"),rs.getInt("LocP_P_ID")));
+					ListeLocalisationPiece.add(new LocalisationPiece(rs.getInt("LocP_ID"),rs.getDate("LocP_Date"),rs.getInt("LocP_O_ID"),rs.getInt("LocP_L_ID"),rs.getInt("LocP_P_ID")));
 			} 
 			catch (Exception e) 
 			{

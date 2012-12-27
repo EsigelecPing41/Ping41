@@ -17,13 +17,6 @@ public class Client
     	this.C_Mdp=mdp;
     }
 
-    public Client(int ID, String Nom, String Adresse, String Description)
-    {
-    	this.C_ID = ID;
-    	this.C_Nom = Nom;
-    	this.C_Adresse = Adresse;
-    	this.C_Description=Description;
-    }
     public int getC_ID() 
     {
         return this.C_ID;

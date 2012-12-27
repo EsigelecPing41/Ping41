@@ -1,37 +1,36 @@
-
 package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import Modele.EtatOperation;
+import Modele.Lieu;
 
-public class EtatOperationDAO 
+public class LieuDAO 
 {
 		private	 Connection con;
 		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
-		private static EtatOperationDAO singleton;
-		private EtatOperationDAO() throws Exception
+		private static LieuDAO singleton;
+		private LieuDAO() throws Exception
 		{
 			Connexion connect;
 			connect = new Connexion();
 			con = connect.getConnection();	
 		}
 
-		public static EtatOperationDAO getInstance() throws Exception
+		public static LieuDAO getInstance() throws Exception
 		{
-			if(EtatOperationDAO.singleton==null)
-				singleton=new EtatOperationDAO();
+			if(LieuDAO.singleton==null)
+				singleton=new LieuDAO();
 			return singleton;
 		}
 		
 	/**
-	* Permet d'ajouter un EtatOperation dans la table EtatOperation
-	* @param EtatOperation a ajouter
-	* @return nombre de lignes ajoutees dans la table EtatOperation
+	* Permet d'ajouter un lieu dans la table Lieu
+	* @param lieu a ajouter
+	* @return nombre de lignes ajoutees dans la table Lieu
 	*/
-	public int ajouter(EtatOperation eo)
+	public int ajouter(Lieu l)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -39,8 +38,8 @@ public class EtatOperationDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO EtatOperation (E_Etat) VALUES (?)");
-				ps.setString(1,eo.getE_Etat());
+				ps = con.prepareStatement("INSERT INTO Lieu (L_Nom) VALUES (?)");
+				ps.setString(1,l.getL_Nom());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -67,9 +66,9 @@ public class EtatOperationDAO
 	}
 		
 	/**
-	 * Permet de supprimer un EtatOperation de la table
-	 * @param ID de l'EtatOperation a supprimer
-	 *@return null si aucun EtatOperation ne correspond a cet id
+	 * Permet de supprimer un lieu de la table
+	 * @param ID du lieu a supprimer
+	 *@return null si aucun lieu ne correspond a cet id
 	 */
 	public int supprimer(int ID)
 	{
@@ -79,7 +78,7 @@ public class EtatOperationDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("DELETE FROM EtatOperation WHERE E_ID=?");
+				ps = con.prepareStatement("DELETE FROM Lieu WHERE L_ID=?");
 				ps.setInt(1,ID);
 	
 				//on execute la requete 
@@ -104,29 +103,71 @@ public class EtatOperationDAO
 				return retour;	
 	}	
 		
+	/**
+	* Permet de modifier le nom d'un lieu
+	* @param ID du lieu et le nouveau nom
+	* @return nombre de lignes modifiées dans la table Lieu
+	* */
+	public int modifier(int ID,String nom)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Lieu SET L_Nom =? WHERE L_ID=?");
+				ps.setString(1,nom);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	
 		/**
-		 * Permet de recuperer un EtatOperation partir de son id
-		 * @param id de l'EtatOperation a recuperer
-		 * @return l'EtatOperation
-		 * @return null si aucun EtatOperation ne correspond a cet id
+		 * Permet de recuperer un lieu partir de son id
+		 * @param id du lieu a recuperer
+		 * @return le lieu
+		 * @return null si aucun lieu ne correspond a cet id
 		 */
-		public EtatOperation getEtatOperation(int ID)
+		public Lieu getLieu(int ID)
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
-			EtatOperation EtatOperationRetourne = null;
+			Lieu LieuRetourne = null;
 	
 		
 			//connexion a la base de donnees
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+				ps = con.prepareStatement("SELECT * FROM Lieu WHERE L_ID=?");
 				ps.setInt(1,ID);
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					EtatOperationRetourne = new EtatOperation(rs.getInt("E_ID"),rs.getString("E_Etat"));
+					LieuRetourne = new Lieu(rs.getInt("L_ID"),rs.getString("L_Nom"));
 			}
 			catch (Exception e) 
 			{
@@ -154,31 +195,31 @@ public class EtatOperationDAO
 					
 				}
 			}
-			return EtatOperationRetourne;
+			return LieuRetourne;
 		}
 		
 		
 		/**
-		 * Permet de recuperer tous les EtatOperation de la table
-		 * @return la liste des EtatOperation
+		 * Permet de recuperer tous les lieux de la table
+		 * @return la liste des lieux
 		 */
-		public List<EtatOperation> getListEtatOperation()
+		public List<Lieu> getListLieu()
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
-			List<EtatOperation> ListeEtatOperation = new ArrayList<EtatOperation>();
+			List<Lieu> ListeLieu = new ArrayList<Lieu>();
 		
 			//connexion a la base de donnees
 			try 
 			{
 				
-				ps = con.prepareStatement("SELECT * FROM EtatOperation");
+				ps = con.prepareStatement("SELECT * FROM Lieu");
 										
 				//on execute la requete 
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeEtatOperation.add(new EtatOperation(rs.getInt("E_ID"),rs.getString("E_Etat")));
+					ListeLieu.add(new Lieu(rs.getInt("L_ID"),rs.getString("L_Nom")));
 			}
 			catch (Exception e) 
 			{
@@ -206,7 +247,7 @@ public class EtatOperationDAO
 					
 				}
 			}
-			return ListeEtatOperation;
+			return ListeLieu;
 		
 		}
 		

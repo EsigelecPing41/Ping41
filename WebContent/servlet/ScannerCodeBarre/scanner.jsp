@@ -29,12 +29,18 @@
 	{
 		menu = true;
 	}
+	id = (String)ses.getAttribute( "erreur" );
+	String erreur = "";
+	if( null != id && !id.equals( "" ) && !id.equals( "0" ) )
+	{
+		erreur = id;
+	}
 %>
 <h1><%=lib %></h1>
 <br><br>
 <form method="post" action="../../<%=action %>" >
 Numéro de série de la pièce :<br>
-
+<%=erreur %>
 <input type="text" name="num_piece"><a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../img/douchette.jpg" width="20px"></a>
 <input type="hidden" name="Lieu" value="Magasin">
 

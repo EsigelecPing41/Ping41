@@ -118,6 +118,48 @@ public class OrdonnancementDAO
 	}	
 	
 	/**
+	* Permet de modifier la designation 
+	* @param ID de l'ordonnancement et la nouvelle designation
+	* @return nombre de lignes modifiées dans la table Ordonnancement
+	* */
+	public int modifierDesignation(int ID,String designation)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Ordonnancement SET Ord_Designation =? WHERE Ord_ID=?");
+				ps.setString(1,designation);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+
+	
+	/**
 	* Permet de modifier la quantité ordonnée 
 	* @param ID de l'ordonnancement et nouvelle quantité
 	* @return nombre de lignes modifiées dans la table Ordonnancement

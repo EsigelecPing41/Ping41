@@ -107,6 +107,171 @@ public class LocalisationAssemblageDAO
 				return retour;	
 	}	
 		
+	/**
+	* Permet de modifier la date d'une localisation assemblage
+	* @param ID de la localisation assemblage et le nouvelle date
+	* @return nombre de lignes modifiées dans la table LocalisationAssemblage
+	* */
+	public int modifierDate(int ID,Date d)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationAssemblage SET LocA_Date =? WHERE LocA_ID=?");
+				ps.setDate(1,d);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	
+	/**
+	* Permet de modifier l'ID operateur d'une localisation assemblage
+	* @param ID de la localisation assemblage et le nouvel ID operateur
+	* @return nombre de lignes modifiées dans la table LocalisationAssemblage
+	* */
+	public int modifierOperateur(int ID,int O)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationAssemblage SET LocA_O_ID =? WHERE LocA_ID=?");
+				ps.setInt(1,O);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier l'ID lieu d'une localisation assemblage
+	* @param ID de la localisation assemblage et le nouvel ID lieu
+	* @return nombre de lignes modifiées dans la table LocalisationAssemblage
+	* */
+	public int modifierLieu(int ID,int L)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationAssemblage SET LocA_L_ID =? WHERE LocA_ID=?");
+				ps.setInt(1,L);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	* Permet de modifier l'ID assemblage d'une localisation assemblage
+	* @param ID de la localisation assemblage et le nouvel ID assemblage
+	* @return nombre de lignes modifiées dans la table LocalisationAssemblage
+	* */
+	public int modifierAssemblage(int ID,int A)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE LocalisationAssemblage SET LocA_A_ID =? WHERE LocA_ID=?");
+				ps.setInt(1,A);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
 		/**
 		 * Permet de recuperer une LocalisationAssemblage partir de son id
 		 * @param id de LocalisationAssemblage a recuperer

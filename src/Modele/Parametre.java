@@ -1,24 +1,26 @@
 package Modele;
 
-public class Parametre {
+public class Parametre 
+{
 	private String[][] P_Menu;
 	private int P_DureeVie;
 
 
-	public Parametre() {
-		//Parametre en minute la durï¿½e de vie de la session
-		this.P_DureeVie = 12000;
+	public Parametre() 
+	{
+		//Parametre en minute la durée de vie de la session
+		this.P_DureeVie = 20;
 		
 		this.P_Menu = new String[9][7];
 		/***
 		 * P_Menu
 		 * 0 -> id
-		 * 1 -> Libellï¿½ affichï¿½
+		 * 1 -> Libellé affiché
 		 * 2 -> URL
 		 * 3 -> id lieu	
-		 * 4 -> scanner (1 -> affichage du formulaire pour scanner piece, l'action du formulaire est dï¿½crit par l'url/0 -> affichage de l'URL)
+		 * 4 -> scanner (1 -> affichage du formulaire pour scanner piece, l'action du formulaire est décrit par l'url/0 -> affichage de l'URL)
 		 * 5 -> action du scanner
-		 * 6 -> page complï¿½mentaire au scanner ((0/1)page menu.html)
+		 * 6 -> page complémentaire au scanner ((0/1)page menu.html)
 		 */
 		
 		P_Menu[0][0] = "0";
@@ -95,20 +97,25 @@ public class Parametre {
 		
 	}
 	
-	public int getP_DureeVie() {
+	public int getP_DureeVie() 
+	{
 		return P_DureeVie;
 	}
 
-	public void setP_DureeVie(int p_DureeVie) {
+	public void setP_DureeVie(int p_DureeVie) 
+	{
 		P_DureeVie = p_DureeVie;
 	}
 
-	public int get_S_P_Menu(){
+	public int get_S_P_Menu()
+	{
 		return 9;
 	}
 	
-	public String getMenu(int i, int j){
+	public String getMenu(int i, int j)
+	{
 		return P_Menu[i][j];
 	}
 	
 }
+

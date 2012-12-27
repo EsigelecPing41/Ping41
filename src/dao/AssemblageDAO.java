@@ -217,6 +217,89 @@ public class AssemblageDAO
 		}
 		
 		/**
+		* Permet de modifier le nom de l'assemblage
+		* @param ID de l'assemblage et le nouveau nom
+		* @return nombre de lignes modifiées dans la table Assemblage
+		* */
+		public int modifierNom(int ID,String nom)
+		{
+				PreparedStatement ps = null;
+				int retour=0;
+			
+				//connexion a la base de données
+				try 
+				{
+					ps = con.prepareStatement("UPDATE Assemblage SET A_Nom =? WHERE A_ID=?");
+					ps.setString(1,nom);
+					ps.setInt(2,ID);
+					
+					//on execute la requete 
+					retour=ps.executeUpdate();
+					
+			     } 
+				catch (Exception e)
+			     {
+					e.printStackTrace();
+			     } 
+				finally 
+			     {
+					try 
+					{
+						if (ps != null)
+							ps.close();
+					} 
+					catch (Exception t) 
+					{
+						
+					}
+				 }
+				 return retour;
+			
+		}
+		
+		/**
+		* Permet de modifier la reference de l'assemblage
+		* @param ID de l'assemblage et la nouvelle reference
+		* @return nombre de lignes modifiées dans la table Assemblage
+		* */
+		public int modifierRef(int ID,String reference)
+		{
+				PreparedStatement ps = null;
+				int retour=0;
+			
+				//connexion a la base de données
+				try 
+				{
+					ps = con.prepareStatement("UPDATE Assemblage SET A_Ref =? WHERE A_ID=?");
+					ps.setString(1,reference);
+					ps.setInt(2,ID);
+					
+					//on execute la requete 
+					retour=ps.executeUpdate();
+					
+			     } 
+				catch (Exception e)
+			     {
+					e.printStackTrace();
+			     } 
+				finally 
+			     {
+					try 
+					{
+						if (ps != null)
+							ps.close();
+					} 
+					catch (Exception t) 
+					{
+						
+					}
+				 }
+				 return retour;
+			
+		}
+		
+		
+		/**
 		 * Permet de recuperer un assemblage partir de sa reference
 		 * @param reference de l'assemblage a recuperer
 		 * @return l'assemblage
