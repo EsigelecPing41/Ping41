@@ -1,45 +1,20 @@
 package Modele;
 
-import java.util.ArrayList;
-
 public class Assemblage 
 {
     private int A_ID;
     private String A_Nom;
-    private String A_Ref;
-    private ArrayList<Integer> A_ListPiece;
+    private String A_CodeBarre;
+    private boolean A_Statut;
+    private String A_ListPieces;
 
-    public Assemblage(int ID, String nom, String ref)
+    public Assemblage(int ID, String nom, String CB,boolean statut, String listPieces)
     {
     	this.A_ID=ID;
     	this.A_Nom=nom;
-    	this.A_Ref=ref;
-    }
-    
-    public boolean ajouterPieceAssemblage(int ID)
-    {
-    	if(!this.A_ListPiece.contains(ID))
-    	{
-    		this.A_ListPiece.add(ID);
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
-    }
-    
-    public boolean supprimerPieceAssemblage(int ID)
-    {
-    	if(this.A_ListPiece.contains(ID))
-    	{
-    		this.A_ListPiece.remove(ID);
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
+    	this.A_CodeBarre=CB;
+    	this.A_Statut=statut;
+    	this.A_ListPieces=listPieces;
     }
     
     public int getA_ID() 
@@ -57,29 +32,39 @@ public class Assemblage
         return this.A_Nom;
     }
 
-    public void setA_Nom(final String value)
+    public void setA_Nom(String value)
     {
         this.A_Nom = value;
     }
 
-	public void setA_Ref(String a_Ref) 
+	public void setA_CodeBarre(String CB) 
 	{
-		A_Ref = a_Ref;
+		A_CodeBarre = CB;
 	}
 
-	public String getA_Ref() 
+	public String getA_CodeBarre() 
 	{
-		return A_Ref;
+		return A_CodeBarre;
 	}
 
-	public void setA_List(ArrayList<Integer> a_List) 
+	public void setA_Statut(boolean statut) 
 	{
-		A_ListPiece = a_List;
+		A_Statut = statut;
 	}
 
-	public ArrayList<Integer> getA_List() 
+	public boolean getA_Statut() 
 	{
-		return A_ListPiece;
+		return A_Statut;
+	}
+
+	public void setListPieces(String listPieces) 
+	{
+		A_ListPieces = listPieces;
+	}
+
+	public String getListPieces() 
+	{
+		return A_ListPieces;
 	}
 
 

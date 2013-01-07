@@ -39,9 +39,11 @@ public class AssemblageDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Assemblage(A_Nom,A_Ref) VALUES (?,?)");
+				ps = con.prepareStatement("INSERT INTO Assemblage(A_Nom,A_CodeBarre,A_Statut,A_ListPieces) VALUES (?,?,?,?)");
 				ps.setString(1,a.getA_Nom());
-				ps.setString(2,a.getA_Ref());
+				ps.setString(2,a.getA_CodeBarre());
+				ps.setBoolean(3,a.getA_Statut());
+				ps.setString(4,a.getListPieces());
 
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -68,24 +70,136 @@ public class AssemblageDAO
 	}
 	
 	/**
-	 * Permet d'ajouter une piece dans un assemblage à partir de l'id de la piece
-	 * @param l'assemblage dans lequel on veut ajouter la pice et l'id de la piece
-	 *@return true ajout avec succes, false si erreur
+	 * Permet d'ajouter une piece dans un assemblage à partir du code barre de la piece
+	 * @param l'assemblage dans lequel on veut ajouter la piece et le code barre de la piece
+	 *@return nombre de lignes impactées
 	 */
-	public boolean ajouterPiece(Assemblage a,int ID)
+	public int AjouterPiece(int ID, String CB)
 	{
-		return a.ajouterPieceAssemblage(ID);
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String chaine = " ";
+		boolean doublon=false;
+		int retour=0;
+		
+		//connexion a la base de donnees
+		try 
+		{	
+			ps = con.prepareStatement("SELECT A_ListPieces FROM Assemblage WHERE A_ID=?");
+			ps.setInt(1,ID);
+						
+			//on execute la requete 
+			rs = ps.executeQuery();
+			if(rs.next())
+				chaine = rs.getString("A_List");
+				if(chaine==null)
+					chaine = CB;
+				else
+					{
+					String tableau[] = chaine.split(",");
+					for(int i=0; i< tableau.length; i++)
+					{
+						if(tableau[i]==CB)
+							doublon=true;
+					}
+					if (doublon==false)
+						chaine = chaine +','+ CB;
+					}
+					ps = con.prepareStatement("UPDATE Assemblage SET A_ListPieces =? WHERE A_ID=?");
+					ps.setString(1,chaine);
+					ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+					
+	    } 
+		catch (Exception e)
+	    {
+			e.printStackTrace();
+	    } 
+		finally 
+	    {
+			try 
+			{
+				if (ps != null)
+					ps.close();
+			} 
+			catch (Exception t) 
+			{
+				
+			}
+		}
+		 return retour;
 	}
+
 	
 	/**
-	 * Permet de supprimer une piece dans un assemblage à partir de l'id de la piece
-	 * @param l'assemblage dans lequel on veut supprimer la pice et l'id de la piece
-	 *@return true suppression avec succes, false si erreur
+	 * Permet supprimer une piece dans un assemblage à partir du code barre de la piece
+	 * @param l'assemblage dans lequel on veut supprimer la piece et le code barre de la piece
+	 *@return nombre de lignes impactées
 	 */
-	public boolean supprimerPiece(Assemblage a,int ID)
+	public int SupprimerPiece(int ID, String CB)
 	{
-		return a.supprimerPieceAssemblage(ID);
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String chaine = " ";
+		int retour=0;
+		
+		//connexion a la base de donnees
+		try 
+		{	
+			ps = con.prepareStatement("SELECT A_ListPieces FROM Assemblage WHERE A_ID=?");
+			ps.setInt(1,ID);
+						
+			//on execute la requete 
+			rs = ps.executeQuery();
+			if(rs.next())
+				chaine = rs.getString("A_List");
+				if(chaine!=null)
+					{
+					String tableau[] = chaine.split(",");
+						for(int i=0; i< tableau.length; i++)
+						{
+							if(tableau[i]==CB)
+								tableau[i]= " ";
+						}
+					
+						chaine = " ";
+						for(int i=1; i< tableau.length; i++)
+						{
+							if(tableau[i]!= " ")
+								if(chaine == " ")
+									chaine = tableau[i];
+								else
+									chaine = chaine +','+ tableau[i];
+						}
+					}
+					ps = con.prepareStatement("UPDATE Assemblage SET A_ListPieces =? WHERE A_ID=?");
+					ps.setString(1,chaine);
+					ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();		
+	    } 
+		catch (Exception e)
+	    {
+			e.printStackTrace();
+	    } 
+		finally 
+	    {
+			try 
+			{
+				if (ps != null)
+					ps.close();
+			} 
+			catch (Exception t) 
+			{
+				
+			}
+		}
+		 return retour;
 	}
+
 		
 	/**
 	 * Permet de supprimer un assemblage de la table assemblage
@@ -127,10 +241,10 @@ public class AssemblageDAO
 		
 	/**
 	 * Permet de supprimer un assemblage de la table assemblage
-	 * @param reference de l'assemblage a supprimer
-	 *@return null si aucun assemblage ne correspond a cet reference
+	 * @param code barre de l'assemblage a supprimer
+	 *@return null si aucun assemblage ne correspond a ce code barre
 	 */
-	public int supprimer(String ref)
+	public int supprimer(String CB)
 	{
 			PreparedStatement ps=null;
 			int retour=0;
@@ -138,8 +252,8 @@ public class AssemblageDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("DELETE FROM Assemblage WHERE A_Ref=?");
-				ps.setString(1,ref);
+				ps = con.prepareStatement("DELETE FROM Assemblage WHERE A_CodeBarre=?");
+				ps.setString(1,CB);
 	
 				//on execute la requete 
 				retour=ps.executeUpdate();	
@@ -185,7 +299,7 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"));
+					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getBoolean("A_Statut"),rs.getString("A_ListPieces"));
 			}
 			catch (Exception e) 
 			{
@@ -258,11 +372,11 @@ public class AssemblageDAO
 		}
 		
 		/**
-		* Permet de modifier la reference de l'assemblage
-		* @param ID de l'assemblage et la nouvelle reference
+		* Permet de modifier le code barre de l'assemblage
+		* @param ID de l'assemblage et le nouveau code barre
 		* @return nombre de lignes modifiées dans la table Assemblage
 		* */
-		public int modifierRef(int ID,String reference)
+		public int modifierCB(int ID,String CB)
 		{
 				PreparedStatement ps = null;
 				int retour=0;
@@ -270,8 +384,49 @@ public class AssemblageDAO
 				//connexion a la base de données
 				try 
 				{
-					ps = con.prepareStatement("UPDATE Assemblage SET A_Ref =? WHERE A_ID=?");
-					ps.setString(1,reference);
+					ps = con.prepareStatement("UPDATE Assemblage SET A_CodeBarre =? WHERE A_ID=?");
+					ps.setString(1,CB);
+					ps.setInt(2,ID);
+					
+					//on execute la requete 
+					retour=ps.executeUpdate();
+					
+			     } 
+				catch (Exception e)
+			     {
+					e.printStackTrace();
+			     } 
+				finally 
+			     {
+					try 
+					{
+						if (ps != null)
+							ps.close();
+					} 
+					catch (Exception t) 
+					{
+						
+					}
+				 }
+				 return retour;
+			
+		}
+		
+		/**
+		* Permet de modifier le statut de l'assemblage
+		* @param ID de l'assemblage et le nouveau statut
+		* @return nombre de lignes modifiées dans la table Assemblage
+		* */
+		public int modifierStatut(int ID,boolean statut)
+		{
+				PreparedStatement ps = null;
+				int retour=0;
+			
+				//connexion a la base de données
+				try 
+				{
+					ps = con.prepareStatement("UPDATE Assemblage SET A_Statut =? WHERE A_ID=?");
+					ps.setBoolean(1,statut);
 					ps.setInt(2,ID);
 					
 					//on execute la requete 
@@ -300,12 +455,12 @@ public class AssemblageDAO
 		
 		
 		/**
-		 * Permet de recuperer un assemblage partir de sa reference
-		 * @param reference de l'assemblage a recuperer
+		 * Permet de recuperer un assemblage partir de son code barre
+		 * @param code barre de l'assemblage a recuperer
 		 * @return l'assemblage
-		 * @return null si aucun assemblage ne correspond a cette reference
+		 * @return null si aucun assemblage ne correspond a ce code barre
 		 */
-		public Assemblage getAssemblage(String ref)
+		public Assemblage getAssemblage(String CB)
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -315,13 +470,13 @@ public class AssemblageDAO
 			//connexion a la base de donnees
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM Assemblage WHERE A_Ref=?");
-				ps.setString(1,ref);
+				ps = con.prepareStatement("SELECT * FROM Assemblage WHERE A_CodeBarre=?");
+				ps.setString(1,CB);
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref"));
+					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getBoolean("A_Statut"),rs.getString("A_ListPieces"));
 			}
 			catch (Exception e) 
 			{
@@ -353,6 +508,8 @@ public class AssemblageDAO
 		}
 		
 		
+		
+		
 		/**
 		 * Permet de recuperer tous les assemblages de la table
 		 * @return la liste des assemblages
@@ -373,7 +530,7 @@ public class AssemblageDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_Ref")));
+					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getBoolean("A_Statut"),rs.getString("A_ListPieces")));
 			} 
 			catch (Exception e) 
 			{

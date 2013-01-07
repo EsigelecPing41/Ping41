@@ -6,7 +6,16 @@ public class Piece
     private String P_Nom;
     private String P_CodeBarre;
     private boolean P_Statut;
-    
+    /*A modifier 
+     * Numero de série de la piece
+     * Numero de dossier de définition
+     * code gpao
+     * ind nomenclature
+     * designation
+     * of
+     * n° affaire 
+     * 
+     */
     public Piece(int ID, String nom, String CB,boolean statut)
     {
     	this.P_ID = ID;
