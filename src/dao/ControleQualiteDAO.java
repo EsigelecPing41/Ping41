@@ -1,419 +1,555 @@
 package dao;
 
-	import java.sql.*;
-	import java.util.ArrayList;
-	import java.util.List;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import Modele.ControleQualite;
-import dao.Connexion;
+import Modele.CritereQualite;
 
-		/**
-		 * Classe d'accès aux données contenues dans la table Controle Qualite
-		 * */
+public class ControleQualiteDAO 
+{
+		private	 Connection con;
+		//singleton attribut permettant de mettre en oeuvre le design pattern singleton
+		private static ControleQualiteDAO singleton;
+		private ControleQualiteDAO() throws Exception
+		{
+			Connexion connect;
+			connect = new Connexion();
+			con = connect.getConnection();	
+		}
 
-		public class ControleQualiteDAO {
-			private static Connection con;
-			
-			//singleton attribut permettant de mettre en oeuvre le design pattern singleton
-			private static ControleQualiteDAO singleton;
-			private  ControleQualiteDAO() throws Exception
+		public static ControleQualiteDAO getInstance() throws Exception
+		{
+			if(ControleQualiteDAO.singleton==null)
+				singleton=new ControleQualiteDAO();
+			return singleton;
+		}
+		
+		
+	/**
+	* Permet d'ajouter un controle qualite dans la table ControleQualite
+	* @param le controle a ajouter
+	* @return nombre de lignes ajoutes dans la table ControleQualite
+	*/
+	public int ajouter(ControleQualite cq)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de donnees
+			try 
 			{
-				Connexion connect;
-				connect = new Connexion();
-				con = connect.getConnection();	
-			}
-			public ControleQualiteDAO getInstance() throws Exception
-			{
-				if(ControleQualiteDAO.singleton==null)
-					singleton=new ControleQualiteDAO();
-				return singleton;
-			}
-						/**
-						 * Permet d'ajouter un Controle Qualite dans la table Controle Qualite
-						 * @param a ControleQualite à ajouter
-						 * @return le nombre de lignes ajoutées dans la table
-						 */
-						public static int ajouter(ControleQualite a)
-						{
+				ps = con.prepareStatement("INSERT INTO ControleQualite (CQ_O_ID,CQ_A_ID,CQ_Resultat,CQ_ListCriteres) VALUES (?,?,?,?)");
+				ps.setInt(1,cq.getCQ_O_ID());
+				ps.setInt(2,cq.getCQ_A_ID());
+				ps.setBoolean(3,cq.getCQ_Resultat());
+				//ps.setString(4,cq.getCQ_ListCriteres());
 
-							PreparedStatement ps = null;
-							int retour=0;
-						
-							//connexion a la base de données
-							try {
-
-								ps = con.prepareStatement("INSERT INTO ControleQualiteDAO (CQ_Resultat,CQ_ID,CQ_CrQ_ID,CQ_O_ID,CQ_A_ID) VALUES (?,?,?,?,?)");
-								ps.setInt(1,a.getCQ_Resultat());
-								ps.setInt(2,a.getCQ_ID());
-								ps.setInt(3,a.getCQ_CrQ_ID());
-								ps.setInt(4,a.getCQ_O_ID());
-								ps.setInt(5,a.getCQ_A_ID());
-
-								
-								//on execute la requete 
-								retour=ps.executeUpdate();
-								
-
-							} catch (Exception ee) {
-								ee.printStackTrace();
-							} finally {
-								//fermeture du getConnection().preparedStatement et de la connexion
-								try {if (ps != null)ps.close();} catch (Exception t) {}
-							}
-							return retour;				}
-
-
-						/**
-						* Permet de modifier le resultat du controle qualite dans la table ControleQualite
-						* @param CQ_Resultat le resultat du controle qualite à modifier et le nouvel assemblage
-						* @return nombre de lignes modifiées dans la table ControleQualite
-						*/
-						public int modifierResultat(int CQ_ID ,int CQ_Resultat)
-						{
-								PreparedStatement ps = null;
-								int retour=0;
-							
-								//connexion a la base de données
-								try 
-								{
-									ps = con.prepareStatement("UPDATE ControleQualite SET CQ_Resultat=? WHERE CQ_ID=?");
-									ps.setInt(1,CQ_Resultat);
-									ps.setInt(2,CQ_ID);
-									
-									//on execute la requete 
-									retour=ps.executeUpdate();
-									
-							     } 
-								catch (Exception e)
-							     {
-									e.printStackTrace();
-							     } 
-								finally 
-							     {
-									try 
-									{
-										if (ps != null)
-											ps.close();
-									} 
-									catch (Exception t) 
-									{
-										
-									}
-								 }
-								 return retour;
-							
-						}
-
-
-
-						/**
-						* Permet de modifier l'operateur du controle qualite dans la table ControleQualite
-						* @param CQ_O_ID de l'operateur du controle qualite à modifier et le nouvel assemblage
-						* @return nombre de lignes modifiées dans la table ControleQualite
-						*/
-						public int modifierOperateur(int CQ_ID ,int CQ_O_ID)
-						{
-								PreparedStatement ps = null;
-								int retour=0;
-							
-								//connexion a la base de données
-								try 
-								{
-									ps = con.prepareStatement("UPDATE ControleQualite SET CQ_O_ID=? WHERE CQ_ID=?");
-									ps.setInt(1,CQ_O_ID);
-									ps.setInt(2,CQ_ID);
-									
-									//on execute la requete 
-									retour=ps.executeUpdate();
-									
-							     } 
-								catch (Exception e)
-							     {
-									e.printStackTrace();
-							     } 
-								finally 
-							     {
-									try 
-									{
-										if (ps != null)
-											ps.close();
-									} 
-									catch (Exception t) 
-									{
-										
-									}
-								 }
-								 return retour;
-							
-						}
-						
-
-						/**
-						* Permet de modifier le Critere Qualite d'un assemblage dans la table ControleQualite
-						* @param CQ_CrQ_ID de le Critere Qualitede l'assemblage à modifier et le nouvel assemblage
-						* @return nombre de lignes modifiées dans la table ControleQualite
-						*/
-						public int modifierCritereQualite(int CQ_ID ,int CQ_CrQ_ID)
-						{
-								PreparedStatement ps = null;
-								int retour=0;
-							
-								//connexion a la base de données
-								try 
-								{
-									ps = con.prepareStatement("UPDATE ControleQualite SET CQ_CrQ_ID=? WHERE CQ_ID=?");
-									ps.setInt(1,CQ_CrQ_ID);
-									ps.setInt(2,CQ_ID);
-									
-									//on execute la requete 
-									retour=ps.executeUpdate();
-									
-							     } 
-								catch (Exception e)
-							     {
-									e.printStackTrace();
-							     } 
-								finally 
-							     {
-									try 
-									{
-										if (ps != null)
-											ps.close();
-									} 
-									catch (Exception t) 
-									{
-										
-									}
-								 }
-								 return retour;
-							
-						}
-
-
-						/**
-						* Permet de modifier le Controle Qualite d'un assemblage dans la table ControleQualite
-						* @param CQ_A_ID de le Controle Qualite de l'assemblage à modifier et le nouvel assemblage
-						* @return nombre de lignes modifiées dans la table ControleQualite
-						*/
-						public int modifierAssemblage(int CQ_ID ,int CQ_A_ID)
-						{
-								PreparedStatement ps = null;
-								int retour=0;
-							
-								//connexion a la base de données
-								try 
-								{
-									ps = con.prepareStatement("UPDATE ControleQualite SET CQ_A_ID=? WHERE CQ_ID=?");
-									ps.setInt(1,CQ_A_ID);
-									ps.setInt(2,CQ_ID);
-									
-									//on execute la requete 
-									retour=ps.executeUpdate();
-									
-							     } 
-								catch (Exception e)
-							     {
-									e.printStackTrace();
-							     } 
-								finally 
-							     {
-									try 
-									{
-										if (ps != null)
-											ps.close();
-									} 
-									catch (Exception t) 
-									{
-										
-									}
-								 }
-								 return retour;
-							
-						}			
-
-
-						/**
-						 * Permet de supprimer un Controle de Qualite dans la table ControleQualite
-						 * @param CQ_ID du Controle Qualite à supprimer
-						 *@return null si aucun Controle Qualite ne correspond à ce CQ_Resultat du Controle Qualite 
-						 */
-						public int supprimer(int CQ_ID)
-						{
-							PreparedStatement ps=null;
-							int retour=0;
-							
-							//connexion a la base de données
-							try {
-								ps = con.prepareStatement("DELETE FROM ControleQualite WHERE CQ_ID=?");
-								ps.setInt(1, CQ_ID);
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
 					
-											
-								//on execute la requete 
-								retour=ps.executeUpdate();
-
-							} catch (Exception ee) {
-								ee.printStackTrace();
-							} finally {
-								//fermeture du rs,preparedStatement et de la connexion
-								
-								try {if (ps != null)ps.close();} catch (Exception t) {}
-							}
-							return retour;
+				}
+			 }
+			 return retour;
+		
+	}
+	
+	/**
+	 * Permet d'ajouter un critere qualite dans un controle qualite ï¿½ partir du libelle du critere
+	 * @param le controle qualite dans lequel on veut ajouter le critere et l'id du critere
+	 *@return nombre de lignes impactï¿½es
+	 */
+	public int AjouterCritere(int CQ_ID,String libelle)
+	{
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String chaine = " ";
+		boolean doublon=false;
+		int retour=0;
+		
+		//connexion a la base de donnees
+		try 
+		{	
+			ps = con.prepareStatement("SELECT CQ_ListCriteres FROM ControleQualite WHERE CQ_ID=?");
+			ps.setInt(1,CQ_ID);
 						
-						}	
-						
-						/**
-						 * Permet de récupérer un Controle de Qualite 
-						 * @param CQ_ID est l'ID du Controle de Qualite
-						 * @return le Controle de Qualite
-						 * @return null si aucun Controle de Qualite ne correspond à cet ID
-						 */
-						public static ControleQualiteDAO getControleQualiteDAO(int CQ_ID)
-						{					
-							PreparedStatement ps = null;
-							ResultSet rs=null;
-							ControleQualiteDAO retour=null;
-						
-							//connexion a la base de données
-							try {
-
-								ps = con.prepareStatement("SELECT * FROM ControleQualite WHERE CQ_ID LIKE ?");
-								ps.setInt(1,CQ_ID);
-											
-								//on execute la requete 
-								rs=ps.executeQuery();
-								if(rs.next())
-									retour=new ControleQualiteDAO ();
-								
-
-							} catch (Exception ee) {
-								ee.printStackTrace();
-							} finally {
-								//fermeture du rs,preparedStatement et de la connexion
-								try {if (rs != null)rs.close();} catch (Exception t) {}
-								try {if (ps != null)ps.close();} catch (Exception t) {}
-							}
-							return retour;
-						
-						}
-									
-						
-						/**
-						 * Permet de récupérer tous les Controles de Qualite de la table
-						 * @return la liste des Controles de Qualite
-						 */
-						public List<ControleQualiteDAO> getListControleQualiteDAO()
-						{
-							PreparedStatement ps = null;
-							ResultSet rs=null;
-							List<ControleQualiteDAO> retour=new ArrayList<ControleQualiteDAO>();
-						
-							//connexion a la base de données
-							try {
-								ps = con.prepareStatement("SELECT * FROM ControleQualite");
-														
-								//on execute la requete 
-								rs=ps.executeQuery();
-								//on parcourt les lignes du resultat
-								while(rs.next())
-									retour.add(new ControleQualiteDAO ());
-								
-
-							} catch (Exception ee) {
-								ee.printStackTrace();
-							} finally {
-								//fermeture du rs,preparedStatement et de la connexion
-								try {if (rs != null)rs.close();} catch (Exception t) {}
-								try {if (ps != null)ps.close();} catch (Exception t) {}
-							}
-							return retour;
-						
-						}
-
-						/**
-						 * Permet de récupérer tous les Controles de Qualite de la table pour UN assemblage
-						 * @return la liste des Controles de Qualite
-						 */
-						public List<ControleQualiteDAO> getListControleQualiteDAO(int CQ_ID)
-						{
-							PreparedStatement ps = null;
-							ResultSet rs=null;
-							List<ControleQualiteDAO> retour=new ArrayList<ControleQualiteDAO>();
-						
-							//connexion a la base de données
-							try {
-								ps = con.prepareStatement("SELECT * FROM ControleQualite");
-														
-								//on execute la requete 
-								rs=ps.executeQuery();
-								//on parcourt les lignes du resultat
-								while(rs.next())
-									retour.add(new ControleQualiteDAO ());
-								
-
-							} catch (Exception ee) {
-								ee.printStackTrace();
-							} finally {
-								//fermeture du rs,preparedStatement et de la connexion
-								try {if (rs != null)rs.close();} catch (Exception t) {}
-								try {if (ps != null)ps.close();} catch (Exception t) {}
-							}
-							return retour;
-						
-						}
-
-							
-						
-			
-						
-	/**					//main permettant de tester la classe
-						public static void main(int[] args){
-							ControleQualiteDAO ControleQualiteDAO=new ControleQualiteDAO();
-							
-							System.out.println("\n********************");
-							System.out.println("Test de la méthode ajouter");
-							System.out.println("********************");
-							
-							//test de la méthode ajouter
-							ControleQualite a=new ControleQualite();
-							int retour= dao.ControleQualiteDAO.ajouter(a);
-							System.out.println(retour+ " lignes ajoutées");
-
-							
-							
-							System.out.println("\n********************");
-							System.out.println("Test de la méthode supprimer");
-							System.out.println("********************");
-							
-							//test de la méthode supprimer
-							intCQ_Resultat= null;
-							int retour1= ControleQualiteDAO.supprimer(CQ_Resultat);
-							System.out.println(retour1+ " lignes supprimées");
-							
-							
-							System.out.println("\n********************");
-							System.out.println("Test de la méthode getControleQualiteDAO avec CQ_Resultat");
-							System.out.println("********************");
-							
-							//test de la méthode getControleQualite avec CQ_Resultat
-							ControleQualiteDAO a2=dao.ControleQualiteDAO.getControleQualiteDAO(CQ_Resultat);
-							System.out.println(a2);
-
-							
-												
-							
-							System.out.println("\n********************");
-							System.out.println("Test de la méthode getListControleQualiteDAO");
-							System.out.println("********************");
-							
-							//test de la méthode getListControleQualiteDAO
-							List<ControleQualiteDAO> liste=ControleQualiteDAO.getListControleQualiteDAO();
-							System.out.println(liste);
-							
-						}**/
-		       
+			//on execute la requete 
+			rs = ps.executeQuery();
+			if(rs.next())
+				chaine = rs.getString("CQ_ListCriteres");
+				if(chaine==null)
+					chaine = libelle;
+				else
+					{
+					String tableau[] = chaine.split(",");
+					for(int i=0; i< tableau.length; i++)
+					{
+						if(tableau[i]==libelle)
+							doublon=true;
+					}
+					if (doublon==false)
+						chaine = chaine +','+ libelle;
+					}
+					ps = con.prepareStatement("UPDATE ControleQualite SET CQ_ListCriteres =? WHERE CQ_ID=?");
+					ps.setString(1,chaine);
+					ps.setInt(2,CQ_ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+					
+	    } 
+		catch (Exception e)
+	    {
+			e.printStackTrace();
+	    } 
+		finally 
+	    {
+			try 
+			{
+				if (ps != null)
+					ps.close();
+			} 
+			catch (Exception t) 
+			{
+				
 			}
+		}
+		 return retour;
+	}
 
+	
+	/**
+	 * Permet supprimer un critere qualite dans un controle qualite ï¿½ partir du libelle du critere
+	 * @param l'id du controle qualite dans lequel on veut supprimer le critere et le libelle du critere
+	 *@return nombre de lignes impactï¿½es
+	 */
+	public int SupprimerCritere(int CQ_ID, String libelle)
+	{
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String chaine = " ";
+		int retour=0;
+		
+		//connexion a la base de donnees
+		try 
+		{	
+			ps = con.prepareStatement("SELECT CQ_ListCriteres FROM ControleQualite WHERE CQ_ID=?");
+			ps.setInt(1,CQ_ID);
+						
+			//on execute la requete 
+			rs = ps.executeQuery();
+			if(rs.next())
+				chaine = rs.getString("CQ_ListCriteres");
+				if(chaine!=null)
+					{
+					String tableau[] = chaine.split(",");
+						for(int i=0; i< tableau.length; i++)
+						{
+							if(tableau[i]==libelle)
+								tableau[i]= " ";
+						}
+					
+						chaine = " ";
+						for(int i=1; i< tableau.length; i++)
+						{
+							if(tableau[i]!= " ")
+								if(chaine == " ")
+									chaine = tableau[i];
+								else
+									chaine = chaine +','+ tableau[i];
+						}
+					}
+					ps = con.prepareStatement("UPDATE ControleQualite SET CQ_ListCriteres =? WHERE A_ID=?");
+					ps.setString(1,chaine);
+					ps.setInt(2,CQ_ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();		
+	    } 
+		catch (Exception e)
+	    {
+			e.printStackTrace();
+	    } 
+		finally 
+	    {
+			try 
+			{
+				if (ps != null)
+					ps.close();
+			} 
+			catch (Exception t) 
+			{
+				
+			}
+		}
+		 return retour;
+	}
 
+		
+	/**
+	 * Permet de supprimer un controle qualite de la table ControleQualite
+	 * @param ID du controle a supprimer
+	 *@return null si aucun controle ne correspond a cet id
+	 */
+	public int supprimer(int ID)
+	{
+			PreparedStatement ps=null;
+			int retour=0;
+			
+			//connexion a la base de donnees
+			try 
+			{
+				ps = con.prepareStatement("DELETE FROM ControleQualite WHERE CQ_ID=?");
+				ps.setInt(1,ID);
+	
+				//on execute la requete 
+				retour=ps.executeUpdate();	
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			} 
+			finally 
+			{
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			}
+				return retour;	
+	}	
+		
+	
+		
+		/**
+		 * Permet de recuperer un controle qualite partir le l'id de l'assemble
+		 * @param id de l'assemblage du controle a recuperer
+		 * @return le controle qualite
+		 * @return null si aucun controle qualite ne correspond a cet id
+		 */
+		public ControleQualite getControleQualite(int ID)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			ControleQualite ControleQualiteRetourne = null;
+	
+		
+			//connexion a la base de donnees
+			try 
+			{	
+				ps = con.prepareStatement("SELECT * FROM ControleQualite WHERE CQ_A_ID=?");
+				ps.setInt(1,ID);
+							
+				//on execute la requete 
+				rs = ps.executeQuery();
+				if(rs.next())
+					ControleQualiteRetourne = new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),rs.getString("CQ_ListCriteres"));
+			}
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			} 
+			finally 
+			{
+				try 
+				{
+					if (rs != null)
+					rs.close();
+				} 
+				catch (Exception t)
+				{
+					
+				}
+				
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			}
+			return ControleQualiteRetourne;
+		}
+		
+		/**
+		* Permet de modifier l'ID operateur du controle qualite
+		* @param ID du controle qualite et le nouvel ID operateur
+		* @return nombre de lignes modifiï¿½es dans la table ControleQualite
+		* */
+		public int modifierOperateur(int ID,int ID_Operateur)
+		{
+				PreparedStatement ps = null;
+				int retour=0;
+			
+				//connexion a la base de donnï¿½es
+				try 
+				{
+					ps = con.prepareStatement("UPDATE ControleQualite SET CQ_O_ID =? WHERE CQ_ID=?");
+					ps.setInt(1,ID_Operateur);
+					ps.setInt(2,ID);
+					
+					//on execute la requete 
+					retour=ps.executeUpdate();
+					
+			     } 
+				catch (Exception e)
+			     {
+					e.printStackTrace();
+			     } 
+				finally 
+			     {
+					try 
+					{
+						if (ps != null)
+							ps.close();
+					} 
+					catch (Exception t) 
+					{
+						
+					}
+				 }
+				 return retour;
+			
+		}
+		
+		/**
+		* Permet de modifier l'ID assemblage du controle qualite
+		* @param ID du controle qualite et le nouvel ID assemblage
+		* @return nombre de lignes modifiï¿½es dans la table ControleQualite
+		* */
+		public int modifierAssemblage(int ID,int ID_Assemblage)
+		{
+				PreparedStatement ps = null;
+				int retour=0;
+			
+				//connexion a la base de donnï¿½es
+				try 
+				{
+					ps = con.prepareStatement("UPDATE ControleQualite SET CQ_A_ID =? WHERE CQ_ID=?");
+					ps.setInt(1,ID_Assemblage);
+					ps.setInt(2,ID);
+					
+					//on execute la requete 
+					retour=ps.executeUpdate();
+					
+			     } 
+				catch (Exception e)
+			     {
+					e.printStackTrace();
+			     } 
+				finally 
+			     {
+					try 
+					{
+						if (ps != null)
+							ps.close();
+					} 
+					catch (Exception t) 
+					{
+						
+					}
+				 }
+				 return retour;
+			
+		}
+		
+		/**
+		* Permet de modifier le resultat global du controle qualite
+		* @param ID du controle qualite et le nouveau resultat
+		* @return nombre de lignes modifiï¿½es dans la table ControleQualite
+		* */
+		public int modifierResultat(int ID,boolean resultat)
+		{
+				PreparedStatement ps = null;
+				int retour=0;
+			
+				//connexion a la base de donnï¿½es
+				try 
+				{
+					ps = con.prepareStatement("UPDATE ControleQualite SET CQ_Resultat =? WHERE CQ_ID=?");
+					ps.setBoolean(1,resultat);
+					ps.setInt(2,ID);
+					
+					//on execute la requete 
+					retour=ps.executeUpdate();
+					
+			     } 
+				catch (Exception e)
+			     {
+					e.printStackTrace();
+			     } 
+				finally 
+			     {
+					try 
+					{
+						if (ps != null)
+							ps.close();
+					} 
+					catch (Exception t) 
+					{
+						
+					}
+				 }
+				 return retour;
+			
+		}
+			
+		
+		/**
+		 * Permet de recuperer tous les controles qualite de la table
+		 * @return la liste des controles qualite
+		 */
+		public List<ControleQualite> getListControleQualite()
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			List<ControleQualite> ListeControleQualite = new ArrayList<ControleQualite>();
+		
+			//connexion a la base de donn?es
+			try 
+			{
+				ps = con.prepareStatement("SELECT * FROM ControleQualite");
+										
+				//on execute la requete 
+				rs=ps.executeQuery();
+				//on parcourt les lignes du resultat
+				while(rs.next())
+					ListeControleQualite.add(new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),rs.getString("CQ_ListCriteres")));
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			finally 
+			{
+				try 
+				{
+					if (rs != null)
+						rs.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+				
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				catch (Exception t) 
+				{
+					
+				}
+			}
+			return ListeControleQualite;
+		
+		}
+		
+		/**
+		 * Permet de rï¿½cupï¿½rer tous les Controles Qualite ayant un resultat precis (ok ou ko)
+		 * @return la liste des Controles Qualite concernes
+		 */
+		public List<ControleQualite> getListControleQualite(Boolean CQ_resultat)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			List<ControleQualite> retour=new ArrayList<ControleQualite>();
+		
+			//connexion a la base de donnï¿½es
+			try 
+			{
+				ps = con.prepareStatement("SELECT * FROM ControleQualite WHERE CQ_Resultat=" +CQ_resultat);
+										
+				//on execute la requete 
+				rs=ps.executeQuery();
+				//on parcourt les lignes du resultat
+				while(rs.next())
+					retour.add(new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),rs.getString("CQ_ListCriteres")));
+			} 
+			catch (Exception ee) 
+			{
+				ee.printStackTrace();
+			} 
+			finally 
+			{
+				//fermeture du rs,preparedStatement et de la connexion
+				try {if (rs != null)rs.close();} catch (Exception t) {}
+				try {if (ps != null)ps.close();} catch (Exception t) {}
+			}
+			return retour;
+		
+		}
+		
+		/**
+		 * Permet de rï¿½cupï¿½rer tous les Criteres de qualite d'un controle qualite ï¿½ partir de l'ID du controle
+		 * @param ID du controle qualite 
+		 * @return null si aucun controle qualite ne correspond a cet ID
+		 **/
+		public List<CritereQualite> getListCritereControle(int ID)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			String chaine = " ";
+			List<CritereQualite> retour=new ArrayList<CritereQualite>();
+		
+			//connexion a la base de donnï¿½es
+			try 
+			{
+				ps = con.prepareStatement("SELECT CQ_ListCriteres FROM ControleQualite WHERE CQ_ID=" +ID);		
+					//on execute la requete 
+					rs = ps.executeQuery();
+					if(rs.next())
+						chaine = rs.getString("CQ_ListCriteres");
+							String tableau[] = chaine.split(",");
+							for(int i=0; i< tableau.length; i++)
+							{
+								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_libelle=" +tableau[i]);		
+								//on execute la requete 
+								rs=ps.executeQuery();
+								//on parcourt les lignes du resultat
+								while(rs.next())
+									retour.add(new CritereQualite(rs.getInt("CrQ_ID"),rs.getString("CrQ_libelle"),rs.getBoolean("CrQ_resultat")));
+							}
+			 } 
+			catch (Exception ee) 
+			{
+				ee.printStackTrace();
+			} 
+			finally 
+			{
+				//fermeture du rs,preparedStatement et de la connexion
+				try {if (rs != null)rs.close();} catch (Exception t) {}
+				try {if (ps != null)ps.close();} catch (Exception t) {}
+			}
+			return retour;
+		
+		}
+		
+}
 
 

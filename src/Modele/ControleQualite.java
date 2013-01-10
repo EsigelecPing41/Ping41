@@ -1,34 +1,34 @@
 package Modele;
 
+import java.util.List;
 
 public class ControleQualite
 {
-    public int CQ_Resultat;
-    public int CQ_ID;
-    public int CQ_CrQ_ID;
-    public int CQ_O_ID;
-    public int CQ_A_ID;
-    
+	private int CQ_ID;
+    private int CQ_O_ID;
+    private int CQ_A_ID;
+    private boolean CQ_Resultat;
+    private List<CritereQualite> CQ_ListCriteres;
 
-	public ControleQualite(int Resultat,int ID,int ControleQualite,int Operateur,int Assemblage) {
-		// TODO Auto-generated constructor stub
-		
-    	this.CQ_Resultat = Resultat;
-    	this.CQ_A_ID = Assemblage;
-    	this.CQ_O_ID = Operateur;
-    	this.CQ_CrQ_ID = ControleQualite;
-    	this.CQ_ID = ID;
+	public ControleQualite(int CQ_ID,int CQ_O_ID,int CQ_A_ID,boolean CQ_Resultat ) 
+	{
+		this.CQ_ID = CQ_ID;
+    	this.CQ_A_ID = CQ_A_ID;
+    	this.CQ_O_ID = CQ_O_ID;
+    	this.CQ_Resultat= CQ_Resultat;
+    	
+    	
 	}
-    public int getCQ_Resultat() 
-    {
-        return this.CQ_Resultat;
-    }
-    public void setCQ_Resultat(final int value) 
-    {
-        this.CQ_Resultat = value;
-    }
+	
+    public List<CritereQualite> getCQ_ListCriteres() {
+		return CQ_ListCriteres;
+	}
 
-    public int getCQ_ID() 
+	public void setCQ_ListCriteres(List<CritereQualite> cQ_ListCriteres) {
+		CQ_ListCriteres = cQ_ListCriteres;
+	}
+
+	public int getCQ_ID() 
     {
         return this.CQ_ID;
     }
@@ -36,17 +36,7 @@ public class ControleQualite
     {
         this.CQ_ID = value;
     }    
-	public int getCQ_CrQ_ID()
-    {
-        return this.CQ_CrQ_ID;
-    }
-    public void setCQ_CrQ_ID(final int value)
-    {
-        this.CQ_CrQ_ID = value;
-    }
-
-    
-    
+	
     public int getCQ_O_ID()
     {
         return this.CQ_O_ID;
@@ -56,16 +46,26 @@ public class ControleQualite
         this.CQ_O_ID = value;
     }
     
-    
-    
     public int getCQ_A_ID()
     {
         return this.CQ_A_ID;
     }
+    
     public void setCQ_A_ID(final int value)
     {
         this.CQ_A_ID = value;
     }
+	
+	public void setCQ_Resultat(boolean cQ_Resultat)
+	{
+		CQ_Resultat = cQ_Resultat;
+	}
+	
+	public boolean getCQ_Resultat() 
+	{
+		return CQ_Resultat;
+	}
+   
      
 }
 

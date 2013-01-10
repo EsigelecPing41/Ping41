@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.Assemblage;
+import Modele.CritereQualite;
+import Modele.Piece;
 
 public class AssemblageDAO 
 {
@@ -559,6 +561,98 @@ public class AssemblageDAO
 				}
 			}
 			return ListeAssemblage;
+		
+		}
+		
+
+		/**
+		 * Permet de récupérer toutes les pieces d'un assemblage à partir de l'ID de l'assemblage
+		 * @param ID de l'assemblage
+		 * @return null si aucun assemblage ne correspond a cet ID
+		 **/
+		public List<Piece> getListPieceAssemblage(int ID)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			String chaine = " ";
+			List<Piece> retour=new ArrayList<Piece>();
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("SELECT A_ListPieces FROM Assemblage WHERE A_ID=" +ID);		
+					//on execute la requete 
+					rs = ps.executeQuery();
+					if(rs.next())
+						chaine = rs.getString("A_ListPieces");
+							String tableau[] = chaine.split(",");
+							for(int i=0; i< tableau.length; i++)
+							{
+								ps = con.prepareStatement("SELECT * FROM Piece WHERE P_CodeBarre=" +tableau[i]);		
+								//on execute la requete 
+								rs=ps.executeQuery();
+								//on parcourt les lignes du resultat
+								while(rs.next())
+									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Satut")));
+							}
+			 } 
+			catch (Exception ee) 
+			{
+				ee.printStackTrace();
+			} 
+			finally 
+			{
+				//fermeture du rs,preparedStatement et de la connexion
+				try {if (rs != null)rs.close();} catch (Exception t) {}
+				try {if (ps != null)ps.close();} catch (Exception t) {}
+			}
+			return retour;
+		
+		}
+		
+
+		/**
+		 * Permet de récupérer toutes les pieces d'un assemblage à partir du code barre de l'assemblage
+		 * @param code barre de l'assemblage
+		 * @return null si aucun assemblage ne correspond a ce code barre
+		 **/
+		public List<Piece> getListPieceAssemblage(String CB)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			String chaine = " ";
+			List<Piece> retour=new ArrayList<Piece>();
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("SELECT A_ListPieces FROM Assemblage WHERE A_CodeBarre=" +CB);		
+					//on execute la requete 
+					rs = ps.executeQuery();
+					if(rs.next())
+						chaine = rs.getString("A_ListPieces");
+							String tableau[] = chaine.split(",");
+							for(int i=0; i< tableau.length; i++)
+							{
+								ps = con.prepareStatement("SELECT * FROM Piece WHERE P_CodeBarre=" +tableau[i]);		
+								//on execute la requete 
+								rs=ps.executeQuery();
+								//on parcourt les lignes du resultat
+								while(rs.next())
+									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Satut")));
+							}
+			 } 
+			catch (Exception ee) 
+			{
+				ee.printStackTrace();
+			} 
+			finally 
+			{
+				//fermeture du rs,preparedStatement et de la connexion
+				try {if (rs != null)rs.close();} catch (Exception t) {}
+				try {if (ps != null)ps.close();} catch (Exception t) {}
+			}
+			return retour;
 		
 		}
 }

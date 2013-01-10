@@ -7,11 +7,8 @@ package dao;
 	import Modele.CritereQualite;
 	import dao.Connexion;
 
-		/**
-		 * Classe d'accès aux données contenues dans la table Critere Qualite
-		 * */
-
-		public class CritereQualiteDAO {
+		public class CritereQualiteDAO 
+		{
 
 			private static Connection con;
 			
@@ -24,7 +21,7 @@ package dao;
 				con = connect.getConnection();	
 			}
 
-			public CritereQualiteDAO getInstance() throws Exception
+			public static CritereQualiteDAO getInstance() throws Exception
 			{
 				if(CritereQualiteDAO.singleton==null)
 					singleton=new CritereQualiteDAO();
@@ -33,50 +30,95 @@ package dao;
 				
 						/**
 						 * Permet d'ajouter un Critere Qualite dans la table Critere Qualite
-						 * @param a CritereQualite à ajouter
-						 * @return le nombre de lignes ajoutées dans la table
+						 * @param a CritereQualite ï¿½ ajouter
+						 * @return le nombre de lignes ajoutï¿½es dans la table
 						 */
-						public static int ajouter(CritereQualite a)
+						public static int ajouter(CritereQualite c)
 						{
 
 							PreparedStatement ps = null;
 							int retour=0;
 						
-							//connexion a la base de données
-							try {
-
-								ps = con.prepareStatement("INSERT INTO CritereQualiteDAO (CrQ_ID,CrQ_libelle) VALUES (?,?)");
-								ps.setInt(1,a.getCrQ_ID());
-								ps.setString(1,a.getCrQ_libelle());
+							//connexion a la base de donnï¿½es
+							try 
+							{
+								ps = con.prepareStatement("INSERT INTO CritereQualiteDAO (CrQ_libelle,CrQ_resultat) VALUES (?,?)");
+								ps.setString(1,c.getCrQ_libelle());
+								ps.setBoolean(2,c.getCrQ_resultat());
 								
 								//on execute la requete 
 								retour=ps.executeUpdate();
 								
-
-							} catch (Exception ee) {
+							} 
+							catch (Exception ee) 
+							{
 								ee.printStackTrace();
-							} finally {
+							} 
+							finally 
+							{
 								//fermeture du getConnection().preparedStatement et de la connexion
 								try {if (ps != null)ps.close();} catch (Exception t) {}
 							}
-							return retour;				}
+							return retour;				
+						}
 
 
 						/**
-						* Permet de modifier le libelle d'un assemblage dans la table Critere Qualite
-						* @param CrQ_libelle le libelle de l'assemblage à modifier et le nouvel assemblage
-						* @return nombre de lignes modifiées dans la table ActionAssemblage
+						* Permet de modifier le libelle d'un critere dans la table Critere Qualite
+						* @param le libelle du critere ï¿½ modifier 
+						* @return nombre de lignes modifiï¿½es dans la table CritereQualite
 						*/
 						public int modifierLibelle (int CrQ_ID ,String CrQ_libelle)				
 						{
 							PreparedStatement ps = null;
 							int retour=0;
 						
-							//connexion a la base de données
+							//connexion a la base de donnï¿½es
 							try 
 							{
-								ps = con.prepareStatement("UPDATE ActionAssemblage SET CrQ_libelle=? WHERE CrQ_ID=?");
+								ps = con.prepareStatement("UPDATE CritereQualite SET CrQ_libelle=? WHERE CrQ_ID=?");
 								ps.setString(1,CrQ_libelle);
+								ps.setInt(2,CrQ_ID);
+								
+								//on execute la requete 
+								retour=ps.executeUpdate();
+								
+						     } 
+							catch (Exception e)
+						     {
+								e.printStackTrace();
+						     } 
+							finally 
+						     {
+								try 
+								{
+									if (ps != null)
+										ps.close();
+								} 
+								catch (Exception t) 
+								{
+									
+								}
+							 }
+							return retour;
+						
+					}
+						
+						/**
+						* Permet de modifier le resultat d'un critere dans la table Critere Qualite
+						* @param le resultat ï¿½ modifier 
+						* @return nombre de lignes modifiï¿½es dans la table CritereQualite
+						*/
+						public int modifierResultat (int CrQ_ID ,boolean CrQ_resultat)				
+						{
+							PreparedStatement ps = null;
+							int retour=0;
+						
+							//connexion a la base de donnï¿½es
+							try 
+							{
+								ps = con.prepareStatement("UPDATE CritereQualite SET CrQ_resultat=? WHERE CrQ_ID=?");
+								ps.setBoolean(1,CrQ_resultat);
 								ps.setInt(2,CrQ_ID);
 								
 								//on execute la requete 
@@ -104,26 +146,30 @@ package dao;
 					}
 						/**
 						 * Permet de supprimer un Critere de Qualite dans la table CritereQualite
-						 * @param CrQ_ID du Critere Qualite à supprimer
-						 *@return null si aucun Critere Qualite ne correspond à ce CrQ_ID du Critere Qualite 
+						 * @param critere Qualite ï¿½ supprimer
+						 *@return null si aucun Critere Qualite ne correspond dans la table CritereQualite 
 						 */
 						public int supprimer(int CrQ_ID)
 						{
 							PreparedStatement ps=null;
 							int retour=0;
 							
-							//connexion a la base de données
-							try {
+							//connexion a la base de donnï¿½es
+							try 
+							{
 								ps = con.prepareStatement("DELETE FROM CritereQualite WHERE CrQ_ID=?");
 								ps.setInt(1, CrQ_ID);
 					
-											
 								//on execute la requete 
 								retour=ps.executeUpdate();
 
-							} catch (Exception ee) {
+							}
+							catch (Exception ee)
+							{
 								ee.printStackTrace();
-							} finally {
+							} 
+							finally 
+							{
 								//fermeture du rs,preparedStatement et de la connexion
 								
 								try {if (ps != null)ps.close();} catch (Exception t) {}
@@ -133,52 +179,117 @@ package dao;
 						}	
 						
 						/**
-						 * Permet de récupérer un Critere de Qualite 
-						 * @param CrQ_ID est l'ID du Critere de Qualite
+						 * Permet de rï¿½cupï¿½rer un Critere de Qualite a partir de son ID
+						 * @param l'ID du Critere de Qualite
 						 * @return le Critere de Qualite
-						 * @return null si aucun Critere de Qualite ne correspond à cet ID
+						 * @return null si aucun Critere de Qualite ne correspond ï¿½ cet ID
 						 */
-						public static CritereQualiteDAO getCritereQualiteDAO(int  CrQ_ID)
+						public CritereQualite getCritereQualite(int CrQ_ID)
 						{					
 							PreparedStatement ps = null;
-							ResultSet rs=null;
-							CritereQualiteDAO retour=null;
+							ResultSet rs = null;
+							CritereQualite CritereQualiteRetourne = null;
 						
-							//connexion a la base de données
-							try {
-
-								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_ID LIKE ?");
+							//connexion a la base de donnees
+							try 
+							{	
+								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_ID =?");
 								ps.setInt(1,CrQ_ID);
 											
 								//on execute la requete 
-								rs=ps.executeQuery();
+								rs = ps.executeQuery();
 								if(rs.next())
-									retour=new CritereQualiteDAO ();
-								
-
-							} catch (Exception ee) {
-								ee.printStackTrace();
-							} finally {
-								//fermeture du rs,preparedStatement et de la connexion
-								try {if (rs != null)rs.close();} catch (Exception t) {}
-								try {if (ps != null)ps.close();} catch (Exception t) {}
+									CritereQualiteRetourne = new CritereQualite(rs.getInt("CrQ_ID"),rs.getString("CrQ_libelle"),rs.getBoolean("CrQ_resultat"));
 							}
-							return retour;
-						
+							catch (Exception e) 
+							{
+								e.printStackTrace();
+							} 
+							finally 
+							{
+								try 
+								{
+									if (rs != null)
+									rs.close();
+								} 
+								catch (Exception t)
+								{
+								}
+								
+								try 
+								{
+									if (ps != null)
+										ps.close();
+								} 
+								catch (Exception t) 
+								{	
+								}
+							}
+							return CritereQualiteRetourne;
 						}
-									
+						
 						
 						/**
-						 * Permet de récupérer tous les Criteres de Qualite de la table
+						 * Permet de rï¿½cupï¿½rer un Critere de Qualite a partir de son libelle
+						 * @param le libelle du Critere de Qualite
+						 * @return le Critere de Qualite
+						 * @return null si aucun Critere de Qualite ne correspond ï¿½ ce libelle
+						 */
+						public CritereQualite getCritereQualite(String CrQ_libelle)
+						{					
+							PreparedStatement ps = null;
+							ResultSet rs = null;
+							CritereQualite CritereQualiteRetourne = null;
+						
+							//connexion a la base de donnees
+							try 
+							{	
+								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_libelle =?");
+								ps.setString(1,CrQ_libelle);
+											
+								//on execute la requete 
+								rs = ps.executeQuery();
+								if(rs.next())
+									CritereQualiteRetourne = new CritereQualite(rs.getInt("CrQ_ID"),rs.getString("CrQ_libelle"),rs.getBoolean("CrQ_resultat"));
+							}
+							catch (Exception e) 
+							{
+								e.printStackTrace();
+							} 
+							finally 
+							{
+								try 
+								{
+									if (rs != null)
+									rs.close();
+								} 
+								catch (Exception t)
+								{
+								}
+								
+								try 
+								{
+									if (ps != null)
+										ps.close();
+								} 
+								catch (Exception t) 
+								{	
+								}
+							}
+							return CritereQualiteRetourne;
+						}
+						
+						/**
+						 * Permet de rï¿½cupï¿½rer tous les Criteres de Qualite de la table
 						 * @return la liste des Criteres de Qualite
 						 */
-						public List<CritereQualiteDAO> getListCritereQualiteDAO()
+						public List<CritereQualite> getListCritereQualite()
 						{
 							PreparedStatement ps = null;
-							ResultSet rs=null;
-							List<CritereQualiteDAO> retour=new ArrayList<CritereQualiteDAO>();
+							ResultSet rs = null;
+							List<CritereQualite> retour =new ArrayList<CritereQualite>();
 						
-							//connexion a la base de données
+							//connexion a la base de donnï¿½es
 							try {
 								ps = con.prepareStatement("SELECT * FROM CritereQualite");
 														
@@ -186,7 +297,7 @@ package dao;
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat
 								while(rs.next())
-									retour.add(new CritereQualiteDAO ());
+									retour.add(new CritereQualite(rs.getInt("CrQ_ID"),rs.getString("CrQ_libelle"),rs.getBoolean("CrQ_resultat")));
 								
 
 							} catch (Exception ee) {
@@ -199,30 +310,35 @@ package dao;
 							return retour;
 						
 						}
+						
 						/**
-						 * Permet de récupérer tous les Criteres de Qualite pour UN libelle de la table
-						 * @return la liste des Criteres de Qualite
+						 * Permet de rï¿½cupï¿½rer tous les Criteres de Qualite ayant un resultat precis (ok ou ko)
+						 * @return la liste des Criteres de Qualite concernes
 						 */
-						public List<CritereQualiteDAO> getListCritereQualiteDAO(String CrQ_ID)
+						public List<CritereQualite> getListCritereQualite(Boolean CrQ_resultat)
 						{
 							PreparedStatement ps = null;
 							ResultSet rs=null;
-							List<CritereQualiteDAO> retour=new ArrayList<CritereQualiteDAO>();
+							List<CritereQualite> retour=new ArrayList<CritereQualite>();
 						
-							//connexion a la base de données
-							try {
-								ps = con.prepareStatement("SELECT * FROM CritereQualite");
+							//connexion a la base de donnï¿½es
+							try 
+							{
+								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_resultat=" +CrQ_resultat);
 														
 								//on execute la requete 
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat
 								while(rs.next())
-									retour.add(new CritereQualiteDAO ());
-								
+									retour.add(new CritereQualite(rs.getInt("CrQ_ID"),rs.getString("CrQ_libelle"),rs.getBoolean("CrQ_resultat")));
 
-							} catch (Exception ee) {
+							} 
+							catch (Exception ee) 
+							{
 								ee.printStackTrace();
-							} finally {
+							} 
+							finally 
+							{
 								//fermeture du rs,preparedStatement et de la connexion
 								try {if (rs != null)rs.close();} catch (Exception t) {}
 								try {if (ps != null)ps.close();} catch (Exception t) {}
@@ -230,42 +346,37 @@ package dao;
 							return retour;
 						
 						}
-
-	
-						
-						
-			
 						
 	/**					//main permettant de tester la classe
 						public static void main(int[] args){
 							CritereQualiteDAO CritereQualiteDAO=new CritereQualiteDAO();
 							
 							System.out.println("\n********************");
-							System.out.println("Test de la méthode ajouter");
+							System.out.println("Test de la mï¿½thode ajouter");
 							System.out.println("********************");
 							
-							//test de la méthode ajouter
+							//test de la mï¿½thode ajouter
 							CritereQualite a=new CritereQualite();
 							int retour= dao.CritereQualiteDAO.ajouter(a);
-							System.out.println(retour+ " lignes ajoutées");
+							System.out.println(retour+ " lignes ajoutï¿½es");
 
 							
 							
 							System.out.println("\n********************");
-							System.out.println("Test de la méthode supprimer");
+							System.out.println("Test de la mï¿½thode supprimer");
 							System.out.println("********************");
 							
-							//test de la méthode supprimer
+							//test de la mï¿½thode supprimer
 							int CrQ_ID = 0;
 							int retour1= CritereQualiteDAO.supprimer(CrQ_ID);
-							System.out.println(retour1+ " lignes supprimées");
+							System.out.println(retour1+ " lignes supprimï¿½es");
 							
 							
 							System.out.println("\n********************");
-							System.out.println("Test de la méthode getCritereQualiteDAO avec CrQ_ID");
+							System.out.println("Test de la mï¿½thode getCritereQualiteDAO avec CrQ_ID");
 							System.out.println("********************");
 							
-							//test de la méthode getCritereQualite avec CrQ_ID
+							//test de la mï¿½thode getCritereQualite avec CrQ_ID
 							CritereQualiteDAO a2=dao.CritereQualiteDAO.getCritereQualiteDAO(CrQ_ID);
 							System.out.println(a2);
 
@@ -273,16 +384,17 @@ package dao;
 												
 							
 							System.out.println("\n********************");
-							System.out.println("Test de la méthode getListCritereQualiteDAO");
+							System.out.println("Test de la mï¿½thode getListCritereQualiteDAO");
 							System.out.println("********************");
 							
-							//test de la méthode getListCritereQualiteDAO
+							//test de la mï¿½thode getListCritereQualiteDAO
 							List<CritereQualiteDAO> liste=CritereQualiteDAO.getListCritereQualiteDAO();
 							System.out.println(liste);
 							
 						}**/
 		       
 			}
+
 
 
 

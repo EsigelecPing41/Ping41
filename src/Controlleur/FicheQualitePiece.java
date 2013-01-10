@@ -11,6 +11,8 @@
 package Controlleur;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,8 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AssemblageDAO;
+import dao.ControleQualiteDAO;
+import dao.CritereQualiteDAO;
 import dao.PieceDAO;
 
+import Modele.Assemblage;
+import Modele.ControleQualite;
+import Modele.CritereQualite;
 import Modele.Piece;
 
 /**
@@ -54,12 +62,25 @@ public class FicheQualitePiece extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("servlet : FicheQualitePiecePOST");
 		RequestDispatcher dispatcher;
+		String numPiece = request.getParameter("num_piece"); 
 		try {
+			//Un controle qualite contient plusieurs critere qualite. 
 			PieceDAO pieceDAO = PieceDAO.getInstance();
-			request.setAttribute("piece",pieceDAO.getPiece(request.getParameter("num_piece")));
+			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
+			Assemblage assemblage = assemblageDAO.getAssemblage(numPiece); 
+			ControleQualiteDAO controleQualiteDAO = ControleQualiteDAO.getInstance();
+			ControleQualite controleQualite = controleQualiteDAO.getControleQualite(assemblage.getA_ID());
+			controleQualite.setCQ_ListCriteres(controleQualiteDAO.getListCritereControle(controleQualite.getCQ_ID()));
+			
+			//liste controle qualitecontroleQualite = controleQualiteDAO.getListControleQualiteDAO(assemblage.getA_ID());
+			
+			request.setAttribute("assemblage",assemblageDAO.getAssemblage(request.getParameter("num_piece")));
+			request.setAttribute("controleQualite"  , controleQualite);
 			dispatcher = request.getRequestDispatcher("servlet/Qualite/ficheQualite.jsp");
 			
+			
 		} catch (Exception e) {
+			System.out.println("erreur");
 			request.setAttribute("erreur","La piece n'existe pas");
 			dispatcher = request.getRequestDispatcher("servlet/ScannerCodeBarre/scanner.jsp");			
 		}

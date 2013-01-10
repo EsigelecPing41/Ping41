@@ -10,17 +10,26 @@
 
 package Controlleur;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ControleQualiteDAO;
+import dao.CritereQualiteDAO;
+
+import Modele.ControleQualite;
+import Modele.CritereQualite;
+
 /**
  * Servlet implementation class ValideFicheQualite
  */
-@WebServlet(description = "Valider la pièce après le contrôle qualité", urlPatterns = { "/ValideFicheQualite" })
+@WebServlet(description = "Valider la piï¿½ce aprï¿½s le contrï¿½le qualitï¿½", urlPatterns = { "/ValideFicheQualite" })
 public class ValideFicheQualite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,6 +54,27 @@ public class ValideFicheQualite extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//david me renvoi le contro
+		//recuperer fiche qualite en post
+		List<ControleQualite> listQualite;
+		
+		//recuperer la liste et la renvoyer
+		try {
+			ControleQualiteDAO controleQualiteDao = ControleQualiteDAO.getInstance();
+			CritereQualiteDAO critereQualiteDao = CritereQualiteDAO.getInstance();
+			ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
+			List<CritereQualite> listeCritereQualite = controleQualite.getCQ_ListCriteres();
+			controleQualiteDao.modifierResultat(controleQualite.getCQ_ID(), controleQualite.getCQ_Resultat());
+			for(CritereQualite critere : listeCritereQualite)
+			{
+				critereQualiteDao.modifierResultat(critere.getCrQ_ID(), critere.getCrQ_resultat());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//boucle
+	
 	}
 
 }

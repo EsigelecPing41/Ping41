@@ -11,18 +11,26 @@
 package Controlleur;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import Modele.Piece;
+
+import dao.PieceDAO;
 
 /**
  * Servlet implementation class ModifierPieceRD
  */
-@WebServlet(description = "Modifie les caractéristiques d'une pièce", urlPatterns = { "/ModifierPieceRD" })
+@WebServlet(description = "Modifie les caractï¿½ristiques d'une piï¿½ce", urlPatterns = { "/ModifierPieceRD" })
 public class ModifierPieceRD extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ATT_SESSION_USER = "piece";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,6 +53,20 @@ public class ModifierPieceRD extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		RequestDispatcher dispatcher = null;
+		try {
+			PieceDAO pieceDAO = PieceDAO.getInstance();
+			int numPiece = (Integer)request.getAttribute("num_piece");
+			Piece piece = pieceDAO.getPiece(numPiece);
+			session.setAttribute( "piece", piece);
+    		dispatcher = request.getRequestDispatcher("servlet/R&D/content/index.html");
+    		
+		} catch (Exception e) {
+			dispatcher = request.getRequestDispatcher("servlet/R&D/content/R&D.html");
+			e.printStackTrace();
+		}
+		dispatcher.forward( request, response );
 	}
 
 }

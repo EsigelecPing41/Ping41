@@ -17,10 +17,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Modele.Assemblage;
+import Modele.Piece;
+
+import dao.AssemblageDAO;
+import dao.PieceDAO;
+
 /**
  * Servlet implementation class EnvoyerPiece
  */
-@WebServlet(description = "Envoi d'une pièce", urlPatterns = { "/EnvoyerPiece" })
+@WebServlet(description = "Envoi d'une piï¿½ce", urlPatterns = { "/EnvoyerPiece" })
 public class EnvoyerPiece extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,6 +44,7 @@ public class EnvoyerPiece extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("servlet : EnvoyerPiece");
+		
 	}
 
 	/**
@@ -45,6 +52,17 @@ public class EnvoyerPiece extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String numPiece = request.getParameter("num_piece");
+		try {
+			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
+			Assemblage assemblage= assemblageDAO.getAssemblage(numPiece);
+			assemblage.
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

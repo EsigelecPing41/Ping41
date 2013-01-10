@@ -1,22 +1,16 @@
 package Modele;
-import java.util.ArrayList;
-import java.util.List;
-
-import Modele.Operateur;
-
 
 public class CritereQualite
 {
     private int CrQ_ID;
     private String CrQ_libelle;
-    public List<Operateur> CrQ_Operateurs = new ArrayList<Operateur> ();
+    private boolean CrQ_resultat;
     
-	public CritereQualite(int ID,String Libelle) {
-		// TODO Auto-generated constructor stub
-		
+	public CritereQualite(int ID,String Libelle, boolean resultat)
+	{		
     	this.CrQ_ID = ID;
     	this.CrQ_libelle = Libelle;
-
+    	this.CrQ_resultat=resultat;
 	}
 
     public int getCrQ_ID() 
@@ -24,7 +18,7 @@ public class CritereQualite
         return this.CrQ_ID;
     }
 
-    public void setCrQ_ID(final int value)
+    public void setCrQ_ID(int value)
     {
         this.CrQ_ID = value;
     }
@@ -34,9 +28,19 @@ public class CritereQualite
         return this.CrQ_libelle;
     }
 
-    public void setCrQ_libelle(final String value) 
+    public void setCrQ_libelle(String value) 
     {
         this.CrQ_libelle = value;
     }
+
+	public void setCrQ_resultat(boolean crQ_resultat) 
+	{
+		CrQ_resultat = crQ_resultat;
+	}
+
+	public boolean getCrQ_resultat()
+	{
+		return CrQ_resultat;
+	}
 
 }
