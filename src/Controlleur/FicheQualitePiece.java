@@ -67,12 +67,13 @@ public class FicheQualitePiece extends HttpServlet {
 			//Un controle qualite contient plusieurs critere qualite. 
 			PieceDAO pieceDAO = PieceDAO.getInstance();
 			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
-			Assemblage assemblage = assemblageDAO.getAssemblage(numPiece); 
 			ControleQualiteDAO controleQualiteDAO = ControleQualiteDAO.getInstance();
+			//récupération de l'assemblage par son numéro
+			Assemblage assemblage = assemblageDAO.getAssemblage(numPiece);
+			//Récupération du controle qualité associé à l'assemblage		
 			ControleQualite controleQualite = controleQualiteDAO.getControleQualite(assemblage.getA_ID());
+			//Récupération des critère qualité du controle
 			controleQualite.setCQ_ListCriteres(controleQualiteDAO.getListCritereControle(controleQualite.getCQ_ID()));
-			
-			//liste controle qualitecontroleQualite = controleQualiteDAO.getListControleQualiteDAO(assemblage.getA_ID());
 			
 			request.setAttribute("assemblage",assemblageDAO.getAssemblage(request.getParameter("num_piece")));
 			request.setAttribute("controleQualite"  , controleQualite);

@@ -168,4 +168,12 @@
     <servlet-name>afficherService</servlet-name>
     <url-pattern>/afficherService</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>magasin</servlet-name>
+    <servlet-class>Controlleur.Magasin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>magasin</servlet-name>
+    <url-pattern>/magasin</url-pattern>
+  </servlet-mapping>
 </web-app>

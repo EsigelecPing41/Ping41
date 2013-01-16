@@ -28,15 +28,15 @@ public class OperationDAO
 		
 	/**
 	* Permet d'ajouter une operation dans la table operation
-	* @param operation à ajouter
-	* @return nombre de lignes ajoutées dans la table Operation
+	* @param operation ï¿½ ajouter
+	* @return nombre de lignes ajoutï¿½es dans la table Operation
 	*/
 	public int ajouter(Operation Op)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
 		
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				ps = con.prepareStatement("INSERT INTO Operation (Op_Libelle,Op_EO_ID) VALUES (?,?)");
@@ -69,15 +69,15 @@ public class OperationDAO
 	
 	/**
 	* Permet de modifier le nom d'une operation 
-	* @param ID de l'operation à modifier et nouveau nom
-	* @return nombre de lignes modifiées dans la table Operation
+	* @param ID de l'operation ï¿½ modifier et nouveau nom
+	* @return nombre de lignes modifiï¿½es dans la table Operation
 	* */
 	public int modifier(int ID,String libelle)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
 		
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				ps = con.prepareStatement("UPDATE Operation SET Op_Libelle=? WHERE Op_ID=?");
@@ -111,15 +111,15 @@ public class OperationDAO
 
 	/**
 	* Permet de modifier l'etat d'une operation 
-	* @param ID de l'operation à modifier et l'ID du nouvel etat
-	* @return nombre de lignes modifiées dans la table Operation
+	* @param ID de l'operation ï¿½ modifier et l'ID du nouvel etat
+	* @return nombre de lignes modifiï¿½es dans la table Operation
 	* */
 	public int modifier(int ID,int EO)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
 		
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				ps = con.prepareStatement("UPDATE Operation SET Op_EO_ID=? WHERE Op_ID=?");
@@ -151,9 +151,9 @@ public class OperationDAO
 	}
 
 	/**
-	 * Permet de supprimer une operation de la table Operation à partir de son ID
-	 * @param ID de l'operation à supprimer
-	 *@return null si aucune operation ne correspond à cet id
+	 * Permet de supprimer une operation de la table Operation ï¿½ partir de son ID
+	 * @param ID de l'operation ï¿½ supprimer
+	 *@return null si aucune operation ne correspond ï¿½ cet id
 	 */
 	public int supprimer(int ID)
 	{
@@ -161,7 +161,7 @@ public class OperationDAO
 			PreparedStatement ps=null;
 			int retour=0;
 			
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				ps = con.prepareStatement("DELETE FROM Operation WHERE Op_ID=?");
@@ -190,16 +190,16 @@ public class OperationDAO
 	}	
 	
 	/**
-	 * Permet de supprimer une operation de la table Operation à partir de son libelle
-	 * @param libelle de l'operation à supprimer
-	 *@return null si aucune operation ne correspond à ce libelle
+	 * Permet de supprimer une operation de la table Operation ï¿½ partir de son libelle
+	 * @param libelle de l'operation ï¿½ supprimer
+	 *@return null si aucune operation ne correspond ï¿½ ce libelle
 	 */
 	public int supprimer(String nom)
 	{
 			PreparedStatement ps=null;
 			int retour=0;
 			
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				ps = con.prepareStatement("DELETE FROM Operation WHERE Op_Libelle=?");
@@ -228,10 +228,10 @@ public class OperationDAO
 	}	
 	
 		/**
-		 * Permet de récupérer une operation à partir de son ID
-		 * @param ID de l'operation à récupérer
+		 * Permet de rï¿½cupï¿½rer une operation ï¿½ partir de son ID
+		 * @param ID de l'operation ï¿½ rï¿½cupï¿½rer
 		 * @return l'operation
-		 * @return null si aucune operation ne correspond à cet id
+		 * @return null si aucune operation ne correspond ï¿½ cet id
 		 */
 		public Operation getOperation(int ID)
 		{
@@ -240,7 +240,7 @@ public class OperationDAO
 			Operation OperationRetourne = null;
 	
 		
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Operation WHERE Op_ID=?");
@@ -281,10 +281,10 @@ public class OperationDAO
 		}
 		
 		/**
-		 * Permet de récupérer une operation a partir de son libelle
-		 * @param libelle de l'operation à récupérer
+		 * Permet de rï¿½cupï¿½rer une operation a partir de son libelle
+		 * @param libelle de l'operation ï¿½ rï¿½cupï¿½rer
 		 * @return l'operation
-		 * @return null si aucune operation ne correspond à ce libelle
+		 * @return null si aucune operation ne correspond ï¿½ ce libelle
 		 */
 		public Operation getOperation(String nom)
 		{
@@ -292,7 +292,7 @@ public class OperationDAO
 			ResultSet rs=null;
 			Operation OperationRetourne = null;
 	
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Operation WHERE Op_Libelle=?");
@@ -333,8 +333,8 @@ public class OperationDAO
 		}
 		
 		/**
-		 * Permet de récupérer toutes les pieces de la table
-		 * @return la liste des pieces
+		 * Permet de rï¿½cupï¿½rer toutes operations de la table
+		 * @return la liste des operations
 		 */
 		public List<Operation> getListOperation()
 		{
@@ -342,7 +342,7 @@ public class OperationDAO
 			ResultSet rs=null;
 			List<Operation> ListeOperations = new ArrayList<Operation>();
 		
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				
@@ -383,5 +383,126 @@ public class OperationDAO
 			return ListeOperations;
 		
 		}
+		
+		/**
+		 * Permet de rï¿½cupï¿½rer toutes les operations sur une piece a partir de l'id de la piece je pense que c'est
+		 * @return la liste des operations effectues sur la piece
+		 */
+		public List<Operation> getListOperationPiece(int ID_Piece)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			List<Operation> ListeOperations = new ArrayList<Operation>();
+		
+			//connexion a la base de donnï¿½es
+			try 
+			{
+				
+				ps = con.prepareStatement("SELECT AP_Op_ID FROM ActionPiece WHERE AP_P_ID="+ID_Piece);					
+				//on execute la requete 
+				rs=ps.executeQuery();
+				//on parcourt les lignes du resultat
+				while(rs.next())
+				{
+					ps = con.prepareStatement("SELECT * FROM Operation WHERE Op_ID="+rs.getInt("Op_ID"));
+					//on execute la requete 
+					rs=ps.executeQuery();
+					//on parcourt les lignes du resultat
+					if(rs.next())
+					{
+						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+					}
+				}
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			finally 
+			{
+				try 
+				{
+					if (rs != null)
+						rs.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+				
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				catch (Exception t) 
+				{
+					
+				}
+			}
+			return ListeOperations;
+		
+		}
+		
+		/**
+		 * Permet de rï¿½cupï¿½rer toutes les operations sur un assemblage a partir de l'id de l'assemblage
+		 * @return la liste des operations effectues sur l'assemblage
+		 */
+		public List<Operation> getListOperationAssemblage(int ID_Assemblage)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs=null;
+			List<Operation> ListeOperations = new ArrayList<Operation>();
+		
+			//connexion a la base de donnï¿½es
+			try 
+			{
+				
+				ps = con.prepareStatement("SELECT AA_Op_ID FROM ActionAssemblage WHERE AA_A_ID="+ID_Assemblage);					
+				//on execute la requete 
+				rs=ps.executeQuery();
+				//on parcourt les lignes du resultat
+				while(rs.next())
+				{
+					ps = con.prepareStatement("SELECT * FROM Operation WHERE Op_ID="+rs.getInt("Op_ID"));
+					//on execute la requete 
+					rs=ps.executeQuery();
+					//on parcourt les lignes du resultat
+					if(rs.next())
+					{
+						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+					}
+				}
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			finally 
+			{
+				try 
+				{
+					if (rs != null)
+						rs.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+				
+				try
+				{
+					if (ps != null)
+						ps.close();
+				}
+				catch (Exception t) 
+				{
+					
+				}
+			}
+			return ListeOperations;
+		
+		}
+		
 }
 

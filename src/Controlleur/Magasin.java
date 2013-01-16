@@ -1,39 +1,28 @@
-/*****************************************************
-* Module : Controlleur
-* Fichier : EnvoyerPiece
-* Description : 
-* Projet : SKF Traceability
-* Auteur : GC
-* Date : 12/12/12
-* Version : 0.5
-******************************************************/
-
 package Controlleur;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Modele.Assemblage;
-import Modele.Piece;
-
-import dao.AssemblageDAO;
+import dao.OperationDAO;
 import dao.PieceDAO;
 
 /**
- * Servlet implementation class EnvoyerPiece
+ * Servlet implementation class Magasin
  */
-@WebServlet(description = "Envoi d'une pi�ce", urlPatterns = { "/EnvoyerPiece" })
-public class EnvoyerPiece extends HttpServlet {
+@WebServlet("/Magasin")
+public class Magasin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnvoyerPiece() {
+    public Magasin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,8 +32,6 @@ public class EnvoyerPiece extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : EnvoyerPiece");
-		
 	}
 
 	/**
@@ -52,17 +39,19 @@ public class EnvoyerPiece extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String numPiece = request.getParameter("num_piece");
+		// TODO Auto-generated method stub
+		System.out.println("servlet : MagasinPOST");
+		RequestDispatcher dispatcher;
 		try {
-			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
-			Assemblage assemblage= assemblageDAO.getAssemblage(numPiece);
-			
+			PieceDAO pieceDAO = PieceDAO.getInstance();
+			request.setAttribute("piece",pieceDAO.getPiece(request.getParameter("num_piece")));
+			dispatcher = request.getRequestDispatcher("servlet/Magasin/magasin.jsp");
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("erreur","La piece n'existe pas");
+			dispatcher = request.getRequestDispatcher("servlet/ScannerCodeBarre/scanner.jsp");			
 		}
-		
+		dispatcher.forward( request, response );	
 	}
 
 }

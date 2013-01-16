@@ -57,12 +57,14 @@ public class ModifierPieceRD extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		try {
 			PieceDAO pieceDAO = PieceDAO.getInstance();
+			//Récupération d'une piece grace à son numéro
 			int numPiece = (Integer)request.getAttribute("num_piece");
 			Piece piece = pieceDAO.getPiece(numPiece);
 			session.setAttribute( "piece", piece);
     		dispatcher = request.getRequestDispatcher("servlet/R&D/content/index.html");
     		
 		} catch (Exception e) {
+			System.out.println("pièce non trouvee");
 			dispatcher = request.getRequestDispatcher("servlet/R&D/content/R&D.html");
 			e.printStackTrace();
 		}

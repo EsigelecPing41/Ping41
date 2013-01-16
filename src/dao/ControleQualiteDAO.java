@@ -44,7 +44,7 @@ public class ControleQualiteDAO
 				ps.setInt(1,cq.getCQ_O_ID());
 				ps.setInt(2,cq.getCQ_A_ID());
 				ps.setBoolean(3,cq.getCQ_Resultat());
-				//ps.setString(4,cq.getCQ_ListCriteres());
+				ps.setString(4,cq.getCQ_ListCriteres());
 
 				//on execute la requete 
 				retour=ps.executeUpdate();

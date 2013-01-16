@@ -11,6 +11,7 @@
 package Controlleur;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,8 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.OperationDAO;
 import dao.PieceDAO;
 
+import Modele.Operation;
 import Modele.Piece;
 
 /**
@@ -57,6 +60,8 @@ public class FicheSuiveuse extends HttpServlet {
 		try {
 			PieceDAO pieceDAO = PieceDAO.getInstance();
 			request.setAttribute("piece",pieceDAO.getPiece(request.getParameter("num_piece")));
+			OperationDAO operationDAO = OperationDAO.getInstance();
+			request.setAttribute("operation",operationDAO.getListOperation(pieceDAO.getPiece(request.getParameter("num_piece"))));
 			dispatcher = request.getRequestDispatcher("servlet/Production/fiche_suiveuse.jsp");
 			
 		} catch (Exception e) {

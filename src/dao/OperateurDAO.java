@@ -301,14 +301,14 @@ public class OperateurDAO
 			//connexion a la base de données
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM Operateur WHERE O_Nom=? AND O_Prenom=?");
+				ps = con.prepareStatement("SELECT * FROM Operateur WHERE O_Login=? AND O_Password=?");
 				ps.setString(1,nom);
 				ps.setString(2,prenom);
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperateurRetourne = new Operateur(rs.getInt("O_ID"),rs.getString("O_Nom"),rs.getString("O_Prenom"),rs.getString("O_MotDePasse"));
+					OperateurRetourne = new Operateur(rs.getInt("O_ID"),rs.getString("O_Nom"),rs.getString("O_Prenom"),rs.getString("O_Password"));
 			}
 			catch (Exception e) 
 			{

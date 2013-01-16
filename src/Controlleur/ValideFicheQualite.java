@@ -14,6 +14,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,23 +58,36 @@ public class ValideFicheQualite extends HttpServlet {
 		//david me renvoi le contro
 		//recuperer fiche qualite en post
 		List<ControleQualite> listQualite;
-		
+		RequestDispatcher dispatcher;
 		//recuperer la liste et la renvoyer
 		try {
 			ControleQualiteDAO controleQualiteDao = ControleQualiteDAO.getInstance();
 			CritereQualiteDAO critereQualiteDao = CritereQualiteDAO.getInstance();
+			//Récupération du controle qualité rempli
 			ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
+			//Récupération des critère qualité
 			List<CritereQualite> listeCritereQualite = controleQualite.getCQ_ListCriteres();
+			//Mise à jour du résultat du controle
 			controleQualiteDao.modifierResultat(controleQualite.getCQ_ID(), controleQualite.getCQ_Resultat());
 			for(CritereQualite critere : listeCritereQualite)
 			{
+				//Mise à jour des critère de controle qualité
 				critereQualiteDao.modifierResultat(critere.getCrQ_ID(), critere.getCrQ_resultat());
 			}
+			System.out.println("Tout est ok");
+			request.setAttribute("enregistree", "1");
+			request.setAttribute("codeErreur", "0");
+			dispatcher = request.getRequestDispatcher("servlet/Qualite/index.html");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("Probleme");
+
+			request.setAttribute("enregistree", "0");
+			request.setAttribute("codeErreur", "1");
+			dispatcher = request.getRequestDispatcher("servlet/Qualite/index.html");
 			e.printStackTrace();
+		
 		}
-		//boucle
+		dispatcher.forward(request, response);
 	
 	}
 
