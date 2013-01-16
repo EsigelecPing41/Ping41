@@ -1,4 +1,5 @@
 package Modele;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Expedition 
@@ -9,7 +10,7 @@ public class Expedition
     private int Exp_C_ID;
     private int Exp_ID;
 
-    public Expedition( Date Exp_Date, int Exp_C_ID ,int Exp_BExp_ID,int Exp_A_ID, int Exp_ID)
+    public Expedition( Timestamp Exp_Date, int Exp_C_ID ,int Exp_BExp_ID,int Exp_A_ID, int Exp_ID)//modif date to timeStamp
     {
     	this.Exp_Date=Exp_Date;
     	this.Exp_C_ID=Exp_C_ID;
