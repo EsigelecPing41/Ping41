@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modele.Assemblage;
-import Modele.CritereQualite;
 import Modele.Piece;
 
 public class AssemblageDAO 
@@ -41,12 +40,23 @@ public class AssemblageDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Assemblage(A_Nom,A_CodeBarre,A_Statut,A_ListPieces) VALUES (?,?,?,?)");
+				RecupererListePieces(a);
+				RecupererListeOperation(a);
+				RecupererDonneesOrdonnancement(a);
+				ps = con.prepareStatement("INSERT INTO Assemblage(A_Nom,A_CodeBarre,A_Statut,A_ListPieces,A_ListOperations,A_C_Nom,A_NumDossier,A_CodeGPAO,A_IndNomenclature,A_Designation,A_Of,A_NumAffaire) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1,a.getA_Nom());
 				ps.setString(2,a.getA_CodeBarre());
 				ps.setBoolean(3,a.getA_Statut());
 				ps.setString(4,a.getListPieces());
-
+				ps.setString(5,a.getA_ListOperations());
+				ps.setString(6,a.getA_C_Nom());
+				ps.setString(7,a.getA_NumDossier());
+				ps.setString(8,a.getA_CodeGPAO());
+			    ps.setString(9,a.getA_IndNomenclature());
+			    ps.setString(10,a.getA_Designation());
+			    ps.setString(11,a.getA_Of());
+			    ps.setString(12,a.getA_NumAffaire());
+		
 				//on execute la requete 
 				retour=ps.executeUpdate();
 				
@@ -70,6 +80,172 @@ public class AssemblageDAO
 			 return retour;
 		
 	}
+	
+	/**
+	 * Permet de recuperer toutes les operations sur un assemblage
+	 * @return la liste des operations a effectuer sur l'assemblage
+	 */
+	public void RecupererListeOperation(Assemblage a)
+	{
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String liste = "";
+	
+		//connexion a la base de donnï¿½es
+		try 
+		{
+			ps = con.prepareStatement("SELECT Op_libelle FROM Operation WHERE Op_A_Nom="+a.getA_Nom());					
+			//on execute la requete 
+			rs=ps.executeQuery();
+			//on parcourt les lignes du resultat
+			while(rs.next())
+			{
+				if(liste==null)
+					liste = rs.getString("Op_libelle");
+				else
+					liste = liste + "," + rs.getString("Op_libelle");
+			}
+			a.setA_ListOperations(liste);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if (rs != null)
+					rs.close();
+			} 
+			catch (Exception t) 
+			{
+				
+			}
+			
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			catch (Exception t) 
+			{
+				
+			}
+		}
+
+	}
+	
+	/**
+	 * Permet de recuperer toutes les pieces sur un assemblage
+	 * @return la liste des pieces pour constituer un assemblage
+	 */
+	public void RecupererListePieces(Assemblage a)
+	{
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String liste = "";
+	
+		//connexion a la base de donnees
+		try 
+		{
+			ps = con.prepareStatement("SELECT P_Nom FROM Piece WHERE P_A_Nom="+a.getA_Nom());					
+			//on execute la requete 
+			rs=ps.executeQuery();
+			//on parcourt les lignes du resultat
+			while(rs.next())
+			{
+				if(liste==null)
+					liste = rs.getString("P_Nom");
+				else
+					liste = liste + "," + rs.getString("P_Nom");
+			}
+			a.setListPieces(liste);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if (rs != null)
+					rs.close();
+			} 
+			catch (Exception t) 
+			{
+				
+			}
+			
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			catch (Exception t) 
+			{
+				
+			}
+		}
+	}
+	
+	/**
+	 * Permet de recuperer toutes les operations sur un assemblage
+	 * @return la liste des operations a effectuer sur l'assemblage
+	 */
+	public void RecupererDonneesOrdonnancement(Assemblage a)
+	{
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+	
+		//connexion a la base de donnï¿½es
+		try 
+		{
+			ps = con.prepareStatement("SELECT * FROM Ordonnancement WHERE Ord_NumSerie="+a.getA_CodeBarre());					
+			//on execute la requete 
+			rs=ps.executeQuery();
+			//on parcourt les lignes du resultat
+			while(rs.next())
+			{
+				a.setA_CodeGPAO(rs.getString("Ord_CodeGPAO"));
+				a.setA_Designation(rs.getString("Ord_Designation"));
+				a.setA_IndNomenclature(rs.getString("Ord_IndNomenclature"));
+				a.setA_NumAffaire(rs.getString("Ord_NumAffaire"));
+				a.setA_NumDossier(rs.getString("Ord_NumDossier"));
+				a.setA_Of(rs.getString("Ord_Of"));
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if (rs != null)
+					rs.close();
+			} 
+			catch (Exception t) 
+			{
+				
+			}
+			
+			try
+			{
+				if (ps != null)
+					ps.close();
+			}
+			catch (Exception t) 
+			{
+				
+			}
+		}
+
+	}
+	
+	
 	
 	/**
 	 * Permet d'ajouter une piece dans un assemblage à partir du code barre de la piece
@@ -301,7 +477,7 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getBoolean("A_Statut"),rs.getString("A_ListPieces"));
+					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getString("A_C_Nom"),rs.getString("A_ListPieces"),rs.getString("ListOperations"),rs.getBoolean("A_Statut"),rs.getString("A_NumDossier"),rs.getString("A_CodeGPAO"),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
 			}
 			catch (Exception e) 
 			{
@@ -478,7 +654,7 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getBoolean("A_Statut"),rs.getString("A_ListPieces"));
+					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getString("A_C_Nom"),rs.getString("A_ListPieces"),rs.getString("ListOperations"),rs.getBoolean("A_Statut"),rs.getString("A_NumDossier"),rs.getString("A_CodeGPAO"),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
 			}
 			catch (Exception e) 
 			{
@@ -532,7 +708,7 @@ public class AssemblageDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getBoolean("A_Statut"),rs.getString("A_ListPieces")));
+					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getString("A_C_Nom"),rs.getString("A_ListPieces"),rs.getString("ListOperations"),rs.getBoolean("A_Statut"),rs.getString("A_NumDossier"),rs.getString("A_CodeGPAO"),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire")));
 			} 
 			catch (Exception e) 
 			{
@@ -593,7 +769,7 @@ public class AssemblageDAO
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat
 								while(rs.next())
-									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Satut")));
+									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
 							}
 			 } 
 			catch (Exception ee) 
@@ -639,7 +815,7 @@ public class AssemblageDAO
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat
 								while(rs.next())
-									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Satut")));
+									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
 							}
 			 } 
 			catch (Exception ee) 

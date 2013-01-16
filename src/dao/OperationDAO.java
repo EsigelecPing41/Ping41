@@ -39,9 +39,10 @@ public class OperationDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Operation (Op_Libelle,Op_EO_ID) VALUES (?,?)");
-				ps.setString(1,Op.getOp_Libelle());
-				ps.setInt(2,Op.getOp_EO_ID());
+				ps = con.prepareStatement("INSERT INTO Operation (Op_A_Nom,Op_Libelle,Op_EO_ID) VALUES (?,?,?)");
+				ps.setString(1,Op.getOp_A_Nom());
+				ps.setString(2,Op.getOp_Libelle());
+				ps.setInt(3,Op.getOp_EO_ID());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -68,11 +69,54 @@ public class OperationDAO
 	}
 	
 	/**
+	* Permet de modifier l'ID de l'assemblage d'une operation 
+	* @param ID de l'operation a modifier et nouvel ID Assemblage
+	* @return nombre de lignes modifiees dans la table Operation
+	* */
+	public int modifierIDAssemblage(int ID,int ID_Assemblage)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de donnees
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Operation SET Op_A_ID=? WHERE Op_ID=?");
+				ps.setInt(1,ID_Assemblage);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+	
+
+	
+	/**
 	* Permet de modifier le nom d'une operation 
-	* @param ID de l'operation � modifier et nouveau nom
+	* @param ID de l'operation a modifier et nouveau nom
 	* @return nombre de lignes modifi�es dans la table Operation
 	* */
-	public int modifier(int ID,String libelle)
+	public int modifierNom(int ID,String libelle)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -114,7 +158,7 @@ public class OperationDAO
 	* @param ID de l'operation � modifier et l'ID du nouvel etat
 	* @return nombre de lignes modifi�es dans la table Operation
 	* */
-	public int modifier(int ID,int EO)
+	public int modifierEtat(int ID,int EO)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -228,10 +272,10 @@ public class OperationDAO
 	}	
 	
 		/**
-		 * Permet de r�cup�rer une operation � partir de son ID
-		 * @param ID de l'operation � r�cup�rer
+		 * Permet de recuperer une operation a partir de son ID
+		 * @param ID de l'operation a recuperer
 		 * @return l'operation
-		 * @return null si aucune operation ne correspond � cet id
+		 * @return null si aucune operation ne correspond a cet id
 		 */
 		public Operation getOperation(int ID)
 		{
@@ -249,7 +293,7 @@ public class OperationDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
+					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
 			}
 			catch (Exception e) 
 			{
@@ -301,7 +345,7 @@ public class OperationDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
+					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
 			}
 			catch (Exception e) 
 			{
@@ -352,7 +396,7 @@ public class OperationDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+					ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
 			} 
 			catch (Exception e) 
 			{
@@ -410,7 +454,7 @@ public class OperationDAO
 					//on parcourt les lignes du resultat
 					if(rs.next())
 					{
-						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
 					}
 				}
 			} 
@@ -470,7 +514,7 @@ public class OperationDAO
 					//on parcourt les lignes du resultat
 					if(rs.next())
 					{
-						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
 					}
 				}
 			} 

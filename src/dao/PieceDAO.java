@@ -39,10 +39,11 @@ public class PieceDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Piece (P_Nom,P_CodeBarre,P_Statut) VALUES (?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Piece (P_Nom,P_CodeBarre,P_A_Nom,P_Statut) VALUES (?,?,?,?)");
 				ps.setString(1,p.getP_Nom());
 				ps.setString(2,p.getP_CodeBarre());
-				ps.setBoolean(3,p.getP_Statut());
+				ps.setString(3,p.getP_A_Nom());
+				ps.setBoolean(4,p.getP_Statut());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -115,7 +116,7 @@ public class PieceDAO
 	* @param ID de la piece à modifier et le nouveau statut
 	* @return nombre de lignes modifiées dans la table Piece
 	*/
-	public int modifierStatut(int ID,String statut)
+	public int modifierStatut(int ID,boolean statut)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -124,7 +125,7 @@ public class PieceDAO
 			try 
 			{
 				ps = con.prepareStatement("UPDATE Piece SET P_Statut=? WHERE P_ID=?");
-				ps.setString(1,statut);
+				ps.setBoolean(1,statut);
 				ps.setInt(2,ID);
 				
 				//on execute la requete 
@@ -292,7 +293,7 @@ public class PieceDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Statut"));
+					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"));
 			}
 			catch (Exception e) 
 			{
@@ -344,7 +345,7 @@ public class PieceDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Statut"));
+					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"));
 			}
 			catch (Exception e) 
 			{
@@ -395,7 +396,7 @@ public class PieceDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListePieces.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Statut")));
+					ListePieces.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
 			} 
 			catch (Exception e) 
 			{
@@ -448,7 +449,7 @@ public class PieceDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListePiece.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getBoolean("P_Satut")));
+					ListePiece.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
 			} 
 			catch (Exception e) 
 			{

@@ -39,7 +39,7 @@ public class OrdonnancementDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Ordonnancement (Ord_Designation,Ord_QteFab,Ord_Ste,Ord_CodeClient,Ord_DelaiCde,Ord_MFab,Ord_DelaiPrv,Ord_DelaiDde,Ord_FamGest,Ord_NumDossier,Ord_CodeGPAO,Ord_IndNomenclature,Ord_NumSerie,Ord_ComInterne) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Ordonnancement (Ord_Designation,Ord_QteFab,Ord_Ste,Ord_CodeClient,Ord_DelaiCde,Ord_MFab,Ord_DelaiPrv,Ord_DelaiDde,Ord_FamGest,Ord_NumDossier,Ord_CodeGPAO,Ord_IndNomenclature,Ord_NumSerie,Ord_ComInterne,Ord_NumAffaire,Ord_Of) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1,Ord.getOrd_Designation());
 			    ps.setInt(2,Ord.getOrd_QteFab());
 			    ps.setString(3,Ord.getOrd_Ste());
@@ -54,6 +54,8 @@ public class OrdonnancementDAO
 			    ps.setString (12,Ord.getOrd_IndNomenclature());
 			    ps.setString (13,Ord.getOrd_NumSerie());
 			    ps.setString(14,Ord.getOrd_ComInterne());
+			    ps.setString(15,Ord.getOrd_NumAffaire());
+			    ps.setString(16,Ord.getOrd_Of());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -237,7 +239,9 @@ public class OrdonnancementDAO
 				    rs.getString("Ord_CodeGPAO"),
 				    rs.getString("Ord_IndNomenclature"),
 				    rs.getString("Ord_NumSerie"),
-				    rs.getString("Ord_ComInterne"));
+				    rs.getString("Ord_ComInterne"),
+				    rs.getString("Ord_NumAffaire"),
+				    rs.getString("Ord_Of"));
 			}
 			catch (Exception e) 
 			{
@@ -303,7 +307,9 @@ public class OrdonnancementDAO
 						    rs.getString("Ord_CodeGPAO"),
 						    rs.getString("Ord_IndNomenclature"),
 						    rs.getString("Ord_NumSerie"),
-						    rs.getString("Ord_ComInterne")));
+						    rs.getString("Ord_ComInterne"),
+						    rs.getString("Ord_NumAffaire"),
+						    rs.getString("Ord_Of")));
 			}
 			catch (Exception e) 
 			{

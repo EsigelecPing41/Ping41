@@ -5,22 +5,15 @@ public class Piece
     private int P_ID;
     private String P_Nom;
     private String P_CodeBarre;
+    private String P_A_Nom;
     private boolean P_Statut;
-    /*A modifier 
-     * Numero de série de la piece
-     * Numero de dossier de définition
-     * code gpao
-     * ind nomenclature
-     * designation
-     * of
-     * n° affaire 
-     * 
-     */
-    public Piece(int ID, String nom, String CB,boolean statut)
+   
+    public Piece(int ID, String nom, String CB, String A_Nom, boolean statut)
     {
     	this.P_ID = ID;
     	this.P_Nom = nom;
     	this.P_CodeBarre = CB;
+    	this.P_A_Nom=A_Nom;
     	this.P_Statut = statut;
     }
     
@@ -61,6 +54,16 @@ public class Piece
 	public boolean getP_Statut() 
 	{
 		return P_Statut;
+	}
+
+	public void setP_A_Nom(String p_A_Nom) 
+	{
+		P_A_Nom = p_A_Nom;
+	}
+
+	public String getP_A_Nom()
+	{
+		return P_A_Nom;
 	}
 
 }
