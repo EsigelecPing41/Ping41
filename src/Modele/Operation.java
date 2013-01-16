@@ -1,26 +1,16 @@
 package Modele;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class Operation 
 {
     private int Op_ID;
     private String Op_Libelle;
-    private int Op_EO_ID;
-    private List<ActionAssemblage> actionsRealise;
+    private EtatOperation Op_EO;
     
-    public Operation(int ID, String libelle, int EO_ID)
+    public Operation(int ID, String libelle,EtatOperation EO)
     {
     	this.Op_ID =ID;
     	this.Op_Libelle=libelle;
-    	this.Op_EO_ID=EO_ID;
-    	this.actionsRealise = new ArrayList<ActionAssemblage>(); 
-    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
-    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
-    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
-    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
+    	this.Op_EO=EO;
     }
     
     public int getOp_ID()
@@ -43,18 +33,20 @@ public class Operation
         this.Op_Libelle = value;
     }
 
-	public void setOp_EO_ID(int op_EO_ID) 
-	{
-		Op_EO_ID = op_EO_ID;
+	/**
+	 * @return the op_EO_ID
+	 */
+	public EtatOperation getOp_EO() {
+		return Op_EO;
 	}
 
-	public int getOp_EO_ID() 
-	{
-		return Op_EO_ID;
+	/**
+	 * @param op_EO_ID the op_EO_ID to set
+	 */
+	public void setOp_EO_ID(EtatOperation op_EO_ID) {
+		Op_EO = op_EO_ID;
 	}
+
 	
-	public List<ActionAssemblage> get_actions(){
-		return this.actionsRealise;
-	}
 
 }
