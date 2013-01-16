@@ -1,16 +1,26 @@
 package Modele;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class Operation 
 {
     private int Op_ID;
     private String Op_Libelle;
     private int Op_EO_ID;
+    private List<ActionAssemblage> actionsRealise;
     
-    public Operation(int ID, String libelle,int EO_ID)
+    public Operation(int ID, String libelle, int EO_ID)
     {
     	this.Op_ID =ID;
     	this.Op_Libelle=libelle;
     	this.Op_EO_ID=EO_ID;
+    	this.actionsRealise = new ArrayList<ActionAssemblage>(); 
+    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
+    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
+    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
+    	this.actionsRealise.add(new ActionAssemblage(1, 1, 1, new Date(99999999), 1, this.Op_ID));
     }
     
     public int getOp_ID()
@@ -41,6 +51,10 @@ public class Operation
 	public int getOp_EO_ID() 
 	{
 		return Op_EO_ID;
+	}
+	
+	public List<ActionAssemblage> get_actions(){
+		return this.actionsRealise;
 	}
 
 }
