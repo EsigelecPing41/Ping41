@@ -16,6 +16,12 @@ public class Piece
     	this.P_A_Nom=A_Nom;
     	this.P_Statut = statut;
     }
+    public Piece(String nom, String A_Nom, boolean statut)
+    {
+       	this.P_Nom = nom;
+    	this.P_A_Nom=A_Nom;
+    	this.P_Statut = statut;
+    }
     
     public int getP_ID()
     {
