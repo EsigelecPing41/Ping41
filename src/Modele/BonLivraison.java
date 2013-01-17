@@ -1,72 +1,27 @@
 package Modele;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
-
-public class BonLivraison extends Bon 
+public class BonLivraison
 {
-
-    public List<Piece> Bliv_Pieces  = new ArrayList<Piece> ();
-    private int Bliv_ID;
-    private String Bliv_Fournisseur;
-    private Date Bliv_Date;
-
-	public BonLivraison (int Bliv_ID,String Bliv_Fournisseur,Date Bliv_Date, String  bliv_Designation,  String bliv_Reference,  String  bliv_NumDossier, int bliv_Quantite  ) {
-		// TODO Auto-generated constructor stub
-		
-		super( bliv_Designation, bliv_Reference,  bliv_NumDossier,  bliv_Quantite );
-	    
-    	this.Bliv_ID = Bliv_ID;
-    	this.Bliv_Fournisseur=Bliv_Fournisseur;
-    	this.Bliv_Date = Bliv_Date;
-	}
+    private int BLiv_ID;
+    private String BLiv_Designation;
+    private int BLiv_Quantite;
+    private String BLiv_Reference;
+    private String BLiv_NumDossier;
+    private String BLiv_Client;
+    private Date BLiv_Date;
+    
+    public BonExpedition(int BExp_ID,String BExp_Designation, String BExp_Reference,String BExp_NumDossier,String BExp_Client,Date BExp_Date)
+    {
+       this.BExp_ID= BExp_ID;
+       this.BExp_Designation=BExp_Designation;
+       this.BExp_Reference=BExp_Reference;
+       this.BExp_NumDossier=BExp_NumDossier;
+       this.BExp_Client=BExp_Client;
+       this.BExp_Date=BExp_Date;
+    }
+    
 	
-
-    public int getBliv_ID()
-    {
-        return this.Bliv_ID;
-    }
-
-    public void setBliv_ID(final int value)
-    {
-        this.Bliv_ID = value;
-    }
-
-
-    public Date getBliv_Date()
-    {
-        return this.Bliv_Date;
-    }
-
-    public void setBliv_Date(final Date value)
-    {
-        this.Bliv_Date = value;
-    }
-
-    public String getBliv_Fournisseur()
-    {
-        return this.Bliv_Fournisseur;
-    }
-
-    public void setBliv_Fournisseur(final String value)
-    {
-        this.Bliv_Fournisseur = value;
-    }
-    public void CreerBon() 
-    {
-    }
-
-    public void SupprimerBon()
-    {
-    }
-
-    public void ModifierBon() 
-    {
-    }
-
-    public void AfficherBon() 
-    {
-    }
+	
 }
