@@ -39,20 +39,20 @@ public class OrdonnancementDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Ordonnancement (Ord_Designation,Ord_QteFab,Ord_Ste,Ord_CodeClient,Ord_DelaiCde,Ord_MFab,Ord_DelaiPrv,Ord_DelaiDde,Ord_FamGest,Ord_NumDossier,Ord_CodeGPAO,Ord_IndNomenclature,Ord_NumSerie,Ord_ComInterne,Ord_NumAffaire,Ord_Of) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-				ps.setString(1,Ord.getOrd_Designation());
-			    ps.setInt(2,Ord.getOrd_QteFab());
-			    ps.setString(3,Ord.getOrd_Ste());
-			    ps.setString(4,Ord.getOrd_CodeClient());
-			    ps.setDate(5,(java.sql.Date) Ord.getOrd_DelaiCde());
-			    ps.setDate(6,(java.sql.Date) Ord.getOrd_MFab());
-			    ps.setDate(7, (java.sql.Date) Ord.getOrd_DelaiPrv());
-			    ps.setDate(8, (java.sql.Date) Ord.getOrd_DelaiDde());
-			    ps.setString(9,Ord.getOrd_FamGest());
-			    ps.setString(10,Ord.getOrd_NumDossier());
-			    ps.setString(11,Ord.getOrd_CodeGPAO());
-			    ps.setString (12,Ord.getOrd_IndNomenclature());
-			    ps.setString (13,Ord.getOrd_NumSerie());
+				ps = con.prepareStatement("INSERT INTO Ordonnancement (Ord_NumSerie,Ord_Designation,Ord_QteFab,Ord_Ste,Ord_CodeClient,Ord_DelaiCde,Ord_MFab,Ord_DelaiPrv,Ord_DelaiDde,Ord_FamGest,Ord_NumDossier,Ord_CodeGPAO,Ord_IndNomenclature,Ord_ComInterne,Ord_NumAffaire,Ord_Of) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				ps.setString (1,Ord.getOrd_NumSerie());
+				ps.setString(2,Ord.getOrd_Designation());
+			    ps.setInt(3,Ord.getOrd_QteFab());
+			    ps.setString(4,Ord.getOrd_Ste());
+			    ps.setString(5,Ord.getOrd_CodeClient());
+			    ps.setDate(6,(java.sql.Date) Ord.getOrd_DelaiCde());
+			    ps.setDate(7,(java.sql.Date) Ord.getOrd_MFab());
+			    ps.setDate(8, (java.sql.Date) Ord.getOrd_DelaiPrv());
+			    ps.setDate(9, (java.sql.Date) Ord.getOrd_DelaiDde());
+			    ps.setString(10,Ord.getOrd_FamGest());
+			    ps.setString(11,Ord.getOrd_NumDossier());
+			    ps.setString(12,Ord.getOrd_CodeGPAO());
+			    ps.setString (13,Ord.getOrd_IndNomenclature());
 			    ps.setString(14,Ord.getOrd_ComInterne());
 			    ps.setString(15,Ord.getOrd_NumAffaire());
 			    ps.setString(16,Ord.getOrd_Of());
@@ -84,9 +84,9 @@ public class OrdonnancementDAO
 	/**
 	 * Permet de supprimer un ordonnancement de la table
 	 * @param ID de l'ordonnancement a supprimer
-	 *@return null si aucun ordonnancement ne correspond a cet id
+	 *@return null si aucun ordonnancement ne correspond a ce numero de serie
 	 */
-	public int supprimer(int ID)
+	public int supprimer(String Ord_NumSerie)
 	{
 			PreparedStatement ps=null;
 			int retour=0;
@@ -94,8 +94,8 @@ public class OrdonnancementDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("DELETE FROM Ordonnancement WHERE Ord_ID=?");
-				ps.setInt(1,ID);
+				ps = con.prepareStatement("DELETE FROM Ordonnancement WHERE Ord_NumSerie=?");
+				ps.setString(1,Ord_NumSerie);
 	
 				//on execute la requete 
 				retour=ps.executeUpdate();	
@@ -121,10 +121,10 @@ public class OrdonnancementDAO
 	
 	/**
 	* Permet de modifier la designation 
-	* @param ID de l'ordonnancement et la nouvelle designation
+	* @param numSerie de l'ordonnancement et la nouvelle designation
 	* @return nombre de lignes modifiées dans la table Ordonnancement
 	* */
-	public int modifierDesignation(int ID,String designation)
+	public int modifierDesignation(String num,String designation)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -132,9 +132,9 @@ public class OrdonnancementDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Ordonnancement SET Ord_Designation =? WHERE Ord_ID=?");
+				ps = con.prepareStatement("UPDATE Ordonnancement SET Ord_Designation =? WHERE Ord_NumSerie=?");
 				ps.setString(1,designation);
-				ps.setInt(2,ID);
+				ps.setString(2,num);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -163,10 +163,10 @@ public class OrdonnancementDAO
 	
 	/**
 	* Permet de modifier la quantité ordonnée 
-	* @param ID de l'ordonnancement et nouvelle quantité
+	* @param numSerie de l'ordonnancement et nouvelle quantité
 	* @return nombre de lignes modifiées dans la table Ordonnancement
 	* */
-	public int modifier(int ID,int Qte)
+	public int modifier(String num,int Qte)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -174,9 +174,9 @@ public class OrdonnancementDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Ordonnancement SET Ord_QteFab =? WHERE Ord_ID=?");
+				ps = con.prepareStatement("UPDATE Ordonnancement SET Ord_QteFab =? WHERE Ord_NumSerie=?");
 				ps.setInt(1,Qte);
-				ps.setInt(2,ID);
+				ps.setString(2,num);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -204,12 +204,12 @@ public class OrdonnancementDAO
 
 		
 		/**
-		 * Permet de recuperer un ordonnancement partir de son id
-		 * @param id du l'ordonnancement a recuperer
+		 * Permet de recuperer un ordonnancement partir de son numSerie
+		 * @param num du l'ordonnancement a recuperer
 		 * @return l'ordonnancement
-		 * @return null si aucun ordonnancement ne correspond a cet id
+		 * @return null si aucun ordonnancement ne correspond a ce numserie
 		 */
-		public Ordonnancement getOrdonnancement(int ID)
+		public Ordonnancement getOrdonnancement(String numserie)
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -219,13 +219,13 @@ public class OrdonnancementDAO
 			//connexion a la base de donnees
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM Ordonnancement WHERE Ord_ID=?");
-				ps.setInt(1,ID);
+				ps = con.prepareStatement("SELECT * FROM Ordonnancement WHERE Ord_NumSerie=?");
+				ps.setString(1,numserie);
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OrdonnancementRetourne = new Ordonnancement(rs.getInt("Ord_ID"),
+					OrdonnancementRetourne = new Ordonnancement(rs.getString("Ord_NumSerie"),
 					rs.getString("Ord_Designation"),
 				    rs.getInt("Ord_QteFab"),
 				    rs.getString("getOrd_Ste"),
@@ -238,7 +238,6 @@ public class OrdonnancementDAO
 				    rs.getString("Ord_NumDossier"),
 				    rs.getString("Ord_CodeGPAO"),
 				    rs.getString("Ord_IndNomenclature"),
-				    rs.getString("Ord_NumSerie"),
 				    rs.getString("Ord_ComInterne"),
 				    rs.getString("Ord_NumAffaire"),
 				    rs.getString("Ord_Of"));
@@ -293,7 +292,7 @@ public class OrdonnancementDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeOrdonnancement.add(new Ordonnancement(rs.getInt("Ord_ID"),
+					ListeOrdonnancement.add(new Ordonnancement(rs.getString("Ord_NumSerie"),
 							rs.getString("Ord_Designation"),
 						    rs.getInt("Ord_QteFab"),
 						    rs.getString("getOrd_Ste"),
@@ -306,7 +305,6 @@ public class OrdonnancementDAO
 						    rs.getString("Ord_NumDossier"),
 						    rs.getString("Ord_CodeGPAO"),
 						    rs.getString("Ord_IndNomenclature"),
-						    rs.getString("Ord_NumSerie"),
 						    rs.getString("Ord_ComInterne"),
 						    rs.getString("Ord_NumAffaire"),
 						    rs.getString("Ord_Of")));

@@ -4,7 +4,7 @@ import java.util.Date;
 
 	public class Ordonnancement
 	{
-	    private int Ord_ID;
+		private String Ord_NumSerie;
 	    private String Ord_Designation;
 	    private int Ord_QteFab;
 	    private String Ord_Ste;
@@ -17,12 +17,11 @@ import java.util.Date;
 	    private String Ord_NumDossier;
 	    private String Ord_CodeGPAO;
 	    private String Ord_IndNomenclature;
-	    private String Ord_NumSerie;
 	    private String Ord_ComInterne;
 	    private String Ord_NumAffaire;
 	    private String Ord_Of;
 	    
-	    public Ordonnancement(int Ord_ID,
+	    public Ordonnancement(String Ord_NumSerie,
 	    String Ord_Designation,
 	    int Ord_QteFab,
 	    String Ord_Ste,
@@ -35,7 +34,6 @@ import java.util.Date;
 	    String Ord_NumDossier,
 	    String Ord_CodeGPAO,
 	    String Ord_IndNomenclature,
-	    String Ord_NumSerie,
 	    String Ord_ComInterne,
 	    String Ord_NumAffaire,
 	    String Ord_Of)
@@ -48,7 +46,6 @@ import java.util.Date;
 	    	this.Ord_DelaiPrv=Ord_DelaiPrv;
 	    	this.Ord_Designation=Ord_Designation;
 	    	this.Ord_FamGest=Ord_FamGest;
-	    	this.Ord_ID=Ord_ID;
 	    	this.Ord_IndNomenclature=Ord_IndNomenclature;
 	    	this.Ord_MFab=Ord_MFab;
 	    	this.Ord_NumDossier=Ord_NumDossier;
@@ -59,14 +56,6 @@ import java.util.Date;
 	    	this.Ord_Of=Ord_Of;
 	    }
 	    
-		public void setOrd_ID(int ord_ID)
-		{
-			Ord_ID = ord_ID;
-		}
-		public int getOrd_ID() 
-		{
-			return Ord_ID;
-		}
 		public void setOrd_Designation(String ord_Designation) 
 		{
 			Ord_Designation = ord_Designation;

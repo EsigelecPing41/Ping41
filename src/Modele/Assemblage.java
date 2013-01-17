@@ -3,16 +3,17 @@ package Modele;
 public class Assemblage 
 {
     private int A_ID;
+    private String A_NumSerie;
     private String A_Nom;
     private String A_CodeBarre;
-    private String A_C_Nom;
     /*Recuperer a partir de Piece, grace a P_A_Nom = A_Nom*/
     private String A_ListPieces;
     /*Recuperer a partir de Operation, grace a Op_A_Nom = A_Nom*/
     private String A_ListOperations;
     
     private boolean A_Statut;
-    /*Recuperer a partir d'Ordonnancement, grace a Ord_NumSerie=A_CodeBarre*/
+    /*Recuperer a partir d'Ordonnancement, grace a Ord_NumSerie=A_NumSerie*/
+    private String A_CodeClient;
     private String A_NumDossier;
     private String A_CodeGPAO;
     private String A_IndNomenclature;
@@ -21,12 +22,13 @@ public class Assemblage
     private String A_NumAffaire;
 
 
-    public Assemblage(int ID, String nom, String CB,String C_Nom, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+    public Assemblage(int ID, String A_NumSerie,String nom, String CB,String CodeClient, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
     {
     	this.A_ID=ID;
+    	this.A_NumSerie= A_NumSerie;
     	this.A_Nom=nom;
     	this.A_CodeBarre=CB;
-    	this.A_C_Nom=C_Nom;
+    	this.A_CodeClient=CodeClient;
     	this.A_ListPieces=listPieces;
     	this.A_ListOperations=Operations;
     	this.A_Statut=statut;
@@ -169,12 +171,25 @@ public class Assemblage
 		return A_NumAffaire;
 	}
 
-	public void setA_C_Nom(String a_C_Nom) {
-		A_C_Nom = a_C_Nom;
+	
+	public void setA_NumSerie(String a_NumSerie) 
+	{
+		A_NumSerie = a_NumSerie;
 	}
 
-	public String getA_C_Nom() {
-		return A_C_Nom;
+	public String getA_NumSerie() 
+	{
+		return A_NumSerie;
+	}
+
+	public void setA_CodeClient(String a_CodeClient) 
+	{
+		A_CodeClient = a_CodeClient;
+	}
+
+	public String getA_CodeClient() 
+	{
+		return A_CodeClient;
 	}
 
 
