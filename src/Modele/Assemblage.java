@@ -6,47 +6,29 @@ public class Assemblage
     private String A_NumSerie;
     private String A_Nom;
     private String A_CodeBarre;
-<<<<<<< HEAD
-=======
-    private String A_C_Nom;
->>>>>>> 3a2463e7daa32c40f1da54cdd3bf403687e44640
     /*Recuperer a partir de Piece, grace a P_A_Nom = A_Nom*/
     private String A_ListPieces;
     /*Recuperer a partir de Operation, grace a Op_A_Nom = A_Nom*/
     private String A_ListOperations;
     
     private boolean A_Statut;
-<<<<<<< HEAD
     /*Recuperer a partir d'Ordonnancement, grace a Ord_NumSerie=A_NumSerie*/
     private String A_CodeClient;
-=======
-    /*Recuperer a partir d'Ordonnancement, grace a Ord_NumSerie=A_CodeBarre*/
->>>>>>> 3a2463e7daa32c40f1da54cdd3bf403687e44640
     private String A_NumDossier;
     private String A_CodeGPAO;
     private String A_IndNomenclature;
     private String A_Designation;
     private String A_Of;
     private String A_NumAffaire;
-<<<<<<< HEAD
 
 
     public Assemblage(int ID, String A_NumSerie,String nom, String CB,String CodeClient, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
-=======
-
-
-    public Assemblage(int ID, String nom, String CB,String C_Nom, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
->>>>>>> 3a2463e7daa32c40f1da54cdd3bf403687e44640
     {
     	this.A_ID=ID;
     	this.A_NumSerie= A_NumSerie;
     	this.A_Nom=nom;
     	this.A_CodeBarre=CB;
-<<<<<<< HEAD
     	this.A_CodeClient=CodeClient;
-=======
-    	this.A_C_Nom=C_Nom;
->>>>>>> 3a2463e7daa32c40f1da54cdd3bf403687e44640
     	this.A_ListPieces=listPieces;
     	this.A_ListOperations=Operations;
     	this.A_Statut=statut;
@@ -189,7 +171,6 @@ public class Assemblage
 		return A_NumAffaire;
 	}
 
-<<<<<<< HEAD
 	
 	public void setA_NumSerie(String a_NumSerie) 
 	{
@@ -209,14 +190,6 @@ public class Assemblage
 	public String getA_CodeClient() 
 	{
 		return A_CodeClient;
-=======
-	public void setA_C_Nom(String a_C_Nom) {
-		A_C_Nom = a_C_Nom;
-	}
-
-	public String getA_C_Nom() {
-		return A_C_Nom;
->>>>>>> 3a2463e7daa32c40f1da54cdd3bf403687e44640
 	}
 
 
