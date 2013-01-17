@@ -47,7 +47,7 @@ public class ControleQualiteDAO
 				ps.setBoolean(3,cq.getCQ_Resultat());
 				for(CritereQualite c : cq.getCQ_ListCriteres())
 				{
-					listCritere += c.getCrQ_libelle() + ";";
+					listCritere += c.getCrQ_libelle() + ",";
 				}
 				ps.setString(4,listCritere);
 

@@ -37,28 +37,27 @@ private static Connection con;
 					 */
 					public static int ajouter(Expedition a)
 					{
-
 						PreparedStatement ps = null;
 						int retour=0;
 					
 						//connexion a la base de donn�es
 						try {
 
-							ps = con.prepareStatement("INSERT INTO ExpeditionDAO (Exp_Date,Exp_A_ID,Exp_BExp_ID,Exp_C_ID,Exp_ID) VALUES (?,?,?,?,?)");
-							ps.setDate(1,(Date)a.getExp_Date());
+							ps = con.prepareStatement("INSERT INTO Expedition(Exp_Date,Exp_A_ID,Exp_BExp_ID,Exp_CodeClient) VALUES (?,?,?,?)");
+							ps.setTimestamp(1,a.getExp_Date());
 							ps.setInt(2,a.getExp_A_ID());
 							ps.setInt(3,a.getExp_BExp_ID());
-							ps.setInt(4,a.getExp_C_ID());
-							ps.setInt(5,a.getExp_ID());
+							ps.setString(4,a.getExp_C_CodeClient());
 
-							
 							//on execute la requete 
 							retour=ps.executeUpdate();
 							
 
-						} catch (Exception ee) {
+						} catch (Exception ee) 
+						{
 							ee.printStackTrace();
-						} finally {
+						} finally
+						{
 							//fermeture du getConnection().preparedStatement et de la connexion
 							try {if (ps != null)ps.close();} catch (Exception t) {}
 						}
@@ -70,7 +69,7 @@ private static Connection con;
 					* @param Exp_Date la date de l'Expedition � modifier 
 					* @return nombre de lignes modifi�es dans la table Expedition
 					*/
-					public int modifierDate(int Exp_ID ,Date Exp_Date)
+					public int modifierDate(int Exp_ID ,Timestamp Exp_Date)
 					{
 							PreparedStatement ps = null;
 							int retour=0;
@@ -79,7 +78,7 @@ private static Connection con;
 							try 
 							{
 								ps = con.prepareStatement("UPDATE Expedition SET Exp_Date=? WHERE Exp_ID=?");
-								ps.setDate(1,Exp_Date);
+								ps.setTimestamp(1,Exp_Date);
 								ps.setInt(2,Exp_ID);
 								
 								//on execute la requete 
@@ -110,10 +109,10 @@ private static Connection con;
 
 					/**
 					* Permet de modifier le client d'Expedition dans la table Expedition
-					* @param Exp_C_ID de le client d'Expedition � modifier
+					* @param Exp_C_CodeClient de le client d'Expedition � modifier
 					* @return nombre de lignes modifi�es dans la table Expedition
 					*/
-					public int modifierClient(int Exp_ID ,int Exp_C_ID)
+					public int modifierClient(int Exp_ID ,String Exp_C_CodeClient)
 					{
 							PreparedStatement ps = null;
 							int retour=0;
@@ -121,8 +120,8 @@ private static Connection con;
 							//connexion a la base de donn�es
 							try 
 							{
-								ps = con.prepareStatement("UPDATE Expedition SET Exp_C_ID=? WHERE Exp_ID=?");
-								ps.setInt(1,Exp_C_ID);
+								ps = con.prepareStatement("UPDATE Expedition SET Exp_C_CodeClient=? WHERE Exp_ID=?");
+								ps.setString(1,Exp_C_CodeClient);
 								ps.setInt(2,Exp_ID);
 								
 								//on execute la requete 
@@ -151,7 +150,7 @@ private static Connection con;
 					
 
 					/**
-					* Permet de modifier leBon d'Expeditiond'une Expedition dans la table Expedition
+					* Permet de modifier le Bon d'Expeditiond'une Expedition dans la table Expedition
 					* @param Exp_BExp_ID de le Bon d'Expeditiond'une Expedition � modifier
 					* @return nombre de lignes modifi�es dans la table Expedition
 					*/
@@ -205,7 +204,7 @@ private static Connection con;
 							//connexion a la base de donn�es
 							try 
 							{
-								ps = con.prepareStatement("UPDATE Expedition SET Exp_A_ID=? WHERE Exp_D=?");
+								ps = con.prepareStatement("UPDATE Expedition SET Exp_A_ID=? WHERE Exp_ID=?");
 								ps.setInt(1,Exp_A_ID);
 								ps.setInt(2,Exp_ID);
 								
@@ -253,9 +252,11 @@ private static Connection con;
 							//on execute la requete 
 							retour=ps.executeUpdate();
 
-						} catch (Exception ee) {
+						} catch (Exception ee) 
+						{
 							ee.printStackTrace();
-						} finally {
+						} finally
+						{
 							//fermeture du rs,preparedStatement et de la connexion
 							
 							try {if (ps != null)ps.close();} catch (Exception t) {}
@@ -270,22 +271,22 @@ private static Connection con;
 					 * @return la Expedition
 					 * @return null si aucune Expedition ne correspond � cet ID
 					 */
-					public static ExpeditionDAO getExpeditionDAO(int Exp_ID)
+					public Expedition getExpedition(int Exp_ID)
 					{					
 						PreparedStatement ps = null;
 						ResultSet rs=null;
-						ExpeditionDAO retour=null;
+						Expedition retour=null;
 					
 						//connexion a la base de donn�es
 						try {
 
-							ps = con.prepareStatement("SELECT * FROM Expedition WHERE Exp_ID LIKE ?");
+							ps = con.prepareStatement("SELECT * FROM Expedition WHERE Exp_ID= ?");
 							ps.setInt(1,Exp_ID);
 										
 							//on execute la requete 
 							rs=ps.executeQuery();
 							if(rs.next())
-								retour=new ExpeditionDAO ();
+								retour=new Expedition(rs.getTimestamp("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID"));
 							
 
 						} catch (Exception ee) {
@@ -304,11 +305,11 @@ private static Connection con;
 					 * Permet de r�cup�rer toutes les Expeditions de la table
 					 * @return la liste des Expeditions
 					 */
-					public List<ExpeditionDAO> getListExpeditionDAO()
+					public List<Expedition> getListExpedition()
 					{
 						PreparedStatement ps = null;
 						ResultSet rs=null;
-						List<ExpeditionDAO> retour=new ArrayList<ExpeditionDAO>();
+						List<Expedition> retour=new ArrayList<Expedition>();
 					
 						//connexion a la base de donn�es
 						try {
@@ -318,7 +319,7 @@ private static Connection con;
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new ExpeditionDAO ());
+								retour.add(new Expedition(rs.getTimestamp("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID")));
 							
 
 						} catch (Exception ee) {
@@ -336,11 +337,11 @@ private static Connection con;
 					 * Permet de r�cup�rer toutes les Expeditions de la table pour UN assemblage
 					 * @return la liste des Expeditions
 					 */
-					public List<ExpeditionDAO> getListExpeditionDAO(int Exp_A_ID)
+					public List<Expedition> getListExpedition(int Exp_A_ID)
 					{
 						PreparedStatement ps = null;
 						ResultSet rs=null;
-						List<ExpeditionDAO> retour=new ArrayList<ExpeditionDAO>();
+						List<Expedition> retour=new ArrayList<Expedition>();
 					
 						//connexion a la base de donn�es
 						try {
@@ -350,7 +351,7 @@ private static Connection con;
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new ExpeditionDAO ());
+								retour.add(new Expedition(rs.getTimestamp("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID")));
 							
 
 						} catch (Exception ee) {
@@ -363,54 +364,5 @@ private static Connection con;
 						return retour;
 					
 					}
-
-					
-					
-					
-	/**				//main permettant de tester la classe
-					public static void main(int[] args){
-						ExpeditionDAO ExpeditionDAO=new ExpeditionDAO();
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la m�thode ajouter");
-						System.out.println("********************");
-						
-						//test de la m�thode ajouter
-						Expedition a=new Expedition();
-						int retour= dao.ExpeditionDAO.ajouter(a);
-						System.out.println(retour+ " lignes ajout�es");
-
-						
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la m�thode supprimer");
-						System.out.println("********************");
-						
-						//test de la m�thode supprimer
-						Date Exp_Date= null;
-						int retour1= ExpeditionDAO.supprimer(Exp_Date);
-						System.out.println(retour1+ " lignes supprim�es");
-						
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la m�thode getExpeditionDAO avec Exp_Date");
-						System.out.println("********************");
-						
-						//test de la m�thode getExpedition avec Exp_Date
-						ExpeditionDAO a2=dao.ExpeditionDAO.getExpeditionDAO(Exp_Date);
-						System.out.println(a2);
-
-						
-											
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la m�thode getListExpeditionDAO");
-						System.out.println("********************");
-						
-						//test de la m�thode getListExpeditionDAO
-						List<ExpeditionDAO> liste=ExpeditionDAO.getListExpeditionDAO();
-						System.out.println(liste);
-						
-					}        **/
 		}
 

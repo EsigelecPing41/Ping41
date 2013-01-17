@@ -46,8 +46,7 @@ import dao.Connexion;
 						//connexion a la base de données
 						try {
 
-							ps = con.prepareStatement("INSERT INTO BonExpeditionDAO (BExp_ID,BExp_Client,BExp_Date) VALUES (?,?,?)");
-							ps.setInt(1,a.getBExp_ID());
+							ps = con.prepareStatement("INSERT INTO BonExpeditionDAO (BExp_Client,BExp_Date) VALUES (?,?)");
 							ps.setString(2,a.getBExp_Client());
 							ps.setDate(3,(Date)a.getBExp_Date());
 

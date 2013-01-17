@@ -6,7 +6,7 @@ package dao;
 	import java.util.List;
 
 	import Modele.Livraison;
-	import dao.Connexion;
+import dao.Connexion;
 
 
 
@@ -46,18 +46,15 @@ package dao;
 								//connexion a la base de données
 								try {
 
-									ps = con.prepareStatement("INSERT INTO LivraisonDAO (Liv_Date,Liv_P_ID,Liv_Bliv_ID,Liv_F_ID,Liv_ID) VALUES (?,?,?,?,?)");
-									ps.setDate(1,(Date)a.getLiv_Date());
+									ps = con.prepareStatement("INSERT INTO Livraison(Liv_Date,Liv_P_ID,Liv_Bliv_ID,Liv_F_ID) VALUES (?,?,?,?)");
+									ps.setTimestamp(1,a.getLiv_Date());
 									ps.setInt(2,a.getLiv_P_ID());
 									ps.setInt(3,a.getLiv_Bliv_ID());
 									ps.setInt(4,a.getLiv_F_ID());
-									ps.setInt(5,a.getLiv_ID());
 
-									
 									//on execute la requete 
 									retour=ps.executeUpdate();
-									
-
+								
 								} catch (Exception ee) {
 									ee.printStackTrace();
 								} finally {
@@ -72,7 +69,7 @@ package dao;
 							* @param Liv_Date la date de la Livraison à modifier 
 							* @return nombre de lignes modifiées dans la table Livraison
 							*/
-							public int modifierDate(int Liv_ID ,Date Liv_Date)
+							public int modifierDate(int Liv_ID ,Timestamp Liv_Date)
 							{
 									PreparedStatement ps = null;
 									int retour=0;
@@ -81,7 +78,7 @@ package dao;
 									try 
 									{
 										ps = con.prepareStatement("UPDATE Livraison SET Liv_Date=? WHERE Liv_ID=?");
-										ps.setDate(1,Liv_Date);
+										ps.setTimestamp(1,Liv_Date);
 										ps.setInt(2,Liv_ID);
 										
 										//on execute la requete 
@@ -207,7 +204,7 @@ package dao;
 									//connexion a la base de données
 									try 
 									{
-										ps = con.prepareStatement("UPDATE Livraison SET Liv_P_ID=? WHERE Exp_D=?");
+										ps = con.prepareStatement("UPDATE Livraison SET Liv_P_ID=? WHERE Liv_ID=?");
 										ps.setInt(1,Liv_P_ID);
 										ps.setInt(2,Liv_ID);
 										
@@ -272,22 +269,22 @@ package dao;
 							 * @return la Livraison
 							 * @return null si aucune Livraison ne correspond à cet ID
 							 */
-							public static LivraisonDAO getLivraisonDAO(int Liv_ID)
+							public Livraison getLivraison(int Liv_ID)
 							{					
 								PreparedStatement ps = null;
 								ResultSet rs=null;
-								LivraisonDAO retour=null;
+								Livraison retour=null;
 							
 								//connexion a la base de données
 								try {
 
-									ps = con.prepareStatement("SELECT * FROM Livraison WHERE Liv_ID LIKE ?");
+									ps = con.prepareStatement("SELECT * FROM Livraison WHERE Liv_ID=?");
 									ps.setInt(1,Liv_ID);
 												
 									//on execute la requete 
 									rs=ps.executeQuery();
 									if(rs.next())
-										retour=new LivraisonDAO ();
+										retour=new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getInt("Liv_F_ID"),rs.getInt("Liv_ID"));
 									
 
 								} catch (Exception ee) {
@@ -306,11 +303,11 @@ package dao;
 							 * Permet de récupérer toutes les Livraisons de la table
 							 * @return la liste des Livraisons
 							 */
-							public List<LivraisonDAO> getListLivraisonDAO()
+							public List<Livraison> getListLivraison()
 							{
 								PreparedStatement ps = null;
 								ResultSet rs=null;
-								List<LivraisonDAO> retour=new ArrayList<LivraisonDAO>();
+								List<Livraison> retour=new ArrayList<Livraison>();
 							
 								//connexion a la base de données
 								try {
@@ -320,7 +317,7 @@ package dao;
 									rs=ps.executeQuery();
 									//on parcourt les lignes du resultat
 									while(rs.next())
-										retour.add(new LivraisonDAO ());
+										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getInt("Liv_F_ID"),rs.getInt("Liv_ID")));
 									
 
 								} catch (Exception ee) {
@@ -338,11 +335,11 @@ package dao;
 							 * Permet de récupérer toutes les Livraisons de la table pour UN assemblage
 							 * @return la liste des Livraisons
 							 */
-							public List<LivraisonDAO> getListLivraisonDAO(int Liv_P_ID)
+							public List<Livraison> getListLivraison(int Liv_P_ID)
 							{
 								PreparedStatement ps = null;
 								ResultSet rs=null;
-								List<LivraisonDAO> retour=new ArrayList<LivraisonDAO>();
+								List<Livraison> retour=new ArrayList<Livraison>();
 							
 								//connexion a la base de données
 								try {
@@ -352,8 +349,7 @@ package dao;
 									rs=ps.executeQuery();
 									//on parcourt les lignes du resultat
 									while(rs.next())
-										retour.add(new LivraisonDAO ());
-									
+										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getInt("Liv_F_ID"),rs.getInt("Liv_ID")));	
 
 								} catch (Exception ee) {
 									ee.printStackTrace();
@@ -366,54 +362,6 @@ package dao;
 							
 							}
 
-					
-					
-					
-		/**			//main permettant de tester la classe
-					public static void main(int[] args){
-						LivraisonDAO LivraisonDAO=new LivraisonDAO();
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode ajouter");
-						System.out.println("********************");
-						
-						//test de la méthode ajouter
-						Livraison a=new Livraison();
-						int retour= dao.LivraisonDAO.ajouter(a);
-						System.out.println(retour+ " lignes ajoutées");
-
-						
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode supprimer");
-						System.out.println("********************");
-						
-						//test de la méthode supprimer
-						Date LivDate= null;
-						int retour1= LivraisonDAO.supprimer(LivDate);
-						System.out.println(retour1+ " lignes supprimées");
-						
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode getLivraisonDAO avec LivDate");
-						System.out.println("********************");
-						
-						//test de la méthode getLivraison avec ComDate
-						LivraisonDAO a2=dao.LivraisonDAO.getLivraisonDAO(LivDate);
-						System.out.println(a2);
-
-						
-											
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode getListLivraisonDAO");
-						System.out.println("********************");
-						
-						//test de la méthode getListLivraisonDAO
-						List<LivraisonDAO> liste=LivraisonDAO.getListLivraisonDAO();
-						System.out.println(liste);
-						
-					}        **/
 		}
 
 
