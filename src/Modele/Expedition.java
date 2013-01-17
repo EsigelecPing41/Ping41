@@ -1,15 +1,15 @@
 package Modele;
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Expedition 
 {
-    private Date Exp_Date;
+    private Timestamp Exp_Date;
     private int Exp_A_ID;
     private int Exp_BExp_ID;
     private int Exp_C_ID;
     private int Exp_ID;
 
-    public Expedition( Date Exp_Date, int Exp_C_ID ,int Exp_BExp_ID,int Exp_A_ID, int Exp_ID)
+    public Expedition( Timestamp Exp_Date, int Exp_C_ID ,int Exp_BExp_ID,int Exp_A_ID, int Exp_ID)
     {
     	this.Exp_Date=Exp_Date;
     	this.Exp_C_ID=Exp_C_ID;
@@ -17,19 +17,18 @@ public class Expedition
     	this.Exp_A_ID=Exp_A_ID;
     	this.Exp_ID=Exp_ID;
     }
-
-    public Date getExp_Date() 
-    {
-        return this.Exp_Date;
-    }
-
-    public void setExp_Date(final Date value) 
-    {
-        this.Exp_Date = value;
-    }
     
-    
-    public int getExp_ID()
+    public Timestamp getExp_Date() {
+		return Exp_Date;
+	}
+
+	public void setExp_Date(Timestamp exp_Date) {
+		Exp_Date = exp_Date;
+	}
+
+
+
+	public int getExp_ID()
     {
         return this.Exp_ID;
     }   
@@ -46,8 +45,6 @@ public class Expedition
     {
         this.Exp_A_ID = value;
     }
-    
-    
     
     public int getExp_C_ID()
     {
