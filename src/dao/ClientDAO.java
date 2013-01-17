@@ -85,7 +85,7 @@ public class ClientDAO
 			try 
 			{
 				ps = con.prepareStatement("DELETE FROM Client WHERE C_CodeClient=?");
-				ps.setInt(1,C_CodeClient);
+				ps.setString(1,C_CodeClient);
 	
 				//on execute la requete 
 				retour=ps.executeUpdate();	
@@ -124,7 +124,7 @@ public class ClientDAO
 			{
 				ps = con.prepareStatement("UPDATE Client SET C_Nom =? WHERE C_CodeClient=?");
 				ps.setString(1,nom);
-				ps.setInt(2,C_CodeClient);
+				ps.setString(2,C_CodeClient);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -166,7 +166,7 @@ public class ClientDAO
 			{
 				ps = con.prepareStatement("UPDATE Client SET C_Adresse =? WHERE C_CodeClient=?");
 				ps.setString(1,adresse);
-				ps.setInt(2,C_CodeClient);
+				ps.setString(2,C_CodeClient);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -207,7 +207,7 @@ public class ClientDAO
 			{
 				ps = con.prepareStatement("UPDATE Client SET C_Description =? WHERE C_CodeClient=?");
 				ps.setString(1,description);
-				ps.setInt(2,C_CodeClient);
+				ps.setString(2,C_CodeClient);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -248,7 +248,7 @@ public class ClientDAO
 			{
 				ps = con.prepareStatement("UPDATE Client SET C_Mdp =? WHERE C_CodeClient=?");
 				ps.setString(1,mdp);
-				ps.setInt(2,C_CodeClient);
+				ps.setString(2,C_CodeClient);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -291,60 +291,7 @@ public class ClientDAO
 			try 
 			{	
 				ps = con.prepareStatement("SELECT * FROM Client WHERE C_CodeClient=?");
-				ps.setInt(1,C_CodeClient);
-							
-				//on execute la requete 
-				rs = ps.executeQuery();
-				if(rs.next())
-					ClientRetourne = new Client(rs.getString("C_CodeClient"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"),rs.getString("C_Mdp"));
-			}
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-			} 
-			finally 
-			{
-				try 
-				{
-					if (rs != null)
-					rs.close();
-				} 
-				catch (Exception t)
-				{
-					
-				}
-				
-				try 
-				{
-					if (ps != null)
-						ps.close();
-				} 
-				catch (Exception t) 
-				{
-					
-				}
-			}
-			return ClientRetourne;
-		}
-		
-		/**
-		 * Permet de récupérer un client à partir de son nom
-		 * @param nom du client à récupérer
-		 * @return le client
-		 * @return null si aucun client ne correspond à ce nom
-		 */
-		public Client getCLient(String nom)
-		{
-			PreparedStatement ps = null;
-			ResultSet rs=null;
-			Client ClientRetourne = null;
-	
-		
-			//connexion a la base de données
-			try 
-			{	
-				ps = con.prepareStatement("SELECT * FROM Client WHERE C_Nom=?");
-				ps.setString(1,nom);
+				ps.setString(1,C_CodeClient);
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
@@ -401,7 +348,7 @@ public class ClientDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeClient.add(new Client(rs.getInt("C_CodeClient"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"),rs.getString("C_Mdp")));
+					ListeClient.add(new Client(rs.getString("C_CodeClient"),rs.getString("C_Nom"),rs.getString("C_Adresse"),rs.getString("C_Description"),rs.getString("C_Mdp")));
 			} 
 			catch (Exception e) 
 			{
