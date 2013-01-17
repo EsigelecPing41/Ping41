@@ -2,24 +2,19 @@ package Modele;
 
 public class Client 
 {
-    private int C_ID;
+    private String C_CodeClient;
     private String C_Nom;
     private String C_Adresse;
     private String C_Description;
     private String C_Mdp;
     
-    public Client(int ID, String Nom, String Adresse, String Description,String mdp)
+    public Client(String code, String Nom, String Adresse, String Description,String mdp)
     {
-    	this.C_ID = ID;
+    	this.C_CodeClient = code;
     	this.C_Nom = Nom;
     	this.C_Adresse = Adresse;
     	this.C_Description=Description;
     	this.C_Mdp=mdp;
-    }
-
-    public int getC_ID() 
-    {
-        return this.C_ID;
     }
 
     public String getC_Nom() 
@@ -35,11 +30,6 @@ public class Client
     public String getC_Description() 
     {
         return this.C_Description;
-    }
-
-    public void setC_ID(int value) 
-    {
-        this.C_ID = value;
     }
 
     public void setC_Adresse(String value)
@@ -64,6 +54,14 @@ public class Client
 
 	public String getC_Mdp() {
 		return C_Mdp;
+	}
+
+	public void setC_CodeClient(String c_CodeClient) {
+		C_CodeClient = c_CodeClient;
+	}
+
+	public String getC_CodeClient() {
+		return C_CodeClient;
 	}
 
 }

@@ -1,16 +1,14 @@
 package Modele;
 
-import java.util.List;
-
 public class ControleQualite
 {
 	private int CQ_ID;
     private int CQ_O_ID;
     private int CQ_A_ID;
     private boolean CQ_Resultat;
-    private List<CritereQualite> CQ_ListCriteres;
+    private String CQ_ListCriteres;
 
-	public ControleQualite(int CQ_ID,int CQ_O_ID,int CQ_A_ID,boolean CQ_Resultat, List<CritereQualite> CQ_ListCriteres ) 
+	public ControleQualite(int CQ_ID,int CQ_O_ID,int CQ_A_ID,boolean CQ_Resultat, String CQ_ListCriteres ) 
 	{
 		this.CQ_ID = CQ_ID;
     	this.CQ_A_ID = CQ_A_ID;
@@ -47,11 +45,11 @@ public class ControleQualite
     {
         this.CQ_A_ID = value;
     }
-	public void setCQ_ListCriteres(List<CritereQualite> cQ_ListCriteres)
+	public void setCQ_ListCriteres(String cQ_ListCriteres)
 	{
 		CQ_ListCriteres = cQ_ListCriteres;
 	}
-	public List<CritereQualite> getCQ_ListCriteres()
+	public String getCQ_ListCriteres()
 	{
 		return CQ_ListCriteres;
 	}

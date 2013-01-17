@@ -45,7 +45,7 @@ public class Parametre
 		P_Menu[2][3] = "2";
 		P_Menu[2][4] = "1";	
 		P_Menu[2][5] = "0";
-		P_Menu[2][6] = "metrologie";
+		P_Menu[2][6] = "ficheQualite";
 		
 		P_Menu[3][0] = "3";
 		P_Menu[3][1] = "Ordonnancement";

@@ -8,7 +8,7 @@ public class ActionAssemblage  extends Action
 	    private int AA_A_ID;
 	    private int AA_L_ID;
 	    private int AA_ID;
-	    
+
 
 		public ActionAssemblage(int AA_A_IDDate, int AA_L_ID,int AA_ID,Date aA_Date, int aA_IDOperateur, int aA_IDOperation) {
 			
