@@ -72,6 +72,16 @@
     <servlet-name>modifierPieceRD</servlet-name>
     <url-pattern>/modifierPieceRD</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>validerPieceRD</servlet-name>
+    <servlet-class>Controlleur.ValiderPieceRD</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>validerPieceRD</servlet-name>
+    <url-pattern>/validerPieceRD</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>listePieceEnCours</servlet-name>
     <servlet-class>Controlleur.ListePieceEnCours</servlet-class>
@@ -175,5 +185,13 @@
   <servlet-mapping>
     <servlet-name>magasin</servlet-name>
     <url-pattern>/magasin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>metrologie</servlet-name>
+    <servlet-class>Controlleur.Metrologie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>metrologie</servlet-name>
+    <url-pattern>/metrologie</url-pattern>
   </servlet-mapping>
 </web-app>

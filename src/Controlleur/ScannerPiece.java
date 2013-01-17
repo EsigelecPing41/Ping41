@@ -11,6 +11,7 @@
 package Controlleur;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,8 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.LocalisationPieceDAO;
 import dao.PieceDAO;
 
+import Modele.LocalisationPiece;
 import Modele.Parametre;
 import Modele.Piece;
 
@@ -48,7 +51,6 @@ public class ScannerPiece extends HttpServlet {
 		PieceDAO pieceDao;
 		RequestDispatcher dispatcher;
 		try {
-			Parametre param = new Parametre();
 			pieceDao = PieceDAO.getInstance();
 			String numPiece = request.getParameter( "num_piece" );
 			String lieu = request.getParameter("lieu");
@@ -57,6 +59,12 @@ public class ScannerPiece extends HttpServlet {
 			{
 				HttpSession session = request.getSession(true);  
 				session.setAttribute("pieceActive", piece);
+				
+				LocalisationPieceDAO localDAO = LocalisationPieceDAO.getInstance();
+				
+				LocalisationPiece locPiece = new LocalisationPiece(0, new Date(), 1, Integer.parseInt(lieu), Integer.parseInt(numPiece));
+				localDAO.ajouter(locPiece);
+				
 				dispatcher = request.getRequestDispatcher("servlet/"+lieu);
 				dispatcher.forward( request, response );
 				
