@@ -34,6 +34,7 @@ public class ControleQualiteDAO
 	*/
 	public int ajouter(ControleQualite cq)
 	{
+			String listCritere = null;
 			PreparedStatement ps = null;
 			int retour=0;
 		
@@ -44,7 +45,11 @@ public class ControleQualiteDAO
 				ps.setInt(1,cq.getCQ_O_ID());
 				ps.setInt(2,cq.getCQ_A_ID());
 				ps.setBoolean(3,cq.getCQ_Resultat());
-				ps.setString(4,cq.getCQ_ListCriteres());
+				for(CritereQualite c : cq.getCQ_ListCriteres())
+				{
+					listCritere += c.getCrQ_libelle() + ";";
+				}
+				ps.setString(4,listCritere);
 
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -251,10 +256,12 @@ public class ControleQualiteDAO
 		public ControleQualite getControleQualite(int ID)
 		{
 			PreparedStatement ps = null;
+			PreparedStatement request = null;
 			ResultSet rs=null;
+			ResultSet result = null;
 			ControleQualite ControleQualiteRetourne = null;
-	
-		
+			CritereQualite critereQualite; 
+			ArrayList<CritereQualite> listCritere = new ArrayList<CritereQualite>();
 			//connexion a la base de donnees
 			try 
 			{	
@@ -263,8 +270,14 @@ public class ControleQualiteDAO
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
-				if(rs.next())
-					ControleQualiteRetourne = new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),rs.getString("CQ_ListCriteres"));
+				while(rs.next())
+				{
+					listCritere = (ArrayList<CritereQualite>) getListCritereControle(rs.getInt("CQ_ID"));//récuperation des criteres
+													
+					ControleQualiteRetourne = new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),listCritere);
+					
+				}
+					
 			}
 			catch (Exception e) 
 			{
@@ -428,6 +441,11 @@ public class ControleQualiteDAO
 			PreparedStatement ps = null;
 			ResultSet rs=null;
 			List<ControleQualite> ListeControleQualite = new ArrayList<ControleQualite>();
+			PreparedStatement request = null;
+			ResultSet result = null;
+			ControleQualite ControleQualiteRetourne = null;
+			CritereQualite critereQualite; 
+			ArrayList<CritereQualite> listCritere = new ArrayList<CritereQualite>();
 		
 			//connexion a la base de donn?es
 			try 
@@ -438,7 +456,14 @@ public class ControleQualiteDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeControleQualite.add(new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),rs.getString("CQ_ListCriteres")));
+				{
+					
+					listCritere = (ArrayList<CritereQualite>) getListCritereControle(rs.getInt("CQ_ID"))		;			
+					ControleQualiteRetourne = new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),listCritere);
+					
+					ListeControleQualite.add(ControleQualiteRetourne);
+				}
+					
 			} 
 			catch (Exception e) 
 			{
@@ -479,6 +504,13 @@ public class ControleQualiteDAO
 			PreparedStatement ps = null;
 			ResultSet rs=null;
 			List<ControleQualite> retour=new ArrayList<ControleQualite>();
+			List<ControleQualite> ListeControleQualite = new ArrayList<ControleQualite>();
+			PreparedStatement request = null;
+			ResultSet result = null;
+			ControleQualite ControleQualiteRetourne = null;
+			CritereQualite critereQualite; 
+			ArrayList<CritereQualite> listCritere = new ArrayList<CritereQualite>();
+		
 		
 			//connexion a la base de donn�es
 			try 
@@ -489,7 +521,14 @@ public class ControleQualiteDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					retour.add(new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),rs.getString("CQ_ListCriteres")));
+				{
+					listCritere = (ArrayList<CritereQualite>) getListCritereControle(rs.getInt("CQ_ID"));
+										
+					
+					
+					retour.add(new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),listCritere));
+				}
+					
 			} 
 			catch (Exception ee) 
 			{
