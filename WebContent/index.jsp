@@ -33,7 +33,7 @@
 						MDP :
 					</td>
 					<td>
-						<input type="mdp" name="password">
+						<input type="password" name="password">
 					</td>
 				</tr>
 			</table>
