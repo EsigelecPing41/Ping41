@@ -46,11 +46,11 @@ import dao.Connexion;
 								//connexion a la base de données
 								try {
 
-									ps = con.prepareStatement("INSERT INTO Livraison(Liv_Date,Liv_P_ID,Liv_Bliv_ID,Liv_F_ID) VALUES (?,?,?,?)");
+									ps = con.prepareStatement("INSERT INTO Livraison(Liv_Date,Liv_P_ID,Liv_Bliv_ID,Liv_F_CodeFournisseur) VALUES (?,?,?,?)");
 									ps.setTimestamp(1,a.getLiv_Date());
 									ps.setInt(2,a.getLiv_P_ID());
 									ps.setInt(3,a.getLiv_Bliv_ID());
-									ps.setInt(4,a.getLiv_F_ID());
+									ps.setString(4,a.getLiv_F_CodeFournisseur());
 
 									//on execute la requete 
 									retour=ps.executeUpdate();
@@ -284,7 +284,7 @@ import dao.Connexion;
 									//on execute la requete 
 									rs=ps.executeQuery();
 									if(rs.next())
-										retour=new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getInt("Liv_F_ID"),rs.getInt("Liv_ID"));
+										retour=new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID"));
 									
 
 								} catch (Exception ee) {
@@ -317,7 +317,7 @@ import dao.Connexion;
 									rs=ps.executeQuery();
 									//on parcourt les lignes du resultat
 									while(rs.next())
-										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getInt("Liv_F_ID"),rs.getInt("Liv_ID")));
+										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID")));
 									
 
 								} catch (Exception ee) {
@@ -349,7 +349,7 @@ import dao.Connexion;
 									rs=ps.executeQuery();
 									//on parcourt les lignes du resultat
 									while(rs.next())
-										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getInt("Liv_F_ID"),rs.getInt("Liv_ID")));	
+										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID")));	
 
 								} catch (Exception ee) {
 									ee.printStackTrace();

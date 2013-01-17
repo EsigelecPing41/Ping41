@@ -2,22 +2,17 @@ package Modele;
 
 public class Fournisseur 
 {
-    private int F_ID;
+    private String F_CodeFournisseur;
     private String F_Nom;
     private String F_Adresse;
     private String F_Description;
     
-    public Fournisseur(int ID, String Nom, String Adresse, String Description)
+    public Fournisseur(String code, String Nom, String Adresse, String Description)
     {
-    	this.F_ID = ID;
+    	this.F_CodeFournisseur= code;
     	this.F_Nom = Nom;
     	this.F_Adresse = Adresse;
     	this.F_Description=Description;
-    }
-
-    public int getF_ID() 
-    {
-        return this.F_ID;
     }
 
     public String getF_Nom()
@@ -35,11 +30,6 @@ public class Fournisseur
         return this.F_Description;
     }
 
-    public void setF_ID(final int value) 
-    {
-        this.F_ID = value;
-    }
-
     public void setF_Nom(final String value)
     {
         this.F_Nom = value;
@@ -54,5 +44,13 @@ public class Fournisseur
     {
         this.F_Description = value;
     }
+
+	public void setF_CodeFournisseur(String f_CodeFournisseur) {
+		F_CodeFournisseur = f_CodeFournisseur;
+	}
+
+	public String getF_CodeFournisseur() {
+		return F_CodeFournisseur;
+	}
 
 }
