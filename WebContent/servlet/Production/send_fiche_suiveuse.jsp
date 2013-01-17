@@ -2,6 +2,7 @@
  page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="java.util.List"%> 
+    <%@ page import="java.util.Iterator"%> 
     <%@ page import="Modele.Assemblage"%> 
     <%@ page import="Modele.Piece"%> 
 
@@ -32,6 +33,12 @@
 		if(request.getParameter("DD"+i) == null)
 		{
 			i=0;
+			RequestDispatcher dispatcher = request.getRequestDispatcher("fiche_suiveuse.jsp");
+			request.setAttribute("erreur","jour manquant");
+			dispatcher.forward( request, response );	
+			
+			
+			
 		}
 		if(request.getParameter("MM"+i) == null)
 		{
@@ -55,7 +62,7 @@
 		
 		if(i==1)
 		{
-			piece = (Piece)i.next();
+			piece = (Piece)it.next();
 			request.getParameter("DD"+i);
 			request.getParameter("MM"+i);
 			request.getParameter("YY"+i);
@@ -64,7 +71,7 @@
 			
 			
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("ficheSuiveuse");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("MajFicheSuiveuse");
 			dispatcher.forward( request, response );	
 			
 			

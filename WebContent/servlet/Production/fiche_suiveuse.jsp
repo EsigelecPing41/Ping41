@@ -19,6 +19,7 @@
 <% 
 	List<Operation> listOp = (List<Operation>)request.getAttribute("operation");
 	Assemblage assemblage = (Assemblage)request.getAttribute("assemblage");
+	String error = (String)request.getAttribute("erreur");
 	Operation operation;
 	Piece piece= null;
 	if(assemblage== null){
@@ -26,6 +27,17 @@
 	Erreur avec l'assemblage
 <%
 	}else{
+		
+		if(error!=null)
+		{
+			%>
+			
+			<%=error %>
+			
+			<%
+			
+		}
+		
 %>
 
 <center><h1>Production</h1>
@@ -46,6 +58,7 @@
 		</tr>
 		
 	</table> <br>
+	<form action="send_fiche_qualite">
 	<table  class="tableau">
 		<tr>
 			<th class="case">OPERATION</th>
