@@ -68,8 +68,8 @@ public class EnvoyerPiece extends HttpServlet {
 			ExpeditionDAO expeditionDAO = ExpeditionDAO.getInstance();
 			java.util.Date date = new java.util.Date();
 			Timestamp timeStamp = new Timestamp(date.getTime());
-			Client client = clientDAO.getCLient(assemblage.getClient());//en attendant medylle
-			Expedition expeditionAssemblage = new Expedition(timeStamp,client.getC_ID(),/*???Pas de bon expedition*/0,assemblage.getA_ID(),0);
+			Client client = clientDAO.getCLient(assemblage.getA_CodeClient());//en attendant medylle
+			Expedition expeditionAssemblage = new Expedition(timeStamp,client.getC_CodeClient(),/*???Pas de bon expedition*/0,assemblage.getA_ID(),0);
 			ExpeditionDAO.ajouter(expeditionAssemblage);
 			//expedition effectuée
 			
