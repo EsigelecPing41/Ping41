@@ -6,15 +6,17 @@ public class BonExpedition
 {
     private int BExp_ID;
     private String BExp_Designation;
+    private int BExp_Quantite;
     private String BExp_Reference;
     private String BExp_NumDossier;
     private String BExp_Client;
     private Date BExp_Date;
     
-    public BonExpedition(int BExp_ID,String BExp_Designation, String BExp_Reference,String BExp_NumDossier,String BExp_Client,Date BExp_Date)
+    public BonExpedition(int BExp_ID,String BExp_Designation,int BExp_Quantite,String BExp_Reference,String BExp_NumDossier,String BExp_Client,Date BExp_Date)
     {
        this.BExp_ID= BExp_ID;
        this.BExp_Designation=BExp_Designation;
+       this.BExp_Quantite=BExp_Quantite;
        this.BExp_Reference=BExp_Reference;
        this.BExp_NumDossier=BExp_NumDossier;
        this.BExp_Client=BExp_Client;
@@ -57,6 +59,14 @@ public class BonExpedition
 	}
 	public Date getBExp_Date() {
 		return BExp_Date;
+	}
+
+	public void setBExp_Quantite(int bExp_Quantite) {
+		BExp_Quantite = bExp_Quantite;
+	}
+
+	public int getBExp_Quantite() {
+		return BExp_Quantite;
 	}
     
     

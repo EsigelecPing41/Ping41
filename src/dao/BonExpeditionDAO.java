@@ -47,8 +47,9 @@ import dao.Connexion;
 						//connexion a la base de données
 						try {
 
-							ps = con.prepareStatement("INSERT INTO BonExpedition(BExp_Designation,BExp_Reference,BExp_NumDossier,BExp_Client,BExp_Date) VALUES (?,?,?,?,?)");
+							ps = con.prepareStatement("INSERT INTO BonExpedition(BExp_Designation,BExp_Quantite,BExp_Reference,BExp_NumDossier,BExp_Client,BExp_Date) VALUES (?,?,?,?,?,?)");
 							ps.setString(1,b.getBExp_Designation());
+							ps.setInt(2,b.getBExp_Quantite());
 							ps.setString(2,b.getBExp_Reference());
 							ps.setString(3,b.getBExp_NumDossier());
 							ps.setString(4,b.getBExp_Client());
@@ -70,7 +71,7 @@ import dao.Connexion;
 
 					/**
 					* Permet de modifier la designation
-					* @param designation à modifier 
+					* @param id bon et designation à modifier 
 					* @return nombre de lignes modifiées dans la table BonExpedition
 					*/
 					public int modifierDesignation(int BExp_ID ,String BExp_Designation)				
@@ -109,7 +110,47 @@ import dao.Connexion;
 					
 				}
 				
-
+					/**
+					* Permet de modifier la quantite
+					* @param id bon et quantite à modifier 
+					* @return nombre de lignes modifiées dans la table BonExpedition
+					*/
+					public int modifierQuantite(int BExp_ID ,int BExp_Quantite)				
+					{
+						PreparedStatement ps = null;
+						int retour=0;
+					
+						//connexion a la base de données
+						try 
+						{
+							ps = con.prepareStatement("UPDATE BonExpedition SET BExp_Quantite=? WHERE BExp_ID=?");
+							ps.setInt(1,BExp_Quantite);
+							ps.setInt(2,BExp_ID);
+							
+							//on execute la requete 
+							retour=ps.executeUpdate();
+							
+					     } 
+						catch (Exception e)
+					     {
+							e.printStackTrace();
+					     } 
+						finally 
+					     {
+							try 
+							{
+								if (ps != null)
+									ps.close();
+							} 
+							catch (Exception t) 
+							{
+								
+							}
+						 }
+						return retour;
+					
+				}
+				
 					/**
 					* Permet de modifier la reference
 					* @param reference à modifier 
@@ -325,7 +366,7 @@ import dao.Connexion;
 							//on execute la requete 
 							rs=ps.executeQuery();
 							if(rs.next())
-								retour=new BonExpedition(rs.getInt("BExp_ID"),rs.getString("BExp_Designation"),rs.getString("BExp_Reference"),rs.getString("BExp_NumDossier"),rs.getString("BExp_Client"),rs.getDate("BExp_Date"));
+								retour=new BonExpedition(rs.getInt("BExp_ID"),rs.getString("BExp_Designation"),rs.getInt("BExp_Quantite"),rs.getString("BExp_Reference"),rs.getString("BExp_NumDossier"),rs.getString("BExp_Client"),rs.getDate("BExp_Date"));
 							
 
 						} catch (Exception ee) {
@@ -358,7 +399,7 @@ import dao.Connexion;
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new BonExpedition(rs.getInt("BExp_ID"),rs.getString("BExp_Designation"),rs.getString("BExp_Reference"),rs.getString("BExp_NumDossier"),rs.getString("BExp_Client"),rs.getDate("BExp_Date")));
+								retour.add(new BonExpedition(rs.getInt("BExp_ID"),rs.getString("BExp_Designation"),rs.getInt("BExp_Quantite"),rs.getString("BExp_Reference"),rs.getString("BExp_NumDossier"),rs.getString("BExp_Client"),rs.getDate("BExp_Date")));
 							
 
 						} catch (Exception ee) {

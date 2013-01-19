@@ -39,7 +39,8 @@ public class FournisseurDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Fournisseur (F_Nom,F_Adresse,F_Description) VALUES (?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Fournisseur (F_CodeFournisseur,F_Nom,F_Adresse,F_Description) VALUES (?,?,?,?)");
+				ps.setString(1,f.getF_CodeFournisseur());
 				ps.setString(1,f.getF_Nom());
 				ps.setString(2,f.getF_Adresse());
 				ps.setString(3,f.getF_Description());
@@ -70,10 +71,10 @@ public class FournisseurDAO
 		
 		/**
 		 * Permet de supprimer un Fournisseur de la table Fournisseur
-		 * @param ID du Fournisseur à supprimer
+		 * @param code fournisseur du Fournisseur à supprimer
 		 *@return null si aucun Fournisseur ne correspond à cet id
 		 */
-	public int supprimer(int ID)
+	public int supprimer(String code)
 	{
 			PreparedStatement ps=null;
 			int retour=0;
@@ -81,8 +82,8 @@ public class FournisseurDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("DELETE FROM Fournisseur WHERE F_ID=?");
-				ps.setInt(1,ID);
+				ps = con.prepareStatement("DELETE FROM Fournisseur WHERE F_CodeFournisseur=?");
+				ps.setString(1,code);
 	
 				//on execute la requete 
 				retour=ps.executeUpdate();	
@@ -108,10 +109,10 @@ public class FournisseurDAO
 		
 	/**
 	* Permet de modifier le nom du fournisseur
-	* @param ID du fournisseur et le nouveau nom
+	* @param code du fournisseur et le nouveau nom
 	* @return nombre de lignes modifiées dans la table Fournisseur
 	* */
-	public int modifierNom(int ID,String nom)
+	public int modifierNom(String code,String nom)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -119,9 +120,9 @@ public class FournisseurDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Fournisseur SET F_Nom =? WHERE F_ID=?");
+				ps = con.prepareStatement("UPDATE Fournisseur SET F_Nom =? WHERE F_CodeFournisseur=?");
 				ps.setString(1,nom);
-				ps.setInt(2,ID);
+				ps.setString(2,code);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -149,10 +150,10 @@ public class FournisseurDAO
 	
 	/**
 	* Permet de modifier l'adresse du fournisseur
-	* @param ID du fournisseur et la nouvelle adresse
+	* @param code du fournisseur et la nouvelle adresse
 	* @return nombre de lignes modifiées dans la table Fournisseur
 	* */
-	public int modifierAdresse(int ID,String adresse)
+	public int modifierAdresse(String code,String adresse)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -160,9 +161,9 @@ public class FournisseurDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Fournisseur SET F_Adresse =? WHERE F_ID=?");
+				ps = con.prepareStatement("UPDATE Fournisseur SET F_Adresse =? WHERE F_CodeFournisseur=?");
 				ps.setString(1,adresse);
-				ps.setInt(2,ID);
+				ps.setString(2,code);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -190,10 +191,10 @@ public class FournisseurDAO
 	
 	/**
 	* Permet de modifier la description d'un fournisseur
-	* @param ID du fournisseur et la nouvelle description
+	* @param code du fournisseur et la nouvelle description
 	* @return nombre de lignes modifiées dans la table Fournisseur
 	* */
-	public int modifierDescription(int ID,String description)
+	public int modifierDescription(String code,String description)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -201,9 +202,9 @@ public class FournisseurDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("UPDATE Fournisseur SET F_Description =? WHERE F_ID=?");
+				ps = con.prepareStatement("UPDATE Fournisseur SET F_Description =? WHERE F_CodeFournisseur=?");
 				ps.setString(1,description);
-				ps.setInt(2,ID);
+				ps.setString(2,code);
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -231,12 +232,12 @@ public class FournisseurDAO
 	
 	
 		/**
-		 * Permet de récupérer un Fournisseur à partir de son id
-		 * @param id du Fournisseur à récupérer
+		 * Permet de récupérer un Fournisseur à partir de son code
+		 * @param code du Fournisseur à récupérer
 		 * @return le Fournisseur
-		 * @return null si aucun Fournisseur ne correspond à cet id
+		 * @return null si aucun Fournisseur ne correspond à cet code fournisseur
 		 */
-		public Fournisseur getFournisseur(int ID)
+		public Fournisseur getFournisseur(String code)
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -246,13 +247,13 @@ public class FournisseurDAO
 			//connexion a la base de données
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM Fournisseur WHERE F_ID=?");
-				ps.setInt(1,ID);
+				ps = con.prepareStatement("SELECT * FROM Fournisseur WHERE F_CodeFournisseur=?");
+				ps.setString(1,code);
 							
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					FournisseurRetourne = new Fournisseur(rs.getInt("F_ID"),rs.getString("F_Nom"),rs.getString("F_Adresse"),rs.getString("F_Description"));
+					FournisseurRetourne = new Fournisseur(rs.getString("F_CodeFournisseur"),rs.getString("F_Nom"),rs.getString("F_Adresse"),rs.getString("F_Description"));
 			}
 			catch (Exception e) 
 			{
@@ -289,7 +290,7 @@ public class FournisseurDAO
 		 * @return le Fournisseur
 		 * @return null si aucun Fournisseur ne correspond à ce nom
 		 */
-		public Fournisseur getFournisseur(String nom)
+		public Fournisseur getFournisseurNom(String nom)
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -305,7 +306,7 @@ public class FournisseurDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					FournisseurRetourne = new Fournisseur(rs.getInt("F_ID"),rs.getString("F_Nom"),rs.getString("F_Adresse"),rs.getString("F_Description"));
+					FournisseurRetourne = new Fournisseur(rs.getString("F_CodeFournisseur"),rs.getString("F_Nom"),rs.getString("F_Adresse"),rs.getString("F_Description"));
 			}
 			catch (Exception e) 
 			{
@@ -356,7 +357,7 @@ public class FournisseurDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeFournisseur.add(new Fournisseur(rs.getInt("F_ID"),rs.getString("F_Nom"),rs.getString("F_Adresse"),rs.getString("F_Description")));
+					ListeFournisseur.add(new Fournisseur(rs.getString("F_CodeFournisseur"),rs.getString("F_Nom"),rs.getString("F_Adresse"),rs.getString("F_Description")));
 			} 
 			catch (Exception e) 
 			{
