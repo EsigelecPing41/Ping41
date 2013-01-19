@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class EnregistrerPieceMagasin
  */
-@WebServlet(description = "Valider la pièce au magasin", urlPatterns = { "/EnregistrerPieceMagasin" })
+@WebServlet(description = "Valider la piï¿½ce au magasin", urlPatterns = { "/EnregistrerPieceMagasin" })
 public class EnregistrerPieceMagasin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,6 +45,7 @@ public class EnregistrerPieceMagasin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//
 	}
 
 }

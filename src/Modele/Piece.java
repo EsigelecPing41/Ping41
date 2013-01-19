@@ -1,5 +1,7 @@
 package Modele;
 
+import java.util.Random;
+
 public class Piece 
 {
     private int P_ID;
@@ -71,5 +73,17 @@ public class Piece
 	{
 		return P_A_Nom;
 	}
-
+	public int  genererNumPiece()
+	{
+		int valeurMin = 1000;
+		int valeurMax = 9999;
+		Random r = new Random();
+		return valeurMin + r.nextInt(valeurMax-valeurMin);
+	}
+	int main()
+	{
+		System.out.println(genererNumPiece());
+		return 0;
+	}
+	
 }
