@@ -2,6 +2,7 @@ package dao;
 
 	import java.sql.*;
 	import java.util.ArrayList;
+import java.util.Date;
 	import java.util.List;
 
 import Modele.Commande;
@@ -43,12 +44,11 @@ import dao.Connexion;
 						//connexion a la base de données
 						try {
 
-							ps = con.prepareStatement("INSERT INTO CommandeDAO (Com_Date,Com_ID,Com_F_ID,Com_BCom_ID,Com_P_ID) VALUES (?,?,?,?,?)");
-							ps.setDate(1,(Date)a.getCom_Date());
-							ps.setInt(2,a.getCom_ID());
-							ps.setInt(3,a.getCom_F_ID());
-							ps.setInt(4,a.getCom_BCom_ID());
-							ps.setInt(5,a.getCom_P_ID());
+							ps = con.prepareStatement("INSERT INTO CommandeDAO (Com_Date,Com_F_CodeFournisseur,Com_BCom_ID,Com_P_ID) VALUES (?,?,?,?)");
+							ps.setDate(1,(java.sql.Date)a.getCom_Date());
+							ps.setString(2,a.getCom_F_CodeFournisseur());
+							ps.setInt(3,a.getCom_BCom_ID());
+							ps.setInt(4,a.getCom_P_ID());
 
 							
 							//on execute la requete 
@@ -78,7 +78,7 @@ import dao.Connexion;
 							try 
 							{
 								ps = con.prepareStatement("UPDATE Commande SET Com_Date=? WHERE Com_ID=?");
-								ps.setDate(1,Com_Date);
+								ps.setDate(1,(java.sql.Date) Com_Date);
 								ps.setInt(2,Com_ID);
 								
 								//on execute la requete 
@@ -154,7 +154,7 @@ import dao.Connexion;
 					* @param Com_F_ID de le Fournisseur d'une Commande à modifier
 					* @return nombre de lignes modifiées dans la table Commande
 					*/
-					public int modifierFournisseur(int Com_ID ,int Com_F_ID)
+					public int modifierFournisseur(int Com_ID ,String Com_F_CodeFournisseur)
 					{
 							PreparedStatement ps = null;
 							int retour=0;
@@ -162,8 +162,8 @@ import dao.Connexion;
 							//connexion a la base de données
 							try 
 							{
-								ps = con.prepareStatement("UPDATE Commande SET Com_F_ID=? WHERE Com_ID=?");
-								ps.setInt(1,Com_F_ID);
+								ps = con.prepareStatement("UPDATE Commande SET Com_F_CodeFournisseur=? WHERE Com_ID=?");
+								ps.setString(1,Com_F_CodeFournisseur);
 								ps.setInt(2,Com_ID);
 								
 								//on execute la requete 
@@ -269,22 +269,22 @@ import dao.Connexion;
 					 * @return la Commande
 					 * @return null si aucune Commande ne correspond à cet ID
 					 */
-					public static CommandeDAO getCommandeDAO(int Com_ID)
+					public static Commande getCommande(int Com_ID)
 					{					
 						PreparedStatement ps = null;
 						ResultSet rs=null;
-						CommandeDAO retour=null;
+						Commande retour=null;
 					
 						//connexion a la base de données
 						try {
 
-							ps = con.prepareStatement("SELECT * FROM Commande WHERE Com_ID LIKE ?");
+							ps = con.prepareStatement("SELECT * FROM Commande WHERE Com_ID=?");
 							ps.setInt(1,Com_ID);
 										
 							//on execute la requete 
 							rs=ps.executeQuery();
 							if(rs.next())
-								retour=new CommandeDAO ();
+								retour=new Commande(rs.getDate("Com_Date"),rs.getString("Com_F_CodeFournisseur"),rs.getInt("Com_BCom_ID"),rs.getInt("Com_P_ID"),rs.getInt("Com_ID"));
 							
 
 						} catch (Exception ee) {
@@ -303,11 +303,11 @@ import dao.Connexion;
 					 * Permet de récupérer toutes les Commandes de la table
 					 * @return la liste des Commandes
 					 */
-					public List<CommandeDAO> getListCommandeDAO()
+					public List<Commande> getListCommande()
 					{
 						PreparedStatement ps = null;
 						ResultSet rs=null;
-						List<CommandeDAO> retour=new ArrayList<CommandeDAO>();
+						List<Commande> retour=new ArrayList<Commande>();
 					
 						//connexion a la base de données
 						try {
@@ -317,7 +317,7 @@ import dao.Connexion;
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new CommandeDAO ());
+								retour.add(new Commande(rs.getDate("Com_Date"),rs.getString("Com_F_CodeFournisseur"),rs.getInt("Com_BCom_ID"),rs.getInt("Com_P_ID"),rs.getInt("Com_ID")));
 							
 
 						} catch (Exception ee) {
@@ -335,21 +335,21 @@ import dao.Connexion;
 					 * Permet de récupérer toutes les Commandes de la table pour UNE piece
 					 * @return la liste des Commandes
 					 */
-					public List<CommandeDAO> getListCommandeDAO(int Com_P_ID)
+					public List<Commande> getListCommande(int Com_P_ID)
 					{
 						PreparedStatement ps = null;
 						ResultSet rs=null;
-						List<CommandeDAO> retour=new ArrayList<CommandeDAO>();
+						List<Commande> retour=new ArrayList<Commande>();
 					
 						//connexion a la base de données
 						try {
-							ps = con.prepareStatement("SELECT * FROM Commande");
+							ps = con.prepareStatement("SELECT * FROM Commande WHERE Com_P_ID=" +Com_P_ID);
 													
 							//on execute la requete 
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new CommandeDAO ());
+								retour.add(new Commande(rs.getDate("Com_Date"),rs.getString("Com_F_CodeFournisseur"),rs.getInt("Com_BCom_ID"),rs.getInt("Com_P_ID"),rs.getInt("Com_ID")));
 							
 
 						} catch (Exception ee) {
@@ -363,54 +363,6 @@ import dao.Connexion;
 					
 					}
 
-			
-					
-					
-	/**				//main permettant de tester la classe
-					public static void main(int[] args){
-						CommandeDAO CommandeDAO=new CommandeDAO();
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode ajouter");
-						System.out.println("********************");
-						
-						//test de la méthode ajouter
-						Commande a=new Commande();
-						int retour= dao.CommandeDAO.ajouter(a);
-						System.out.println(retour+ " lignes ajoutées");
-
-						
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode supprimer");
-						System.out.println("********************");
-						
-						//test de la méthode supprimer
-						Date ComDate= null;
-						int retour1= CommandeDAO.supprimer(ComDate);
-						System.out.println(retour1+ " lignes supprimées");
-						
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode getCommandeDAO avec ComDate");
-						System.out.println("********************");
-						
-						//test de la méthode getCommande avec ComDate
-						CommandeDAO a2=dao.CommandeDAO.getCommandeDAO(ComDate);
-						System.out.println(a2);
-
-						
-											
-						
-						System.out.println("\n********************");
-						System.out.println("Test de la méthode getListCommandeDAO");
-						System.out.println("********************");
-						
-						//test de la méthode getListCommandeDAO
-						List<CommandeDAO> liste=CommandeDAO.getListCommandeDAO();
-						System.out.println(liste);
-						
-					}   **/     
 		}
 
 
