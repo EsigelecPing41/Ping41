@@ -194,4 +194,12 @@
     <servlet-name>metrologie</servlet-name>
     <url-pattern>/metrologie</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>genererAssemblage</servlet-name>
+    <servlet-class>Controlleur.Assemblage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>genererAssemblage</servlet-name>
+    <url-pattern>/genererAssemblage</url-pattern>
+  </servlet-mapping>
 </web-app>

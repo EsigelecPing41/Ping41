@@ -46,8 +46,8 @@ public class ListePieceParService extends HttpServlet {
 				pieces.add(pieceDao.getPiece(i));
 			}
 		} catch (Exception e) {
-			pieces.add(new Piece(1, "Aucune piéce", "",true));
-		    // traitement à faire dans ce cas
+			pieces.add(new Piece("Aucune piï¿½ce", "",true));
+		    // traitement ï¿½ faire dans ce cas
 		}
 		session.setAttribute("listePiece", pieces);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("servlet/ListePieceParService/listePieceParService.jsp");
