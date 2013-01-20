@@ -3,17 +3,15 @@ package Modele;
 public class Client 
 {
     private String C_CodeClient; 
-    private String C_Login;
     private String C_Nom;
     private String C_Adresse;
     private String C_Description;
     private String C_Mdp;
     
-    public Client(String code, String Nom, String login,String Adresse, String Description,String mdp)
+    public Client(String code, String Nom, String Adresse, String Description,String mdp)
     {
     	this.C_CodeClient = code;
     	this.C_Nom = Nom;
-    	this.C_Login = login;
     	this.C_Adresse = Adresse;
     	this.C_Description=Description;
     	this.C_Mdp=mdp;
@@ -64,14 +62,6 @@ public class Client
 
 	public String getC_CodeClient() {
 		return C_CodeClient;
-	}
-
-	public void setC_Login(String c_Login) {
-		C_Login = c_Login;
-	}
-
-	public String getC_Login() {
-		return C_Login;
 	}
 
 }
