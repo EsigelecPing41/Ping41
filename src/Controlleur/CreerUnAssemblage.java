@@ -1,6 +1,6 @@
 /*****************************************************
 * Module : Controlleur
-* Fichier : ListeDesManquants
+* Fichier : LancerListeAServir
 * Description : 
 * Projet : SKF Traceability
 * Auteur : GC
@@ -11,28 +11,23 @@
 package Controlleur;
 
 import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Modele.Ordonnancement;
-
 /**
- * Servlet implementation class ListeDesManquants
+ * Servlet implementation class LancerListeAServir
  */
-@WebServlet(description = "L'ordonnancement lance la production et la liste des manquants", urlPatterns = { "/ListeDesManquants" })
-public class AfficherListeDesManquants extends HttpServlet {
+@WebServlet(description = "Création d'un assemblage", urlPatterns = { "/CreerUnAssemblage" })
+public class CreerUnAssemblage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AfficherListeDesManquants() {
+    public CreerUnAssemblage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +37,7 @@ public class AfficherListeDesManquants extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : ListeDesManquants");
+		System.out.println("servlet : On créer un assemblage");
 	}
 
 	/**
@@ -50,7 +45,7 @@ public class AfficherListeDesManquants extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : AfficherListeDesManquants");
+		System.out.println("servlet : On créer un assemblage");
 	}
 
 }

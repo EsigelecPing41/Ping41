@@ -1,6 +1,6 @@
 /*****************************************************
 * Module : Controlleur
-* Fichier : ListeDesManquants
+* Fichier : LancerFicheSuiveuse
 * Description : 
 * Projet : SKF Traceability
 * Auteur : GC
@@ -23,16 +23,16 @@ import javax.servlet.http.HttpServletResponse;
 import Modele.Ordonnancement;
 
 /**
- * Servlet implementation class ListeDesManquants
+ * Servlet implementation class LancerFicheSuiveuse
  */
-@WebServlet(description = "L'ordonnancement lance la production et la liste des manquants", urlPatterns = { "/ListeDesManquants" })
-public class AfficherListeDesManquants extends HttpServlet {
+@WebServlet(description = "Lancement de la liste a servir", urlPatterns = { "/LancerListeAServir" })
+public class LancerListeAServir extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AfficherListeDesManquants() {
+    public LancerListeAServir() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class AfficherListeDesManquants extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : ListeDesManquants");
+		System.out.println("servlet : LancerListeAServir");
 	}
 
 	/**
@@ -50,7 +50,10 @@ public class AfficherListeDesManquants extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : AfficherListeDesManquants");
+		List<Ordonnancement> listeOrdo = (List<Ordonnancement>) request.getAttribute("listOrdo");
+		RequestDispatcher dispatcher;
+		dispatcher = request.getRequestDispatcher("servlet/Ordonnancement/ListesDesManquants.jsp");			
+		dispatcher.forward( request, response );	
 	}
 
 }
