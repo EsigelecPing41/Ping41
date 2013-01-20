@@ -46,11 +46,12 @@ public class ActionPieceDAO {
 					//connexion a la base de données
 					try {
 
-						ps = con.prepareStatement("INSERT INTO ActionPieceDAO (AP_P_ID, AP_L_ID,AP_ID) VALUES (?,?,?)");
+						ps = con.prepareStatement("INSERT INTO ActionPiece (AP_P_ID,AP_O_ID,AP_Op_ID,AP_L_ID,AP_Date) VALUES (?,?,?,?,?)");
 						ps.setInt(1,a.getAP_P_ID());
-						ps.setInt(2,a.getAP_L_ID());
-						ps.setInt(3,a.getAP_ID());
-						
+						ps.setInt(2,a.getAP_O_ID());
+						ps.setInt(3,a.getAP_Op_ID());
+						ps.setInt(1,a.getAP_L_ID());
+						ps.setDate(2,a.getAP_Date());
 						
 						//on execute la requete 
 						retour=ps.executeUpdate();
@@ -68,8 +69,131 @@ public class ActionPieceDAO {
 
 
 				/**
-				* Permet de modifier le lieu d'une Piece dans la table ActionPiece
-				* @param AP_l_ID de le lieu de la Piece à modifier et la nouvelle Piece
+				* Permet de modifier l'id piece de l'action piece
+				* @param l'action piece a modifier et la nouvelle Piece
+				* @return nombre de lignes modifiées dans la table ActionPiece
+				*/
+				public int modifierPiece(int AP_ID ,int AP_P_ID)
+				{
+						PreparedStatement ps = null;
+						int retour=0;
+					
+						//connexion a la base de données
+						try 
+						{
+							ps = con.prepareStatement("UPDATE ActionPiece SET AP_P_ID=? WHERE AP_ID=?");
+							ps.setInt(1,AP_P_ID);
+							ps.setInt(2,AP_ID);
+							
+							//on execute la requete 
+							retour=ps.executeUpdate();
+							
+					     } 
+						catch (Exception e)
+					     {
+							e.printStackTrace();
+					     } 
+						finally 
+					     {
+							try 
+							{
+								if (ps != null)
+									ps.close();
+							} 
+							catch (Exception t) 
+							{
+								
+							}
+						 }
+						 return retour;
+					
+				}
+
+				/**
+				* Permet de modifier l'id operateur de l'action piece
+				* @param l'action piece a modifier et le nouvel operateur
+				* @return nombre de lignes modifiées dans la table ActionPiece
+				*/
+				public int modifierOperateur(int AP_ID ,int AP_O_ID)
+				{
+						PreparedStatement ps = null;
+						int retour=0;
+					
+						//connexion a la base de données
+						try 
+						{
+							ps = con.prepareStatement("UPDATE ActionPiece SET AP_O_ID=? WHERE AP_ID=?");
+							ps.setInt(1,AP_O_ID);
+							ps.setInt(2,AP_ID);
+							
+							//on execute la requete 
+							retour=ps.executeUpdate();
+							
+					     } 
+						catch (Exception e)
+					     {
+							e.printStackTrace();
+					     } 
+						finally 
+					     {
+							try 
+							{
+								if (ps != null)
+									ps.close();
+							} 
+							catch (Exception t) 
+							{
+								
+							}
+						 }
+						 return retour;
+					
+				}
+				
+				/**
+				* Permet de modifier l'id operation de l'action piece
+				* @param l'action piece a modifier et la nouvelle operation
+				* @return nombre de lignes modifiées dans la table ActionPiece
+				*/
+				public int modifierOperation(int AP_ID ,int AP_Op_ID)
+				{
+						PreparedStatement ps = null;
+						int retour=0;
+					
+						//connexion a la base de données
+						try 
+						{
+							ps = con.prepareStatement("UPDATE ActionPiece SET AP_Op_ID=? WHERE AP_ID=?");
+							ps.setInt(1,AP_Op_ID);
+							ps.setInt(2,AP_ID);
+							
+							//on execute la requete 
+							retour=ps.executeUpdate();
+							
+					     } 
+						catch (Exception e)
+					     {
+							e.printStackTrace();
+					     } 
+						finally 
+					     {
+							try 
+							{
+								if (ps != null)
+									ps.close();
+							} 
+							catch (Exception t) 
+							{
+								
+							}
+						 }
+						 return retour;
+					
+				}
+				
+				/**
+				* Permet de modifier l'id lieu de l'action piece
+				* @param l'action piece a modifier et le nouveau lieu
 				* @return nombre de lignes modifiées dans la table ActionPiece
 				*/
 				public int modifierLieu(int AP_ID ,int AP_L_ID)
@@ -107,14 +231,13 @@ public class ActionPieceDAO {
 						 return retour;
 					
 				}
-
-
+				
 				/**
-				* Permet de modifier l'action d'une Piece dans la table ActionPiece
-				* @param AP_P_ID de l'action de la Piece à modifier et la nouvelle Piece
+				* Permet de modifier la date de l'action piece
+				* @param l'action piece a modifier et la nouvelle date
 				* @return nombre de lignes modifiées dans la table ActionPiece
 				*/
-				public int modifierPiece(int AP_ID ,int AP_P_ID)
+				public int modifierDate(int AP_ID ,Date AP_Date)
 				{
 						PreparedStatement ps = null;
 						int retour=0;
@@ -122,8 +245,8 @@ public class ActionPieceDAO {
 						//connexion a la base de données
 						try 
 						{
-							ps = con.prepareStatement("UPDATE ActionPiece SET AP_P_ID=? WHERE AP_ID=?");
-							ps.setInt(1,AP_P_ID);
+							ps = con.prepareStatement("UPDATE ActionPiece SET AP_Date=? WHERE AP_ID=?");
+							ps.setDate(1,AP_Date);
 							ps.setInt(2,AP_ID);
 							
 							//on execute la requete 
@@ -148,13 +271,14 @@ public class ActionPieceDAO {
 						 }
 						 return retour;
 					
-				}			
-
+				}
+				
+				
 				
 				/**
-				 * Permet de supprimer une piece dans la table ActionPiece
-				 * @param AP_ID l'id de l'Action  à supprimer
-				 *@return null si aucune Action ne correspond à cette date
+				 * Permet de supprimer une action piece
+				 * @param l'id de l'action à supprimer
+				 *@return null si aucune Action ne correspond à cet id
 				 */
 				public int supprimer(int AP_ID)
 				{
@@ -184,27 +308,27 @@ public class ActionPieceDAO {
 				}		
 				
 				/**
-				 * Permet de récupérer une piece d'une Action 
-				 * @param AP_IDla date de l'Action à récupérer
-				 * @return l'Action
-				 * @return null si aucune Action ne correspond à cette date
+				 * Permet de récupérer une action piece à partir de son id 
+				 * @param id de l'action à récupérer
+				 * @return l'action
+				 * @return null si aucune action ne correspond à cet
 				 */
-				public static ActionPieceDAO getActionPiece(int AP_ID)
+				public static ActionPiece getActionPiece(int AP_ID)
 				{					
 					PreparedStatement ps = null;
 					ResultSet rs=null;
-					ActionPieceDAO retour=null;
+					ActionPiece retour=null;
 				
 					//connexion a la base de données
 					try {
 
-						ps = con.prepareStatement("SELECT * FROM ActionPiece WHERE AP_ID LIKE ?");
+						ps = con.prepareStatement("SELECT * FROM ActionPiece WHERE AP_ID= ?");
 						ps.setInt(1,AP_ID);
 									
 						//on execute la requete 
 						rs=ps.executeQuery();
 						if(rs.next())
-							retour=new ActionPieceDAO ();
+							retour=new ActionPiece(rs.getInt("AP_ID"),rs.getInt("AP_P_ID"),rs.getInt("AP_O_ID"),rs.getInt("AP_Op_ID"),rs.getInt("AP_L_ID"),rs.getDate("AP_Date"));
 						
 
 					} catch (Exception ee) {
@@ -218,35 +342,35 @@ public class ActionPieceDAO {
 				
 				}
 				
-				
-
 				/**
-				 * Permet de récupérer une piece d'une Action 
-				 * @param AP_ID l'ID de l'Action d'une piece à récupérer
-				 * @return l'Action
-				 * @return null si aucune Action ne correspond à cette date
+				 * Permet de récupérer toutes les Actions de la table pour une piece donnee
+				 * @return la liste des Actions
 				 */
-				public static ActionPieceDAO getActionPieceDAO(int AP_ID)
-				{					
+				public List<ActionPiece> getListActionPiece(int AP_ID)
+				{
 					PreparedStatement ps = null;
 					ResultSet rs=null;
-					ActionPieceDAO retour=null;
+					List<ActionPiece> retour=new ArrayList<ActionPiece>();
 				
 					//connexion a la base de données
-					try {
-
-						ps = con.prepareStatement("SELECT * FROM ActionPiece WHERE AP_ID LIKE ?");
-						ps.setInt(1,AP_ID);
-									
+					try 
+					{
+						ps = con.prepareStatement("SELECT * FROM ActionPiece WHERE AP_ID=" +AP_ID);
+												
 						//on execute la requete 
 						rs=ps.executeQuery();
-						if(rs.next())
-							retour=new ActionPieceDAO ();
+						//on parcourt les lignes du resultat
+						while(rs.next())
+							retour.add(new ActionPiece(rs.getInt("AP_ID"),rs.getInt("AP_P_ID"),rs.getInt("AP_O_ID"),rs.getInt("AP_Op_ID"),rs.getInt("AP_L_ID"),rs.getDate("AP_Date")));
 						
 
-					} catch (Exception ee) {
+					} 
+					catch (Exception ee) 
+					{
 						ee.printStackTrace();
-					} finally {
+					} 
+					finally 
+					{
 						//fermeture du rs,preparedStatement et de la connexion
 						try {if (rs != null)rs.close();} catch (Exception t) {}
 						try {if (ps != null)ps.close();} catch (Exception t) {}
@@ -254,34 +378,36 @@ public class ActionPieceDAO {
 					return retour;
 				
 				}
-				
-				
-
-				
+			
 				/**
 				 * Permet de récupérer toutes les Actions de la table
 				 * @return la liste des Actions
 				 */
-				public List<ActionPieceDAO> getListActionPieceDAO()
+				public List<ActionPiece> getListActionPiece()
 				{
 					PreparedStatement ps = null;
 					ResultSet rs=null;
-					List<ActionPieceDAO> retour=new ArrayList<ActionPieceDAO>();
+					List<ActionPiece> retour=new ArrayList<ActionPiece>();
 				
 					//connexion a la base de données
-					try {
+					try 
+					{
 						ps = con.prepareStatement("SELECT * FROM ActionPiece");
 												
 						//on execute la requete 
 						rs=ps.executeQuery();
 						//on parcourt les lignes du resultat
 						while(rs.next())
-							retour.add(new ActionPieceDAO ());
+							retour.add(new ActionPiece(rs.getInt("AP_ID"),rs.getInt("AP_P_ID"),rs.getInt("AP_O_ID"),rs.getInt("AP_Op_ID"),rs.getInt("AP_L_ID"),rs.getDate("AP_Date")));
 						
 
-					} catch (Exception ee) {
+					} 
+					catch (Exception ee) 
+					{
 						ee.printStackTrace();
-					} finally {
+					} 
+					finally 
+					{
 						//fermeture du rs,preparedStatement et de la connexion
 						try {if (rs != null)rs.close();} catch (Exception t) {}
 						try {if (ps != null)ps.close();} catch (Exception t) {}
@@ -289,89 +415,6 @@ public class ActionPieceDAO {
 					return retour;
 				
 				}
+}
 
-
-				/**
-				 * Permet de récupérer toutes les Actions pour UNE piece de la table
-				 * @return la liste des Actions
-				 */
-				public List<ActionPieceDAO> getListActionPieceDAO(int AP_ID )
-				{
-					PreparedStatement ps = null;
-					ResultSet rs=null;
-					List<ActionPieceDAO> retour=new ArrayList<ActionPieceDAO>();
 				
-					//connexion a la base de données
-					try {
-						ps = con.prepareStatement("SELECT * FROM ActionPiece");
-												
-						//on execute la requete 
-						rs=ps.executeQuery();
-						//on parcourt les lignes du resultat
-						while(rs.next())
-							retour.add(new ActionPieceDAO ());
-						
-
-					} catch (Exception ee) {
-						ee.printStackTrace();
-					} finally {
-						//fermeture du rs,preparedStatement et de la connexion
-						try {if (rs != null)rs.close();} catch (Exception t) {}
-						try {if (ps != null)ps.close();} catch (Exception t) {}
-					}
-					return retour;
-				
-				}			
-				
-				
-				
-	
-				
-				
-/**				//main permettant de tester la classe
-				public static void main(int[] args){
-					ActionPieceDAO ActionDAO=new ActionPieceDAO();
-					
-					System.out.println("\n********************");
-					System.out.println("Test de la méthode ajouter");
-					System.out.println("********************");
-					
-					//test de la méthode ajouter
-					ActionPiece a=new ActionPiece();
-					int retour= ActionPieceDAO.ajouter(a);
-					System.out.println(retour+ " lignes ajoutées");
-
-					
-					
-					System.out.println("\n********************");
-					System.out.println("Test de la méthode supprimer");
-					System.out.println("********************");
-					
-					//test de la méthode supprimer
-					Date AP_Date= null;
-					int retour1= ActionDAO.supprimer(AP_Date);
-					System.out.println(retour1+ " lignes supprimées");
-					
-					
-					System.out.println("\n********************");
-					System.out.println("Test de la méthode getActionPiece avec AP_Piece");
-					System.out.println("********************");
-					
-					//test de la méthode getActionPiece avec AP_Date
-					ActionPiece a2=ActionPieceDAO.getActionPiece(AP_Date);
-					System.out.println(a2);
-
-					
-										
-					
-					System.out.println("\n********************");
-					System.out.println("Test de la méthode getListActionPiece");
-					System.out.println("********************");
-					
-					//test de la méthode getListActionPiece
-					List<ActionPiece> liste=ActionDAO.getListActionPiece();
-					System.out.println(liste);
-					
-				}         **/
-	}
-
