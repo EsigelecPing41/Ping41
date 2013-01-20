@@ -45,7 +45,7 @@ public class RechercheDevellopement extends HttpServlet {
 			pieceDao = PieceDAO.getInstance();
 			Piece p = pieceDao.getPiece(numPiece);
 			RequestDispatcher dispatcher;
-			dispatcher = request.getRequestDispatcher("R&D/retour_piece_RD.jsp");
+			dispatcher = request.getRequestDispatcher("servlet/R&D/retour_piece_RD.jsp");
 			dispatcher.forward( request, response );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
