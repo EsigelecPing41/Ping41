@@ -51,7 +51,7 @@ if((String)request.getAttribute("article1")!=null && (String)request.getAttribut
 	
 	
 	/*num commande?*/
-	Ordonnancement ordonnancement = new Ordonnancement(/*int Ord_ID,*/pieceNom1,nb_a_fabr1,ste1,code_client1,date_cde1,date_fab1,date_prv1,date_dde1,fam_gest1,Ord_NumDossier1, Ord_CodeGPAO1,Ord_IndNomenclature1,Ord_NumSerie1,Ord_ComInterne1);    
+	Ordonnancement ordonnancement = new Ordonnancement(pieceNom1,nb_a_fabr1,ste1,code_client1,date_cde1,date_fab1,date_prv1,date_dde1,fam_gest1,Ord_NumDossier1, Ord_CodeGPAO1,Ord_IndNomenclature1,Ord_NumSerie1,Ord_ComInterne1);    
 	listOrdo.add(0, ordonnancement);		
 }
 
@@ -124,7 +124,7 @@ if((String)request.getAttribute("article3")!=null && (String)request.getAttribut
 }
 
 
-RequestDispatcher dispatcher = request.getRequestDispatcher("LancerListeAServir");
+RequestDispatcher dispatcher = request.getRequestDispatcher("LancerListeDesManquants");
 
 
 request.setAttribute("listOrdo",listOrdo);

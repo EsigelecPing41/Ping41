@@ -196,18 +196,10 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>genererAssemblage</servlet-name>
-    <servlet-class>Controlleur.GenererAssemblage</servlet-class>
+    <servlet-class>Controlleur.CreerUnAssemblage</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>genererAssemblage</servlet-name>
     <url-pattern>/genererAssemblage</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>afficherCodeBarre</servlet-name>
-    <servlet-class>Controlleur.AfficherCodeBarre</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>afficherCodeBarre</servlet-name>
-    <url-pattern>/afficherCodeBarre</url-pattern>
   </servlet-mapping>
 </web-app>
