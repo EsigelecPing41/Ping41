@@ -51,7 +51,7 @@ public class LancementNouvellePiece extends HttpServlet {
 		//PieceDAO pieceDao;
 		RequestDispatcher dispatcher;
 		try {
-			a = new Assemblage(request.getParameter("numero_serie"), request.getParameter("nb_dossier_def"), request.getParameter("code_gpao"), request.getParameter("ind_nomencl"), request.getParameter("designation_de_la_piece"),request.getParameter("ordre_fabrication"), request.getParameter("numero_affaire"), null);
+			a = new Assemblage(0, request.getParameter("numero_serie"), request.getParameter("nb_dossier_def"), request.getParameter("code_gpao"), request.getParameter("ind_nomencl"), request.getParameter("designation_de_la_piece"),request.getParameter("ordre_fabrication"), false, request.getParameter("numero_affaire"), null, null, null, null, null);
 			//p = new Piece(request.getParameter("numero_serie"), request.getParameter("nb_dossier_def"), request.getParameter("code_gpao"), request.getParameter("ind_nomencl"), request.getParameter("designation_de_la_piece"),request.getParameter("ordre_fabrication"), request.getParameter("numero_affaire"));
 			//pieceDao = PieceDAO.getInstance();
 			assemblageDao = AssemblageDAO.getInstance();
