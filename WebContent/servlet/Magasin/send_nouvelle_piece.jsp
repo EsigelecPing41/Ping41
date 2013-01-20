@@ -6,6 +6,7 @@
     <%@ page import="Modele.Piece"%> 
     <%@ page import="Modele.BonLivraison"%> 
     <%@ page import="Modele.BonLivraison"%>
+    <%@ page import="Modele.Date"%>
     <%@ page import= "java.text.DateFormat"%>
     <%@ page import="java.util.Date"%>
     <%@ page import="java.text.SimpleDateFormat"%>
@@ -52,12 +53,16 @@ if(request.getParameter("nomPiece") == null)
 		
 		Piece piece = new Piece(nom_piece, nom_asspiece, true);
 		
+		String designation = request.getParameter("nomPiece");
 		String fournisseur = request.getParameter("fournisseur");
-		String s= request.getParameter("dateLivraison");
+		String num_dossier= request.getParameter("numDossier");
+		String num_reference = request.getParameter("numReference");
+		Integer Quantite= (Integer) request.getAttribute("quantite");
+		String s= request.getParameter("dateLivraison");	
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 		Date d = sdf.parse(s);
 		Date dateLivraison = d ;
-		BonLivraison bonLivraison = new BonLivraison(fournisseur, d);
+		BonLivraison bonLivraison = new BonLivraison(designation, Quantite, num_reference,num_dossier,fournisseur, d);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("EnregistrerPieceMagasin");
 		dispatcher.forward( request, response );
