@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ActionAssemblageDAO {
 			con = connect.getConnection();	
 		}
 
-		public static ActionAssemblageDAO getInstance() throws Exception
+		public ActionAssemblageDAO getInstance() throws Exception
 		{
 			if(ActionAssemblageDAO.singleton==null)
 				singleton=new ActionAssemblageDAO();
@@ -347,7 +348,7 @@ public class ActionAssemblageDAO {
 				 * Permet de récupérer toutes les Actions de la table pour un assemblage donne
 				 * @return la liste des Actions
 				 */
-				public static List<ActionAssemblage> getListActionAssemblage(int AA_ID)
+				public List<ActionAssemblage> getListActionAssemblage(int AA_ID)
 				{
 					PreparedStatement ps = null;
 					ResultSet rs=null;
