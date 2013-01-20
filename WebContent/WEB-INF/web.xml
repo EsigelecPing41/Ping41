@@ -196,7 +196,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>genererAssemblage</servlet-name>
-    <servlet-class>Controlleur.Assemblage</servlet-class>
+    <servlet-class>Controlleur.CreerUnAssemblage</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>genererAssemblage</servlet-name>
