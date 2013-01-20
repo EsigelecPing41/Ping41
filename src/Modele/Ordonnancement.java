@@ -4,7 +4,7 @@ import java.util.Date;
 
 	public class Ordonnancement
 	{
-	    private int Ord_ID;
+		private String Ord_NumSerie;
 	    private String Ord_Designation;
 	    private int Ord_QteFab;
 	    private String Ord_Ste;
@@ -17,10 +17,11 @@ import java.util.Date;
 	    private String Ord_NumDossier;
 	    private String Ord_CodeGPAO;
 	    private String Ord_IndNomenclature;
-	    private String Ord_NumSerie;
 	    private String Ord_ComInterne;
+	    private String Ord_NumAffaire;
+	    private String Ord_Of;
 	    
-	    public Ordonnancement(int Ord_ID,
+	    public Ordonnancement(String Ord_NumSerie,
 	    String Ord_Designation,
 	    int Ord_QteFab,
 	    String Ord_Ste,
@@ -33,8 +34,9 @@ import java.util.Date;
 	    String Ord_NumDossier,
 	    String Ord_CodeGPAO,
 	    String Ord_IndNomenclature,
-	    String Ord_NumSerie,
-	    String Ord_ComInterne)
+	    String Ord_ComInterne,
+	    String Ord_NumAffaire,
+	    String Ord_Of)
 	    {
 	    	this.Ord_CodeClient=Ord_CodeClient;
 	    	this.Ord_CodeGPAO=Ord_CodeGPAO;
@@ -44,54 +46,16 @@ import java.util.Date;
 	    	this.Ord_DelaiPrv=Ord_DelaiPrv;
 	    	this.Ord_Designation=Ord_Designation;
 	    	this.Ord_FamGest=Ord_FamGest;
-	    	this.Ord_ID=Ord_ID;
 	    	this.Ord_IndNomenclature=Ord_IndNomenclature;
 	    	this.Ord_MFab=Ord_MFab;
 	    	this.Ord_NumDossier=Ord_NumDossier;
 	    	this.Ord_NumSerie=Ord_NumSerie;
 	    	this.Ord_QteFab=Ord_QteFab;
 	    	this.Ord_Ste=Ord_Ste;
+	    	this.Ord_NumAffaire=Ord_NumAffaire;
+	    	this.Ord_Of=Ord_Of;
 	    }
 	    
-	    public Ordonnancement(String Ord_Designation,
-	    	    int Ord_QteFab,
-	    	    String Ord_Ste,
-	    	    String Ord_CodeClient,
-	    	    Date Ord_DelaiCde,
-	    	    Date Ord_MFab,
-	    	    Date Ord_DelaiPrv,
-	    	    Date Ord_DelaiDde,
-	    	    String Ord_FamGest,
-	    	    String Ord_NumDossier,
-	    	    String Ord_CodeGPAO,
-	    	    String Ord_IndNomenclature,
-	    	    String Ord_NumSerie,
-	    	    String Ord_ComInterne)
-	    	    {
-	    	    	this.Ord_CodeClient=Ord_CodeClient;
-	    	    	this.Ord_CodeGPAO=Ord_CodeGPAO;
-	    	    	this.Ord_ComInterne=Ord_ComInterne;
-	    	    	this.Ord_DelaiCde=Ord_DelaiCde;
-	    	    	this.Ord_DelaiDde=Ord_DelaiDde;
-	    	    	this.Ord_DelaiPrv=Ord_DelaiPrv;
-	    	    	this.Ord_Designation=Ord_Designation;
-	    	    	this.Ord_FamGest=Ord_FamGest;
-	    	       	this.Ord_IndNomenclature=Ord_IndNomenclature;
-	    	    	this.Ord_MFab=Ord_MFab;
-	    	    	this.Ord_NumDossier=Ord_NumDossier;
-	    	    	this.Ord_NumSerie=Ord_NumSerie;
-	    	    	this.Ord_QteFab=Ord_QteFab;
-	    	    	this.Ord_Ste=Ord_Ste;
-	    	    }
-	    
-		public void setOrd_ID(int ord_ID)
-		{
-			Ord_ID = ord_ID;
-		}
-		public int getOrd_ID() 
-		{
-			return Ord_ID;
-		}
 		public void setOrd_Designation(String ord_Designation) 
 		{
 			Ord_Designation = ord_Designation;
@@ -203,6 +167,22 @@ import java.util.Date;
 		public String getOrd_ComInterne() 
 		{
 			return Ord_ComInterne;
+		}
+
+		public void setOrd_NumAffaire(String ord_NumAffaire) {
+			Ord_NumAffaire = ord_NumAffaire;
+		}
+
+		public String getOrd_NumAffaire() {
+			return Ord_NumAffaire;
+		}
+
+		public void setOrd_Of(String ord_Of) {
+			Ord_Of = ord_Of;
+		}
+
+		public String getOrd_Of() {
+			return Ord_Of;
 		}
 
 	}

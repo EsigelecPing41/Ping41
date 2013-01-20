@@ -6,12 +6,12 @@ import java.util.Date;
 public class LocalisationAssemblage 
 {
 	private int LA_ID;
-	private String LA_Date;
+	private Date LA_Date;
 	private int LA_O_ID;
 	private int LA_L_ID;
 	private int LA_A_ID;
 	
-	public LocalisationAssemblage(int lA_Id, String lA_Date, int lA_O_ID, int lA_L_ID, int lA_A_ID) //modification alt
+	public LocalisationAssemblage(int lA_Id, Date lA_Date, int lA_O_ID, int lA_L_ID, int lA_A_ID) 
 	{
 		super();
 		LA_ID = lA_Id;
@@ -31,12 +31,12 @@ public class LocalisationAssemblage
 		LA_ID = lA_ID;
 	}
 	
-	public String getLA_Date()
+	public Date getLA_Date()
 	{
 		return LA_Date;
 	}
 	
-	public void setLA_Date(String lA_Date)
+	public void setLA_Date(Date lA_Date)
 	{
 		LA_Date = lA_Date;
 	}
