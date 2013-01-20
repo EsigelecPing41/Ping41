@@ -17,6 +17,14 @@ public class ControleQualite
     	this.CQ_O_ID = CQ_O_ID;
     	this.CQ_Resultat= CQ_Resultat;
     	this.CQ_ListCriteres = CQ_ListCriteres;
+	}
+	
+	public ControleQualite(int CQ_O_ID,int CQ_A_ID,boolean CQ_Resultat, List<CritereQualite> CQ_ListCriteres ) 
+	{
+    	this.CQ_A_ID = CQ_A_ID;
+    	this.CQ_O_ID = CQ_O_ID;
+    	this.CQ_Resultat= CQ_Resultat;
+    	this.CQ_ListCriteres = CQ_ListCriteres;
     	
 	}
 	

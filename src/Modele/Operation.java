@@ -15,6 +15,13 @@ public class Operation
     	this.Op_EO_ID=EO_ID;
     }
     
+    public Operation(String A_Nom, String libelle,int EO_ID)
+    {
+    	this.Op_A_Nom = A_Nom;
+    	this.Op_Libelle=libelle;
+    	this.Op_EO_ID=EO_ID;
+    }
+    
     public int getOp_ID()
     {
         return this.Op_ID;

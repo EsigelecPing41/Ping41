@@ -16,8 +16,16 @@ public class Livraison
     	this.Liv_Date=Liv_Date;
     	this.Liv_P_ID=Liv_P_ID;
     	this.Liv_Bliv_ID=Liv_Bliv_ID;
-    	this.setLiv_F_CodeFournisseur(Liv_F_CodeFournisseur);
+    	this.Liv_F_CodeFournisseur=Liv_F_CodeFournisseur;
     	this.Liv_ID=Liv_ID;
+    }
+    
+    public Livraison (Date Liv_Date, int Liv_P_ID ,int Liv_Bliv_ID,String Liv_F_CodeFournisseur)
+    {
+    	this.Liv_Date=Liv_Date;
+    	this.Liv_P_ID=Liv_P_ID;
+    	this.Liv_Bliv_ID=Liv_Bliv_ID;
+    	this.Liv_F_CodeFournisseur=Liv_F_CodeFournisseur;
     }
 
     public Date getLiv_Date() 

@@ -22,6 +22,16 @@ public class BonCommande
        this.BCom_Fournisseur=Fournisseur;
        this.BCom_Date=Date;
     }
+    
+    public BonCommande(String Designation,int Quantite, String Reference,String NumDossier,String Fournisseur,Date Date)
+    {
+       this.BCom_Designation=Designation;
+       this.BCom_Quantite=Quantite;
+       this.BCom_Reference=Reference;
+       this.BCom_NumDossier=NumDossier;
+       this.BCom_Fournisseur=Fournisseur;
+       this.BCom_Date=Date;
+    }
 
 	public void setBCom_ID(int bCom_ID) {
 		BCom_ID = bCom_ID;

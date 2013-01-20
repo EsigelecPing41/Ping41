@@ -14,15 +14,24 @@ public class BonLivraison
     
     public BonLivraison(int ID,String Designation,int Quantite, String Reference,String NumDossier,String Fournisseur,Date Date)
     {
-       this.setBLiv_ID(ID);
-       this.setBLiv_Designation(Designation);
-       this.setBLiv_Quantite(Quantite);
-       this.setBLiv_Reference(Reference);
-       this.setBLiv_NumDossier(NumDossier);
-       this.setBLiv_Fournisseur(Fournisseur);
-       this.setBLiv_Date(Date);
+       this.BLiv_ID= ID;
+       this.BLiv_Designation= Designation;
+       this.BLiv_Quantite= Quantite;
+       this.BLiv_Reference = Reference;
+       this.BLiv_NumDossier= NumDossier;
+       this.BLiv_Fournisseur = Fournisseur;
+       this.BLiv_Date =Date;
     }
 
+    public BonLivraison(String Designation,int Quantite, String Reference,String NumDossier,String Fournisseur,Date Date)
+    { 
+       this.BLiv_Designation= Designation;
+       this.BLiv_Quantite= Quantite;
+       this.BLiv_Reference = Reference;
+       this.BLiv_NumDossier= NumDossier;
+       this.BLiv_Fournisseur = Fournisseur;
+       this.BLiv_Date =Date;
+    }
 	public void setBLiv_ID(int bLiv_ID) {
 		BLiv_ID = bLiv_ID;
 	}

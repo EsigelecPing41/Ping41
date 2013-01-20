@@ -13,8 +13,15 @@ public class LocalisationAssemblage
 	
 	public LocalisationAssemblage(int lA_Id, Date lA_Date, int lA_O_ID, int lA_L_ID, int lA_A_ID) 
 	{
-		super();
 		LA_ID = lA_Id;
+		LA_Date = lA_Date;
+		LA_O_ID = lA_O_ID;
+		LA_L_ID = lA_L_ID;
+		LA_A_ID= lA_A_ID;
+	}
+	
+	public LocalisationAssemblage( Date lA_Date, int lA_O_ID, int lA_L_ID, int lA_A_ID) 
+	{
 		LA_Date = lA_Date;
 		LA_O_ID = lA_O_ID;
 		LA_L_ID = lA_L_ID;

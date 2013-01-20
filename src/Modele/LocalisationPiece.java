@@ -12,12 +12,19 @@ public class LocalisationPiece
 	
 	public LocalisationPiece(int lP_ID, Date lP_Date, int lP_O_ID, int lP_L_ID, int lP_P_ID)
 	{
-		super();
 		LP_ID = lP_ID;
 		LP_Date = lP_Date;
 		LP_O_ID = lP_O_ID;
 		LP_L_ID = lP_L_ID;
-		setLP_P_ID(lP_P_ID);
+		LP_P_ID = lP_P_ID;
+	}
+	
+	public LocalisationPiece(Date lP_Date, int lP_O_ID, int lP_L_ID, int lP_P_ID)
+	{
+		LP_Date = lP_Date;
+		LP_O_ID = lP_O_ID;
+		LP_L_ID = lP_L_ID;
+		LP_P_ID = lP_P_ID;
 	}
 	
 	public int getLP_ID() 

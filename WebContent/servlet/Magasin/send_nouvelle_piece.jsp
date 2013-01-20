@@ -59,7 +59,7 @@ if(request.getParameter("nomPiece") == null)
 		Date dateLivraison = d ;
 		BonLivraison bonLivraison = new BonLivraison(fournisseur, d);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("EnregistrerPieceMagasin.j");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("EnregistrerPieceMagasin");
 		dispatcher.forward( request, response );
 	}					 
 	else
