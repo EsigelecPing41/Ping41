@@ -45,12 +45,12 @@
 		
 		<tr>
 			<th class="case">Quantité</th>
-			<td class="case"><input type="text" value="" name= "quantité"></td>
+			<td class="case"><input type="text" value="" name= "quantite"></td>
 		</tr>
 		
 		<tr>
 			<th rowspan="4"></th>
-			<th class="case">Date de livraison (JJ/MM/AA)</th>
+			<th class="case">Date de livraison (AAAA/MM/JJ)</th>
 			<td class="case"><input type="text" value="" name= "dateLivraison"></td>
 		</tr>			
 		<tr>
