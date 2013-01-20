@@ -279,7 +279,7 @@ fieldset
     </fieldset>
     <fieldset id="actions">
         <input type="submit" id="submit" value="Connexion">
-        <a href="">Forgot your password?</a><a href="">Register</a>
+        <!-- <a href="">Forgot your password?</a><a href="">Register</a> -->
     </fieldset>
 </form>
 
