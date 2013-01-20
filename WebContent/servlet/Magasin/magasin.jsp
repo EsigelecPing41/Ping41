@@ -13,11 +13,22 @@
 <center>
 	<h1>MAGASIN</h1>
 	<br>
-	<form target="content" method="post" action="send_nouvelle_piece" >
-	Remplissez entièrement les champs ci-dessus<br><br>
+	<form method="post" action="send_nouvelle_piece.jsp" >
+<%
+	HttpSession ses = request.getSession(true);
+	String error = (String)ses.getAttribute("error");
+	if(error == null)
+	{
+		error = "";
+	}
+
+%>
 	<!--<a href="">Imprimer le code barre</a>-->
 	<table class="tableau">
-				
+		<tr>
+			<th colspan="2"><%=error %></th>
+		</tr>
+			
 		<tr>
 			<th class="case">Nom de la pièce</th>
 			<td class="case"><input type="text" value="nomPiece"></td>
@@ -49,13 +60,11 @@
 		</tr>
 		
 		<tr>
-			<th rowspan="4"></th>
 			<th class="case">Date de livraison (AAAA/MM/JJ)</th>
 			<td class="case"><input type="text" value="" name= "dateLivraison"></td>
 		</tr>			
 		<tr>
-			<td colspan="2"></th>
-			<td><input type="submit" value="Enregistrer"></td>
+			<th colspan="2"><input type="submit" value="Enregistrer"></th>
 		</tr>
 	</table>
 	</form>

@@ -21,13 +21,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class EnregisterPieceMetrologie
  */
 @WebServlet(description = "Valider la pièce en métrologie", urlPatterns = { "/EnregisterPieceMetrologie" })
-public class EnregisterPieceMetrologie extends HttpServlet {
+public class EnregistrerPieceMetrologie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnregisterPieceMetrologie() {
+    public EnregistrerPieceMetrologie() {
         super();
         // TODO Auto-generated constructor stub
     }
