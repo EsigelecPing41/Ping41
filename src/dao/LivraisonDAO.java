@@ -47,7 +47,7 @@ import dao.Connexion;
 								try {
 
 									ps = con.prepareStatement("INSERT INTO Livraison(Liv_Date,Liv_P_ID,Liv_Bliv_ID,Liv_F_CodeFournisseur) VALUES (?,?,?,?)");
-									ps.setTimestamp(1,a.getLiv_Date());
+									ps.setDate(1,a.getLiv_Date());
 									ps.setInt(2,a.getLiv_P_ID());
 									ps.setInt(3,a.getLiv_Bliv_ID());
 									ps.setString(4,a.getLiv_F_CodeFournisseur());
@@ -69,7 +69,7 @@ import dao.Connexion;
 							* @param Liv_Date la date de la Livraison à modifier 
 							* @return nombre de lignes modifiées dans la table Livraison
 							*/
-							public int modifierDate(int Liv_ID ,Timestamp Liv_Date)
+							public int modifierDate(int Liv_ID ,Date Liv_Date)
 							{
 									PreparedStatement ps = null;
 									int retour=0;
@@ -78,7 +78,7 @@ import dao.Connexion;
 									try 
 									{
 										ps = con.prepareStatement("UPDATE Livraison SET Liv_Date=? WHERE Liv_ID=?");
-										ps.setTimestamp(1,Liv_Date);
+										ps.setDate(1,Liv_Date);
 										ps.setInt(2,Liv_ID);
 										
 										//on execute la requete 
@@ -284,7 +284,7 @@ import dao.Connexion;
 									//on execute la requete 
 									rs=ps.executeQuery();
 									if(rs.next())
-										retour=new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID"));
+										retour=new Livraison(rs.getDate("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID"));
 									
 
 								} catch (Exception ee) {
@@ -317,7 +317,7 @@ import dao.Connexion;
 									rs=ps.executeQuery();
 									//on parcourt les lignes du resultat
 									while(rs.next())
-										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID")));
+										retour.add(new Livraison(rs.getDate("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID")));
 									
 
 								} catch (Exception ee) {
@@ -349,7 +349,7 @@ import dao.Connexion;
 									rs=ps.executeQuery();
 									//on parcourt les lignes du resultat
 									while(rs.next())
-										retour.add(new Livraison(rs.getTimestamp("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID")));	
+										retour.add(new Livraison(rs.getDate("Liv_Date"),rs.getInt("Liv_P_ID"),rs.getInt("Liv_Bliv_ID"),rs.getString("Liv_F_CodeFournisseur"),rs.getInt("Liv_ID")));	
 
 								} catch (Exception ee) {
 									ee.printStackTrace();

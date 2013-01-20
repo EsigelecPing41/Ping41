@@ -44,7 +44,7 @@ private static Connection con;
 						try {
 
 							ps = con.prepareStatement("INSERT INTO Expedition(Exp_Date,Exp_A_ID,Exp_BExp_ID,Exp_CodeClient) VALUES (?,?,?,?)");
-							ps.setTimestamp(1,a.getExp_Date());
+							ps.setDate(1,a.getExp_Date());
 							ps.setInt(2,a.getExp_A_ID());
 							ps.setInt(3,a.getExp_BExp_ID());
 							ps.setString(4,a.getExp_C_CodeClient());
@@ -69,7 +69,7 @@ private static Connection con;
 					* @param Exp_Date la date de l'Expedition � modifier 
 					* @return nombre de lignes modifi�es dans la table Expedition
 					*/
-					public int modifierDate(int Exp_ID ,Timestamp Exp_Date)
+					public int modifierDate(int Exp_ID ,Date Exp_Date)
 					{
 							PreparedStatement ps = null;
 							int retour=0;
@@ -78,7 +78,7 @@ private static Connection con;
 							try 
 							{
 								ps = con.prepareStatement("UPDATE Expedition SET Exp_Date=? WHERE Exp_ID=?");
-								ps.setTimestamp(1,Exp_Date);
+								ps.setDate(1,Exp_Date);
 								ps.setInt(2,Exp_ID);
 								
 								//on execute la requete 
@@ -286,7 +286,7 @@ private static Connection con;
 							//on execute la requete 
 							rs=ps.executeQuery();
 							if(rs.next())
-								retour=new Expedition(rs.getTimestamp("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID"));
+								retour=new Expedition(rs.getDate("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID"));
 							
 
 						} catch (Exception ee) {
@@ -319,7 +319,7 @@ private static Connection con;
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new Expedition(rs.getTimestamp("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID")));
+								retour.add(new Expedition(rs.getDate("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID")));
 							
 
 						} catch (Exception ee) {
@@ -351,7 +351,7 @@ private static Connection con;
 							rs=ps.executeQuery();
 							//on parcourt les lignes du resultat
 							while(rs.next())
-								retour.add(new Expedition(rs.getTimestamp("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID")));
+								retour.add(new Expedition(rs.getDate("Exp_Date"),rs.getString("Exp_C_CodeClient"),rs.getInt("Exp_BExp_ID"),rs.getInt("Exp_A_ID"),rs.getInt("Exp_ID")));
 							
 
 						} catch (Exception ee) {

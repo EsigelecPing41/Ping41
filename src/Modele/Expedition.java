@@ -1,15 +1,15 @@
 package Modele;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Expedition 
 {
-    private Timestamp Exp_Date;
+    private Date Exp_Date;
     private int Exp_A_ID;
     private int Exp_BExp_ID;
     private String Exp_C_CodeClient;
     private int Exp_ID;
 
-    public Expedition(Timestamp Exp_Date,String Exp_CodeClient ,int Exp_BExp_ID,int Exp_A_ID, int Exp_ID)
+    public Expedition(Date Exp_Date,String Exp_CodeClient ,int Exp_BExp_ID,int Exp_A_ID, int Exp_ID)
     {
     	this.Exp_Date=Exp_Date;
     	this.Exp_C_CodeClient=Exp_CodeClient;
@@ -18,12 +18,12 @@ public class Expedition
     	this.Exp_ID=Exp_ID;
     }
     
-    public Timestamp getExp_Date() 
+    public Date getExp_Date() 
     {
 		return Exp_Date;
 	}
 
-	public void setExp_Date(Timestamp exp_Date) 
+	public void setExp_Date(Date exp_Date) 
 	{
 		Exp_Date = exp_Date;
 	}

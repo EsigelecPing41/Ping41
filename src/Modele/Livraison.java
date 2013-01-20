@@ -1,17 +1,17 @@
 package Modele;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 
 public class Livraison 
 {
-    private Timestamp Liv_Date;
+    private Date Liv_Date;
     private int Liv_P_ID;
     private int Liv_Bliv_ID;
     private String Liv_F_CodeFournisseur;
     private int Liv_ID;
 
     
-    public Livraison (Timestamp Liv_Date, int Liv_P_ID ,int Liv_Bliv_ID,String Liv_F_CodeFournisseur, int Liv_ID)
+    public Livraison (Date Liv_Date, int Liv_P_ID ,int Liv_Bliv_ID,String Liv_F_CodeFournisseur, int Liv_ID)
     {
     	this.Liv_Date=Liv_Date;
     	this.Liv_P_ID=Liv_P_ID;
@@ -20,12 +20,12 @@ public class Livraison
     	this.Liv_ID=Liv_ID;
     }
 
-    public Timestamp getLiv_Date() 
+    public Date getLiv_Date() 
     {
         return this.Liv_Date;
     }
 
-    public void setLiv_Date(Timestamp value)
+    public void setLiv_Date(Date value)
     {
         this.Liv_Date = value;
     }
