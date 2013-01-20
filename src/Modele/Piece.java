@@ -7,14 +7,16 @@ public class Piece
     private String P_CodeBarre;
     private String P_A_Nom;
     private boolean P_Statut;
+    private String P_Commentaire;
    
-    public Piece(int ID, String nom, String CB, String A_Nom, boolean statut)
+    public Piece(int ID, String nom, String CB, String A_Nom, boolean statut,String Comm)
     {
     	this.P_ID = ID;
     	this.P_Nom = nom;
     	this.P_CodeBarre = CB;
     	this.P_A_Nom=A_Nom;
     	this.P_Statut = statut;
+    	this.P_Commentaire=Comm;
     }
     public Piece(String nom, String A_Nom, boolean statut)
     {
@@ -70,6 +72,12 @@ public class Piece
 	public String getP_A_Nom()
 	{
 		return P_A_Nom;
+	}
+	public void setP_Commentaire(String p_Commentaire) {
+		P_Commentaire = p_Commentaire;
+	}
+	public String getP_Commentaire() {
+		return P_Commentaire;
 	}
 
 }

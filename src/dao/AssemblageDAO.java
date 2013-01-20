@@ -771,7 +771,7 @@ public class AssemblageDAO
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat
 								while(rs.next())
-									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
+									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire")));
 							}
 			 } 
 			catch (Exception ee) 
@@ -817,7 +817,7 @@ public class AssemblageDAO
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat
 								while(rs.next())
-									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
+									retour.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire")));
 							}
 			 } 
 			catch (Exception ee) 

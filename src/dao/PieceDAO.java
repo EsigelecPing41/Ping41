@@ -39,11 +39,12 @@ public class PieceDAO
 			//connexion a la base de données
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Piece (P_Nom,P_CodeBarre,P_A_Nom,P_Statut) VALUES (?,?,?,?)");
+				ps = con.prepareStatement("INSERT INTO Piece (P_Nom,P_CodeBarre,P_A_Nom,P_Statut,P_Commentaire) VALUES (?,?,?,?,?)");
 				ps.setString(1,p.getP_Nom());
 				ps.setString(2,p.getP_CodeBarre());
 				ps.setString(3,p.getP_A_Nom());
 				ps.setBoolean(4,p.getP_Statut());
+				ps.setString(5,p.getP_Commentaire());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -84,6 +85,48 @@ public class PieceDAO
 			{
 				ps = con.prepareStatement("UPDATE Piece SET P_Nom=? WHERE P_ID=?");
 				ps.setString(1,nom);
+				ps.setInt(2,ID);
+				
+				//on execute la requete 
+				retour=ps.executeUpdate();
+				
+		     } 
+			catch (Exception e)
+		     {
+				e.printStackTrace();
+		     } 
+			finally 
+		     {
+				try 
+				{
+					if (ps != null)
+						ps.close();
+				} 
+				catch (Exception t) 
+				{
+					
+				}
+			 }
+			 return retour;
+		
+	}
+
+	
+	/**
+	* Permet de modifier le commentaire d'une piece dans la table Piece
+	* @param ID de la piece a modifier et le nouveau commentaire
+	* @return nombre de lignes modifiées dans la table Piece
+	*/
+	public int modifierCommentaire(int ID,String comm)
+	{
+			PreparedStatement ps = null;
+			int retour=0;
+		
+			//connexion a la base de données
+			try 
+			{
+				ps = con.prepareStatement("UPDATE Piece SET P_Commentaire=? WHERE P_ID=?");
+				ps.setString(1,comm);
 				ps.setInt(2,ID);
 				
 				//on execute la requete 
@@ -293,7 +336,7 @@ public class PieceDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"));
+					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire"));
 			}
 			catch (Exception e) 
 			{
@@ -345,7 +388,7 @@ public class PieceDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"));
+					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire"));
 			}
 			catch (Exception e) 
 			{
@@ -396,7 +439,7 @@ public class PieceDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListePieces.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
+					ListePieces.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire")));
 			} 
 			catch (Exception e) 
 			{
@@ -449,7 +492,7 @@ public class PieceDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListePiece.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut")));
+					ListePiece.add(new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire")));
 			} 
 			catch (Exception e) 
 			{

@@ -5,15 +5,17 @@ public class Operateur
     private int O_ID;
     private String O_Nom;
     private String O_Prenom;
-    private String O_MotDePasse;
+    private String O_Login;
+    private String O_Password;
     private Parametre O_Parametre;
 
-    public Operateur(int ID,String nom,String prenom,String mdp)
+    public Operateur(int ID,String nom,String prenom, String login,String mdp)
     {
     	this.O_ID= ID;
     	this.O_Nom= nom;
     	this.O_Prenom= prenom;
-    	this.O_MotDePasse=mdp;
+    	this.O_Login=login;
+    	this.O_Password=mdp;
     	this.O_Parametre = new Parametre();
     }
     
@@ -62,14 +64,20 @@ public class Operateur
         this.O_Prenom = value;
     }
 
-	public void setO_MotDePasse(String o_MotDePasse) 
-	{
-		O_MotDePasse = o_MotDePasse;
+	public void setO_Login(String o_Login) {
+		O_Login = o_Login;
 	}
 
-	public String getO_MotDePasse() 
-	{
-		return O_MotDePasse;
+	public String getO_Login() {
+		return O_Login;
+	}
+
+	public void setO_Password(String o_Password) {
+		O_Password = o_Password;
+	}
+
+	public String getO_Password() {
+		return O_Password;
 	}
 
 }
