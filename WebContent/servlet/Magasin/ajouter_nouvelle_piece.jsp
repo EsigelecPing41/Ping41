@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+Ajouter une nouvelle piece !
 </body>
 </html>
