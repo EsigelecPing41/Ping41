@@ -6,9 +6,11 @@
     <%@ page import="Modele.Piece"%> 
     <%@ page import="Modele.BonLivraison"%> 
     <%@ page import="Modele.BonLivraison"%>
+    <%--@ page import="Modele.Date"--%>
     <%@ page import= "java.text.DateFormat"%>
-    <%@ page import="java.util.Date"%>
+    <%--@ page import="java.util.Date"--%>
     <%@ page import="java.text.SimpleDateFormat"%>
+    <%@ page import = java.sql.Date %>
     
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -52,12 +54,17 @@ if(request.getParameter("nomPiece") == null)
 		
 		Piece piece = new Piece(nom_piece, nom_asspiece, true);
 		
+		String designation = request.getParameter("nomPiece");
 		String fournisseur = request.getParameter("fournisseur");
-		String s= request.getParameter("dateLivraison");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-		Date d = sdf.parse(s);
-		Date dateLivraison = d ;
-		BonLivraison bonLivraison = new BonLivraison(fournisseur, d);
+		String num_dossier= request.getParameter("numDossier");
+		String num_reference = request.getParameter("numReference");
+		Integer Quantite= (Integer) request.getAttribute("quantite");
+		Date dateLivraison= (Date)request.getAttribute("dateLivraison");	
+		/*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+		Date dateLivraison = sdf.parse(s);
+		 
+		/*Date dateLivraison = new Date(request.getParameter("dateLivraison"));*/
+		BonLivraison bonLivraison = new BonLivraison(designation, Quantite, num_reference,num_dossier,fournisseur, dateLivraison);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("EnregistrerPieceMagasin");
 		dispatcher.forward( request, response );

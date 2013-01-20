@@ -143,7 +143,7 @@ fieldset
 
 #inputs input
 {
-    background: #f1f1f1 url(login-sprite.png) no-repeat;
+    background: #f1f1f1 url(images/login-sprite.png) no-repeat;
     padding: 15px 15px 15px 30px;
     margin: 0 0 10px 0;
     width: 353px; /* 353 + 2 + 45 = 400 */
@@ -269,7 +269,7 @@ fieldset
 	String erreur = (String)ses.getAttribute("LIB_ERREUR");
 	if(erreur == "" || erreur== null){erreur="";}
 %>
-<center><br><img src="skf_logo_mini.png" width="60%"><br><br><br></center>
+<center><br><img src="images/skf_logo_mini.png" width="60%"><br><br><br></center>
 <form id="login" action="connexionOperateur" method="POST">
     <h1>Log In</h1>
    	<%=erreur %>
@@ -279,7 +279,7 @@ fieldset
     </fieldset>
     <fieldset id="actions">
         <input type="submit" id="submit" value="Connexion">
-        <a href="">Forgot your password?</a><a href="">Register</a>
+        <!-- <a href="">Forgot your password?</a><a href="">Register</a> -->
     </fieldset>
 </form>
 
