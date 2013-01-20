@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="Modele.Piece"%> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="Modele.Piece"%> 
 <%@ page import="Modele.Assemblage"%> 
 <%@ page import="Modele.Operation"%> 
 <%@ page import="Modele.ActionAssemblage"%> 
+<%@ page import="dao.ActionAssemblageDAO"%> 
+
+
 <%@ page import="Modele.EtatOperation"%> 
 <%@ page import="java.util.List"%> 
 <%@ page import="java.util.Iterator;"%> 
@@ -79,7 +83,9 @@
 	while(ops.hasNext())
 	{
    	operation = (Operation)ops.next();
-   	listaction=operation.get_Actions();
+   	//ActionAssemblageDAO actionAssemblageDAO = ActionAssemblageDAO.getInstance();
+   	listaction=ActionAssemblageDAO.getListActionAssemblage(assemblage.getA_ID());
+  	
 	Iterator actions = listaction.iterator();
 	if(actions!=null)
 	{	
@@ -89,7 +95,7 @@
 	%>
 		<tr>
 		<td class="case"><%=operation.getOp_Libelle() %></td>
-		<td><%=action.getA_Date() %></td>
+		<td><%=action.getAA_Date() %></td>
 		<td class="case"></td>
 		<td class="case"><%=operation.getOp_EO().getE_Etat()%></td>
 	<%
@@ -110,7 +116,7 @@
 		%>
 		<tr>
 			<td class="case"><%=operation.getOp_Libelle()%></td>
-			<td class="case"><input name="DD<%=i%>" type="text" size="2" style="width:30px">/<input input name="MM<%=i%>" type="text" size="2" style="width:30px">/<input input name="YY<%=i%>" type="text" size="2" style="width:30px"></td>
+			<td class="case"><input name="date<%=i%>" type="text" size="2" style="width:90px"> format : DD/MM/YY</td>
 			<td class="case"></td>
 			<td class="case">N°Série <input name="num_serie<%=i%>" type="text" size="2" style="width:10px"><input type="text" size="2" style="width:10px"><input type="text" size="2" style="width:10px"><input type="text" size="2" style="width:10px"><input type="text" size="2" style="width:10px"><input type="text" size="2" style="width:10px"> <input type="text" size="2" style="width:10px"><input type="text" size="2" style="width:10px"></td>
 			<td class="case">P.V.FOURNISSEUR</td>
@@ -137,9 +143,7 @@
 
 
 	<input type="submit" value="Enregistrer">
-	</center>
-<% 
-	}
-%>
+	
+<% 	} %>
 </body>
 </html>
