@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Modele.Assemblage;
 import Modele.Client;
+import Modele.Date;
 import Modele.Expedition;
 import Modele.Piece;
 
@@ -67,10 +68,9 @@ public class EnvoyerPiece extends HttpServlet {
 			//recuperer la date
 			//creer un nouvel objet expedition
 			ExpeditionDAO expeditionDAO = ExpeditionDAO.getInstance();
-			java.util.Date date = new java.util.Date();
-			Timestamp timeStamp = new Timestamp(date.getTime());
+			java.util.Date dt = new Date().now();
 			Client client = clientDAO.getCLient(assemblage.getA_CodeClient());//en attendant medylle
-			Expedition expeditionAssemblage = new Expedition(timeStamp,client.getC_CodeClient(),/*???Pas de bon expedition*/0,assemblage.getA_ID(),0);
+			Expedition expeditionAssemblage = new Expedition(dt,client.getC_CodeClient(),/*???Pas de bon expedition*/0,assemblage.getA_ID(),0);
 			ExpeditionDAO.ajouter(expeditionAssemblage);
 			//expedition effectuée
 			

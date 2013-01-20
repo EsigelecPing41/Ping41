@@ -57,6 +57,7 @@ public class ModifierPieceRD extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		try {
 			PieceDAO pieceDAO = PieceDAO.getInstance();
+			System.out.println("on passe dans rd");
 			//Récupération d'une piece grace à son numéro
 			int numPiece = (Integer)request.getAttribute("num_piece");
 			Piece piece = pieceDAO.getPiece(numPiece);

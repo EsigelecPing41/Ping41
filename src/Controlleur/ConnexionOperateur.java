@@ -81,6 +81,7 @@ public class ConnexionOperateur extends HttpServlet {
         		dispatcher = request.getRequestDispatcher("servlet/index.html");
     		}
         	catch (Exception e) {
+        		System.out.println(e.toString());
         		session.setAttribute("LIB_ERREUR", e.getMessage());
                 session.setAttribute( ATT_SESSION_USER, null );
                 dispatcher = request.getRequestDispatcher("index.jsp");
