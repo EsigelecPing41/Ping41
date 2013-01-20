@@ -32,11 +32,7 @@
 	}
 	else
 	{
-<<<<<<< HEAD
-		ActionAssemblageDAO actionAssemblage = ActionAssemblageDAO.getInstance();
-=======
 		OperationDAO operationDao = OperationDAO.getInstance();
->>>>>>> a6215aa87c474ace8b4f7a49aa94d4c9faa762e0
 		operationDao.getListOperation();
 	
 		List<ActionAssemblage> listaction=ActionAssemblageDAO.getListActionAssemblage(assemblage.getA_ID());
