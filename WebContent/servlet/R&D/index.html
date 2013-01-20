@@ -1,111 +1,25 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
-<link rel="stylesheet" href="../../../css/css.css" />
+<link rel="stylesheet" href="../../css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>R&D</title>
+<title></title>
 </head>
 <body>
-	<center>
-	<h1> R&D </h1><br><br>
-	<form target="content" method="post" action="modifierPieceRD" >
-	<table class="tableau">
-		<tr>
-			<th class="case"><b>Pièce </b></th>
-			<th class="case">N° Code Barre</th>
-			<td class="case">Code Barre</td>
-		</tr>
-		<tr>
-			<td rowspan="4"></th>
-			<th class="case">Nom de la pièce</th>
-			<td class="case">Nom de la pièce</td>
-		</tr>
-		<tr>
-			<th class="case">Etat de la pièces</th>
-			<td class="case">
-				<input type="radio" name="etat_piece" value="1"> OK
-				<input type="radio" name="etat_piece" value="0"> KO
-			</td>
-		</tr>
-		
-		<tr>
-			<th class="case">Commentaire</th>
-			<td class="case"><textarea name= "commentaireRD"></textarea></td>
-		</tr>
-		<tr> <br> </tr>
-		<tr>
-			<th></th>
-			<th class="case"> Fiche Anomalie</th>
-			<!-- <td rowspan="4"></th>-->
-			<td class="case"> <input type="radio" name="choix" value="a"> Accepte <br>
-			<input type="radio" name="choix" value="m"> Modifier<br>
-			<input type="radio" name="choix" value="r"> Retourner au fournisseur 
-			</td>
-
-		</tr>
-			
-			
-	</table>
-	<br>
-	<input type="submit" value="Enregistrer">
-	</form>
-	</center>
-</body>
-</html>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-<head>
-<link rel="stylesheet" href="../../../css/css.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>R&D</title>
-</head>
-<body>
-	<center>
-	<h1> R&D </h1><br><br>
-	<form>
-	<table class="tableau">
-		<tr>
-			<th class="case"><b>Pièce </b></th>
-			<th class="case">N° Code Barre</th>
-			<td class="case">Code Barre</td>
-		</tr>
-		<tr>
-			<td rowspan="4"></th>
-			<th class="case">Nom de la pièce</th>
-			<td class="case">Nom de la pièce</td>
-		</tr>
-		<tr>
-			<th class="case">Etat de la pièces</th>
-			<td class="case">
-				<input type="radio" name="choix" value="1"> OK
-				<input type="radio" name="choix" value="0"> KO
-			</td>
-		</tr>
-		
-		<tr>
-			<th class="case">Commentaire</th>
-			<td class="case"><textarea></textarea></td>
-		</tr>
-		<tr> <br> </tr>
-		<tr>
-			<th></th>
-			<th class="case"> Fiche Anomalie</th>
-			<!-- <td rowspan="4"></th>-->
-			<td class="case"> <input type="radio" name="choix" value="2"> Accepte <br>
-			<input type="radio" name="choix" value="2"> Modifier<br>
-			<input type="radio" name="choix" value="2"> Retourner au fournisseur 
-			</td>
-
-		</tr>
-			
-			
-	</table>
-	<br>
-	<input type="submit" value="Enregistrer">
-	</form>
-	</center>
+<center>
+<h1>R&D1</h1>
+<br><br>
+<form action="scannnerPiece">
+<input type="hidden" name="Lieu" value="Metrologie">
+Numéro de série de la pièce :<br><input type="text" name="num_pièce"><a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../img/douchette.jpg" width="20px"></a>
+<div id="scanner" style="display : none;background-color:grey;">
+Scanner le code bar<br><input type="submit" value="Simule la récupération via la douchette"></a><br><a href="javascript:document.getElementById('scanner').style.display='none';document.getElementById('manuel').style.display='block'">Annuler</a>
+</div>
+<div id="manuel">
+<input type="submit" value="Valider"></a>
+</div>
+</form>
+</ul>
+</center>
 </body>
 </html>
