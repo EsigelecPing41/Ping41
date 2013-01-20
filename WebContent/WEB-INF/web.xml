@@ -50,7 +50,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>lancerListeAServir</servlet-name>
-    <servlet-class>Controlleur.LancerListeAServir</servlet-class>
+    <servlet-class>Controlleur.AfficherLancerListeAServir</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>lancerListeAServir</servlet-name>
@@ -58,7 +58,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>listeDesManquants</servlet-name>
-    <servlet-class>Controlleur.ListeDesManquants</servlet-class>
+    <servlet-class>Controlleur.AfficherListeDesManquants</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>listeDesManquants</servlet-name>

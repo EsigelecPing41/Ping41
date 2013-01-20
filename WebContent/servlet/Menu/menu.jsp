@@ -20,15 +20,18 @@
 <body >
 
 <table class="menu2">
-	<tr><td><img src="../img/skf_ok.png" height="50px">
+	<% 
+		HttpSession ses = request.getSession(true);
+		Operateur operateur = (Operateur)ses.getAttribute("sessionUtilisateur");
+	%>
+	<tr><td class="cellule_titre"><img src="../img/skf_ok.png" height="50px">
+	Bonjour, <%=operateur.getO_Prenom()%> <%=operateur.getO_Nom()%>
 	</td>
 	</tr>
 </table>
 <table class="menu1">
 	<tr>
 		<% 
-			HttpSession ses = request.getSession(true);
-			Operateur operateur = (Operateur)ses.getAttribute("sessionUtilisateur");
 			for(int i=0;i<operateur.getO_Parametre().get_S_P_Menu();i++){
 		%>
 				<td><a id="m<%=i+1 %>" href="../../afficherService?id=<%=operateur.getO_Parametre().getMenu(i, 0)%>" target="page"><%=operateur.getO_Parametre().getMenu(i, 1)%></a></td>

@@ -1,6 +1,6 @@
 /*****************************************************
 * Module : Controlleur
-* Fichier : ListeDesManquants
+* Fichier : LancerListeAServir
 * Description : 
 * Projet : SKF Traceability
 * Auteur : GC
@@ -18,16 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ListeDesManquants
+ * Servlet implementation class LancerListeAServir
  */
-@WebServlet(description = "L'ordonnancement lance la production et la liste des manquants", urlPatterns = { "/ListeDesManquants" })
-public class ListeDesManquants extends HttpServlet {
+@WebServlet(description = "L'ordonnancement lance la production et la liste à servir", urlPatterns = { "/LancerListeAServir" })
+public class AfficherListeAServir extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListeDesManquants() {
+    public AfficherListeAServir() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +37,7 @@ public class ListeDesManquants extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("servlet : ListeDesManquants");
+		System.out.println("servlet : LancerListeAServir");
 	}
 
 	/**

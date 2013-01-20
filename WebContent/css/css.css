@@ -108,3 +108,10 @@ text-align:center;
 {
 	background-color:#0067b4;
 }
+
+
+.cellule_titre{
+	 vertical-align: middle;
+	color : white;
+	font-size : 20px;
+}

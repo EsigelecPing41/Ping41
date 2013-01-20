@@ -301,7 +301,7 @@ public class OperateurDAO
 			//connexion a la base de données
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM Operateur WHERE O_Nom AND O_Password=?");
+				ps = con.prepareStatement("SELECT * FROM Operateur WHERE O_Login=? AND O_Password=?");
 				ps.setString(1,nom);
 				ps.setString(2,mdp);
 							
