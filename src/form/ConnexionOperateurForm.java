@@ -49,6 +49,7 @@ public final class ConnexionOperateurForm {
             resultat = "Succes de la connexion.";
             return true;
         } else {
+        	
             resultat = "Echec de la connexion.";
             return false;
         }        

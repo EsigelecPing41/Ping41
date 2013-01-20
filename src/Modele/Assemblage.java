@@ -1,5 +1,7 @@
 package Modele;
 
+import java.util.Random;
+
 public class Assemblage 
 {
     private int A_ID;
@@ -22,17 +24,9 @@ public class Assemblage
     private String A_NumAffaire;
 
 
-    public Assemblage(int ID, String A_NumSerie,String nom, String CB,String CodeClient, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+    public Assemblage(String A_NumSerie, String CodeClient,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
     {
-    	this.A_ID=ID;
     	this.A_NumSerie= A_NumSerie;
-    	this.A_Nom=nom;
-    	this.A_CodeBarre=CB;
-    	this.A_CodeClient=CodeClient;
-    	this.A_ListPieces=listPieces;
-    	this.A_ListOperations=Operations;
-    	this.A_Statut=statut;
-    	
     	this.A_NumDossier=A_NumDossier;
     	this.A_CodeGPAO=A_CodeGPAO;
     	this.A_IndNomenclature=A_IndNomenclature;
@@ -208,6 +202,13 @@ public class Assemblage
 	public String getA_CodeClient() 
 	{
 		return A_CodeClient;
+	}
+	public String  genererNumAssemblage()
+	{
+		int valeurMin = 1000;
+		int valeurMax = 9999;
+		Random r = new Random();
+		return String.valueOf(valeurMin + r.nextInt(valeurMax-valeurMin));
 	}
 
 

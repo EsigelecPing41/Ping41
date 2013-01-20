@@ -5,6 +5,9 @@
         <dependent-module archiveName="sqljdbc4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Leproust/Ecole/PI/SKFTraceability/Ressources/JAR/Microsoft SQL Server JDBC Driver 2.0/sqljdbc_2.0/enu/sqljdbc4.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jbarcodebean-1.2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Leproust/Ecole/PI/SKFTraceability/Ressources/JAR/jbarcodebean-1.2.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/SKFTraceability/build/classes"/>
         <property name="context-root" value="SKFTraceability"/>
     </wb-module>

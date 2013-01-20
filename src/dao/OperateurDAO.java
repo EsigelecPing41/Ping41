@@ -13,9 +13,16 @@ public class OperateurDAO
 		private static OperateurDAO singleton;
 		private OperateurDAO() throws Exception
 		{
+			try
+			{
 			Connexion connect;
 			connect = new Connexion();
-			con = connect.getConnection();	
+			con = connect.getConnection();
+			}
+			catch(Exception er)
+			{
+				System.out.println(er.toString());
+			}
 		}
 
 		public static OperateurDAO getInstance() throws Exception
@@ -332,7 +339,7 @@ public class OperateurDAO
 		 * @return l'operateur
 		 * @return null si aucun operateur ne correspond � ces login et mot de passe
 		 */
-		public Operateur getOperateur(String login,String mdp)
+		public Operateur getOperateur(String login,String mdp) throws Exception
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -353,7 +360,8 @@ public class OperateurDAO
 			}
 			catch (Exception e) 
 			{
-				e.printStackTrace();
+				throw new Exception("Le serveur de base de données est hors ligne");
+				
 			} 
 			finally 
 			{
