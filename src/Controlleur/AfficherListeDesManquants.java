@@ -50,10 +50,7 @@ public class AfficherListeDesManquants extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<Ordonnancement> listeOrdo = (List<Ordonnancement>) request.getAttribute("listOrdo");
-		RequestDispatcher dispatcher;
-		dispatcher = request.getRequestDispatcher("servlet/Ordonnancement/ordonnancement.html");			
-		dispatcher.forward( request, response );	
+		System.out.println("servlet : AfficherListeDesManquants");
 	}
 
 }
