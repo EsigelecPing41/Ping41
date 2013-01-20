@@ -17,6 +17,13 @@ public class Droits
 		this.D_Acces=Acces;
 	}
 	
+	public Droits(int O_ID, int Module,boolean Acces)
+	{
+		this.D_O_ID=O_ID;
+		this.D_Module=Module;
+		this.D_Acces=Acces;
+	}
+	
 	public void setD_ID(int d_ID)
 	{
 		D_ID = d_ID;

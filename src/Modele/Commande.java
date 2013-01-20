@@ -20,6 +20,14 @@ public class Commande
     	this.Com_ID=Com_ID;
     }
     
+    public Commande(Date Com_Date,String Com_F_CodeFournisseur ,int Com_BCom_ID,int Com_P_ID)
+    {
+    	this.Com_Date=Com_Date;
+    	this.setCom_F_CodeFournisseur(Com_F_CodeFournisseur);
+    	this.Com_BCom_ID=Com_BCom_ID;
+    	this.Com_P_ID=Com_P_ID;
+    }
+    
     public void setCom_ID(final int value) 
     {
         this.Com_ID = value;

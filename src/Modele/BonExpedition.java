@@ -23,6 +23,16 @@ public class BonExpedition
        this.BExp_Date=BExp_Date;
     }
     
+    public BonExpedition(String BExp_Designation,int BExp_Quantite,String BExp_Reference,String BExp_NumDossier,String BExp_Client,Date BExp_Date)
+    {
+       this.BExp_Designation=BExp_Designation;
+       this.BExp_Quantite=BExp_Quantite;
+       this.BExp_Reference=BExp_Reference;
+       this.BExp_NumDossier=BExp_NumDossier;
+       this.BExp_Client=BExp_Client;
+       this.BExp_Date=BExp_Date;
+    }
+    
 	public void setBExp_ID(int bExp_ID) {
 		BExp_ID = bExp_ID;
 	}

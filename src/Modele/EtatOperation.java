@@ -10,6 +10,11 @@ public class EtatOperation
 		this.E_ID=ID;
 		this.E_Etat=etat;
 	}
+	
+	public EtatOperation(String etat)
+	{
+		this.E_Etat=etat;
+	}
 
 	public void setE_ID(int e_ID)
 	{

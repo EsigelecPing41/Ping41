@@ -11,6 +11,11 @@ public class Lieu
     	this.L_Nom=Nom;
     }
     
+    public Lieu(String Nom)
+    {
+    	this.L_Nom=Nom;
+    }
+    
     public int getL_ID()
     {
         return this.L_ID;

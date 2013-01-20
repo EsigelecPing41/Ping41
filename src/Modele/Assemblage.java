@@ -41,6 +41,24 @@ public class Assemblage
     	this.A_NumAffaire=A_NumAffaire;
     }
     
+    public Assemblage(String A_NumSerie,String nom, String CB,String CodeClient, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+    {
+    	this.A_NumSerie= A_NumSerie;
+    	this.A_Nom=nom;
+    	this.A_CodeBarre=CB;
+    	this.A_CodeClient=CodeClient;
+    	this.A_ListPieces=listPieces;
+    	this.A_ListOperations=Operations;
+    	this.A_Statut=statut;
+    	
+    	this.A_NumDossier=A_NumDossier;
+    	this.A_CodeGPAO=A_CodeGPAO;
+    	this.A_IndNomenclature=A_IndNomenclature;
+    	this.A_Designation=A_Designation;
+    	this.A_Of=A_Of;
+    	this.A_NumAffaire=A_NumAffaire;
+    }
+    
     public int getA_ID() 
     {
         return this.A_ID;

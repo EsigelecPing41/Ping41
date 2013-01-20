@@ -17,6 +17,14 @@ public class Operateur
     	this.O_Parametre = new Parametre();
     }
     
+    public Operateur(String nom,String prenom,String mdp)
+    {
+    	this.O_Nom= nom;
+    	this.O_Prenom= prenom;
+    	this.O_Password=mdp;
+    	this.O_Parametre = new Parametre();
+    }
+    
 	public Operateur() 
 	{
 		this.O_Parametre = new Parametre();

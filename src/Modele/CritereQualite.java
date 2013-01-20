@@ -12,6 +12,12 @@ public class CritereQualite
     	this.CrQ_libelle = Libelle;
     	this.CrQ_resultat=resultat;
 	}
+	
+	public CritereQualite(String Libelle, boolean resultat)
+	{		
+    	this.CrQ_libelle = Libelle;
+    	this.CrQ_resultat=resultat;
+	}
 
     public int getCrQ_ID() 
     {
