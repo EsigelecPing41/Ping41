@@ -41,12 +41,12 @@
 			<td class="case"><%=piece.getP_Nom() %></td>
 		</tr>
 		<tr>
-			<th class="case">Nom de l'assemblage assossier à la pièce</th>
+			<th class="case">Nom de l'assemblage assossié à la pièce</th>
 			<td class="case"><%=piece.getP_A_Nom() %></td>
 		</tr>
 		<tr>
 			<th class="case">Etat de la pièce</th>
-			<td class="case"><input type="checkbox" name="statut" value="1"> OK<input type="checkbox" name="EtatPiece" value="0"> KO</td>
+			<td class="case"><input type="radio" name="statut" value="1"> OK<input type="radio" name="statut" value="0"> KO</td>
 		</tr>
 		<tr>
 			<th class="case">Commentaire</th>

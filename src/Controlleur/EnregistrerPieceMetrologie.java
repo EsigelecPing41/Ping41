@@ -25,7 +25,7 @@ import dao.PieceDAO;
 /**
  * Servlet implementation class EnregisterPieceMetrologie
  */
-@WebServlet(description = "Valider la pièce en métrologie", urlPatterns = { "/EnregisterPieceMetrologie" })
+@WebServlet(description = "Valider la piï¿½ce en mï¿½trologie", urlPatterns = { "/EnregisterPieceMetrologie" })
 public class EnregistrerPieceMetrologie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,17 +52,21 @@ public class EnregistrerPieceMetrologie extends HttpServlet {
 		// TODO Auto-generated method stub
 		PieceDAO pieceDao;
 		try {
+			System.out.println("Metrologie POST");
 			String numPiece = request.getParameter( "num_piece" );
+			
 			pieceDao = PieceDAO.getInstance();
 			Piece p = pieceDao.getPiece(numPiece);
 			String statut = request.getParameter("statut");
+			System.out.println(statut);
 			boolean stat = false;
 			if(statut.equals("1")){
 				stat = true;
 			}
+			System.out.println(stat);
 			int result = pieceDao.modifierStatut(p.getP_ID(),stat);
 			RequestDispatcher dispatcher;
-			dispatcher = request.getRequestDispatcher("Metrologie/");
+			dispatcher = request.getRequestDispatcher("/Metrologie");
 			dispatcher.forward( request, response );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

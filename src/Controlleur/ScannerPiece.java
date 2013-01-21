@@ -54,6 +54,7 @@ public class ScannerPiece extends HttpServlet {
 			pieceDao = PieceDAO.getInstance();
 			String numPiece = request.getParameter( "num_piece" );
 			String lieu = request.getParameter("lieu");
+			System.out.println(lieu);
 			Piece piece = pieceDao.getPiece(numPiece);
 			if(piece != null)
 			{

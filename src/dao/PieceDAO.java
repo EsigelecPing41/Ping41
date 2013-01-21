@@ -163,7 +163,7 @@ public class PieceDAO
 	{
 			PreparedStatement ps = null;
 			int retour=0;
-		
+			System.out.println(ID);
 			//connexion a la base de données
 			try 
 			{
