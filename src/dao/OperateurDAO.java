@@ -360,7 +360,7 @@ public class OperateurDAO
 			}
 			catch (Exception e) 
 			{
-				throw new Exception("Le serveur de base de données est hors ligne");
+					throw new Exception("Le serveur de base de données est hors ligne");
 				
 			} 
 			finally 
@@ -368,11 +368,13 @@ public class OperateurDAO
 				try 
 				{
 					if (rs != null)
+					
 					rs.close();
 				} 
 				catch (Exception t)
 				{
 					
+					throw new Exception("L'utilisateur n'existe pas");
 				}
 				
 				try 

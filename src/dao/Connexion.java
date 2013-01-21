@@ -7,7 +7,7 @@ public class Connexion
 	//SQL SERVER
 	//final static String url = "jdbc:mysql://localhost/__BDD__";
 	//Mysql
-	final static String url = "jdbc:sqlserver://192.168.0.16:1433;database=skftraceability";
+	final static String url = "jdbc:sqlserver://ping-1bwmxxt13o:1433;database=skftraceability";
 	final static String login="root";
 	final static String pass="root";
 	Connection con = null;
@@ -15,7 +15,7 @@ public class Connexion
 	public Connexion() throws Exception
 	{
 		// chargement du pilote sqlServer
-		try 
+		try
 		{
 			//SQL SERVER
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -35,6 +35,7 @@ public class Connexion
 		catch (Exception e)
 	    {
 			System.out.println(e.toString());
+			
 			throw new Exception("Impossible de se connecter a la base de donnee");
 	    } 
 	}

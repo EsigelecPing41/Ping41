@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AssemblageDAO;
 import dao.LieuDAO;
 import dao.LocalisationAssemblageDAO;
 
@@ -38,12 +39,13 @@ public class GenererAssemblage extends HttpServlet {
 	 
 	    public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	        throws ServletException, IOException {
-	        
+	    	System.out.println("genererassemblage.java");
 	    }
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	response.setContentType("image/gif");
 	    	OutputStream out = response.getOutputStream();
 	    	HttpSession session = request.getSession();
+	    	System.out.println("genererassemblage.java");
 	    	Operateur operateur =(Operateur) session.getAttribute("utilisateur");
 	    	String designationPiece = (String)request.getAttribute("designation_de_la_piece");
 	    	String nDossierDeDefinition = (String) request.getAttribute("no_dossier_def");
@@ -53,17 +55,24 @@ public class GenererAssemblage extends HttpServlet {
 	    	String ordre_de_fabrication = (String)request.getAttribute("ordre_fabrication");
 	    	String num_affaire = (String)request.getAttribute("num_affaire");
 	    	String code_client = (String)request.getAttribute("numero_client");
-	    	Assemblage assemblage = new Assemblage(no_serie,code_client,nDossierDeDefinition,codeGPAO,ind_nomencl,designationPiece,ordre_de_fabrication,num_affaire);
+	    	AssemblageDAO assemblageDAO;
+	    	Assemblage assemblage = null;
+			try {
+				assemblageDAO = AssemblageDAO.getInstance();
+				assemblage = new Assemblage(no_serie,code_client,nDossierDeDefinition,codeGPAO,assemblageDAO.RecupererListeOperation(designationPiece), assemblageDAO.RecupererListePieces(designationPiece),ind_nomencl,designationPiece,ordre_de_fabrication,num_affaire);
+				assemblage.setA_NumSerie(assemblage.genererNumAssemblage()); 
+		        assemblage.setA_CodeBarre(assemblage.getA_NumSerie());
+			
+	    	
 	    	//creation d'un nouvel assemblage
 	    	//aller chercher dans la base de donnée la liste des pièces et la liste des opérations
 	    	//mettre à jour le lieu 
 	    	//comment savoir si on est en fabrication ?
 	    	
-	    	assemblage.setA_NumSerie(assemblage.genererNumAssemblage()); 
-	        assemblage.setA_CodeBarre(assemblage.getA_NumSerie());
+	    	
 	        //le code barre et le numéro de série sont insérés
 	       
-	        try {
+	       
 	        	LocalisationAssemblageDAO locDAO =  LocalisationAssemblageDAO.getInstance();
 				LieuDAO lieuDAO =  LieuDAO.getInstance();
 			    Lieu lieu = lieuDAO.getLieu(4); // ordonnancement;

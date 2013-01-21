@@ -1,5 +1,6 @@
 package Modele;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Assemblage 
@@ -9,9 +10,9 @@ public class Assemblage
     private String A_Nom;
     private String A_CodeBarre;
     /*Recuperer a partir de Piece, grace a P_A_Nom = A_Nom*/
-    private String A_ListPieces;
+    private ArrayList<Piece> A_ListPieces;
     /*Recuperer a partir de Operation, grace a Op_A_Nom = A_Nom*/
-    private String A_ListOperations;
+    private ArrayList<Operation> A_ListOperations;
     
     private boolean A_Statut;
     /*Recuperer a partir d'Ordonnancement, grace a Ord_NumSerie=A_NumSerie*/
@@ -23,8 +24,8 @@ public class Assemblage
     private String A_Of;
     private String A_NumAffaire;
 
-
-    public Assemblage(String A_NumSerie, String CodeClient,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+           
+    public Assemblage(String A_NumSerie, String CodeClient,String A_NumDossier,String A_CodeGPAO,ArrayList<Operation> operations,ArrayList<Piece> listPiece,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
     {
     	this.A_NumSerie= A_NumSerie;
     	this.A_NumDossier=A_NumDossier;
@@ -33,9 +34,23 @@ public class Assemblage
     	this.A_Designation=A_Designation;
     	this.A_Of=A_Of;
     	this.A_NumAffaire=A_NumAffaire;
+    	this.A_ListOperations = operations;
+    	this.A_ListPieces= listPiece;
     }
-    
-    public Assemblage(String A_NumSerie,String nom, String CB,String CodeClient, String listPieces,String Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+    public Assemblage(int id,String A_NumSerie, String CodeClient,String A_NumDossier,String A_CodeGPAO,ArrayList<Operation> operations,ArrayList<Piece> pieces,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+    {
+    	this.A_ID = id;
+    	this.A_NumSerie= A_NumSerie;
+    	this.A_NumDossier=A_NumDossier;
+    	this.A_CodeGPAO=A_CodeGPAO;
+    	this.A_IndNomenclature=A_IndNomenclature;
+    	this.A_Designation=A_Designation;
+    	this.A_Of=A_Of;
+    	this.A_NumAffaire=A_NumAffaire;
+    	this.A_ListOperations = operations;
+    	this.A_ListPieces = pieces;
+    }
+    public Assemblage(String A_NumSerie,String nom, String CB,String CodeClient, ArrayList<Piece> listPieces,ArrayList<Operation> Operations,boolean statut,String A_NumDossier,String A_CodeGPAO,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
     {
     	this.A_NumSerie= A_NumSerie;
     	this.A_Nom=nom;
@@ -93,25 +108,17 @@ public class Assemblage
 		return A_Statut;
 	}
 
-	public void setListPieces(String listPieces) 
+	public void setListPieces(ArrayList<Piece> listPieces) 
 	{
 		A_ListPieces = listPieces;
 	}
 
-	public String getListPieces() 
+	public ArrayList<Piece> getListPieces() 
 	{
 		return A_ListPieces;
 	}
 
-	public void setA_ListOperations(String a_ListOperations) 
-	{
-		A_ListOperations = a_ListOperations;
-	}
-
-	public String getA_ListOperations()
-	{
-		return A_ListOperations;
-	}
+	
 
 	public void setA_NumDossier(String a_NumDossier) 
 	{
