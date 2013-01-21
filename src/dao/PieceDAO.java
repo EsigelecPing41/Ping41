@@ -332,11 +332,13 @@ public class PieceDAO
 			{	
 				ps = con.prepareStatement("SELECT * FROM Piece WHERE P_ID=?");
 				ps.setInt(1,ID);
-							
+				
 				//on execute la requete 
 				rs = ps.executeQuery();
+				System.out.println(ID);
 				if(rs.next())
 					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire"));
+			
 			}
 			catch (Exception e) 
 			{
@@ -384,11 +386,12 @@ public class PieceDAO
 			{	
 				ps = con.prepareStatement("SELECT * FROM Piece WHERE P_CodeBarre=?");
 				ps.setString(1,CB);
-							
+				System.out.println(CB);
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
 					PieceRetourne = new Piece(rs.getInt("P_ID"),rs.getString("P_Nom"),rs.getString("P_CodeBarre"),rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire"));
+					return PieceRetourne;
 			}
 			catch (Exception e) 
 			{

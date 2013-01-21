@@ -68,11 +68,14 @@ public class FicheQualitePiece extends HttpServlet {
 			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
 			ControleQualiteDAO controleQualiteDAO = ControleQualiteDAO.getInstance();
 			//récupération de l'assemblage par son numéro
-			
+			System.out.println("1");
+			System.out.println(numPiece);
 			Assemblage assemblage = assemblageDAO.getAssemblage(numPiece);
-			//Récupération du controle qualité associé à l'assemblage		
+			//Récupération du controle qualité associé à l'assemblage
+			System.out.println("2");
 			ControleQualite controleQualite = controleQualiteDAO.getControleQualite(assemblage.getA_ID());
 			//Récupération des critère qualité du controle
+			System.out.println("3");
 			controleQualite.setCQ_ListCriteres(controleQualiteDAO.getListCritereControle(controleQualite.getCQ_ID()));
 			request.setAttribute("assemblage",assemblage);
 			request.setAttribute("controleQualite"  , controleQualite);

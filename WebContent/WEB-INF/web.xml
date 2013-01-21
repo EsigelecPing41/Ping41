@@ -207,14 +207,5 @@
   <servlet-mapping>
     <servlet-name>rechercheDevellopement</servlet-name>
     <url-pattern>/rechercheDevellopement</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>enregistrerPieceMetrologie</servlet-name>
-    <servlet-class>Controlleur.EnregistrerPieceMetrologie</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>enregistrerPieceMetrologie</servlet-name>
-    <url-pattern>/enregistrerPieceMetrologie</url-pattern>
-  </servlet-mapping>
-    
+  </servlet-mapping>    
 </web-app>

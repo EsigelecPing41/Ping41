@@ -56,20 +56,17 @@ public class ModifierPieceRD extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		RequestDispatcher dispatcher = null;
 		try {
-			PieceDAO pieceDAO = PieceDAO.getInstance();
-			System.out.println("on passe dans rd");
-			
+			PieceDAO pieceDAO = PieceDAO.getInstance();			
 			//Récupération d'une piece grace à son numéro
-			int numPiece = Integer.valueOf(request.getParameter("num_piece"));
-			System.out.println(numPiece);
+			String numPiece = request.getParameter("num_piece");			
 			Piece piece = pieceDAO.getPiece(numPiece);
-			session.setAttribute( "piece", piece);
+			request.setAttribute("piece", piece);
     		dispatcher = request.getRequestDispatcher("servlet/R&D/R&D.jsp");
     		
 		} catch (Exception e) {
 			System.out.println("pièce non trouvee");
 			dispatcher = request.getRequestDispatcher("servlet/R&D/index.html");
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
 		dispatcher.forward( request, response );
 	}

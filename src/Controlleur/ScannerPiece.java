@@ -60,9 +60,7 @@ public class ScannerPiece extends HttpServlet {
 			{
 				HttpSession session = request.getSession(true);  
 				session.setAttribute("pieceActive", piece);
-				
 				LocalisationPieceDAO localDAO = LocalisationPieceDAO.getInstance();
-				
 				LocalisationPiece locPiece = new LocalisationPiece(0, new Date(), 1, Integer.parseInt(lieu), Integer.parseInt(numPiece));
 				localDAO.ajouter(locPiece);
 				System.out.println(lieu);

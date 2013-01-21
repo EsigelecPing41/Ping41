@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Modele.Assemblage"%> 
+<%@ page import="Modele.CritereQualite" %>
 <%@ page import="Modele.ControleQualite"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,9 +13,11 @@
 </head>
 <body>
  <% 
+ 	
 	Assemblage assemblage= (Assemblage)request.getAttribute("assemblage");
  	ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
-	if(assemblage== null){
+	ArrayList<CritereQualite> listCritere = (ArrayList<CritereQualite>)controleQualite.getCQ_ListCriteres();
+ 	if(assemblage== null){
 %>
 	Erreur avec la piece
 <%
@@ -46,38 +50,15 @@
 <br>
 <br>
 <table class="tableau">
+	<%
+	
+	for(int i = 0; i<listCritere.size();i++)
+	{
+		%>
 	<tr>
-		<th class="case">Critères de qualités 1
-		</th>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ok"> Ok
-		</td>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ko"> Ko
-		</td>
+		<%=listCritere.get(i).getCrQ_libelle() %>
 	</tr>
-	<tr>
-		<th class="case">Critères de qualités 2
-		</th>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ok"> Ok
-		</td>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ko"> Ko
-		</td>
-	</tr>
-	<tr>
-		<th class="case">Critères de qualités 3
-		</th>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ok"> Ok
-		</td>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ko"> Ko
-		</td>
-	</tr>
-	<tr>
-		<th class="case">Critères de qualités 4
-		</th>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ok"> Ok
-		</td>
-		<td class="case"><INPUT type= "radio" name="Ok" value="Ko"> Ko
-		</td>
-	</tr>
+	<%} %>
 </table>
 <div id="manuel">
 <input type="submit" value="Valider"></a>

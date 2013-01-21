@@ -25,7 +25,7 @@ public class EtatOperationDAO
 				singleton=new EtatOperationDAO();
 			return singleton;
 		}
-		
+	
 	/**
 	* Permet d'ajouter un EtatOperation dans la table EtatOperation
 	* @param EtatOperation a ajouter
@@ -107,14 +107,14 @@ public class EtatOperationDAO
 	/**
 	* Permet de modifier etat operation
 	* @param ID de l'etat operation a modifier et le nouvel etat
-	* @return nombre de lignes modifiées dans la table EtatOperation
+	* @return nombre de lignes modifiï¿½es dans la table EtatOperation
 	* */
 	public int modifierEtat(int ID,String etat)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
 		
-			//connexion a la base de données
+			//connexion a la base de donnï¿½es
 			try 
 			{
 				ps = con.prepareStatement("UPDATE EtatOperation SET E_Etat=? WHERE E_ID=?");

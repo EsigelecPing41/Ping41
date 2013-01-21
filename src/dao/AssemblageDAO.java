@@ -102,8 +102,9 @@ public class AssemblageDAO
 			
 			while(rs.next())
 			{
+				EtatOperationDAO operationDAO = EtatOperationDAO.getInstance();
 				//on parcourt les résultat en fabricant des objet operation
-				op = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
+				op = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),operationDAO.getEtatOperation(rs.getInt("Op_EO_ID")));
 				listOperation.add(op);
 			}
 			
