@@ -62,32 +62,30 @@ public class FicheQualitePiece extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("servlet : FicheQualitePiecePOST");
 		RequestDispatcher dispatcher;
-		String numPiece = request.getParameter("num_piece"); 
+		String numPiece = request.getParameter("num_piece");
 		try {
 			//Un controle qualite contient plusieurs critere qualite. 
-			PieceDAO pieceDAO = PieceDAO.getInstance();
 			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
 			ControleQualiteDAO controleQualiteDAO = ControleQualiteDAO.getInstance();
 			//récupération de l'assemblage par son numéro
+			
 			Assemblage assemblage = assemblageDAO.getAssemblage(numPiece);
 			//Récupération du controle qualité associé à l'assemblage		
 			ControleQualite controleQualite = controleQualiteDAO.getControleQualite(assemblage.getA_ID());
 			//Récupération des critère qualité du controle
 			controleQualite.setCQ_ListCriteres(controleQualiteDAO.getListCritereControle(controleQualite.getCQ_ID()));
-			
-			request.setAttribute("assemblage",assemblageDAO.getAssemblage(request.getParameter("num_piece")));
+			request.setAttribute("assemblage",assemblage);
 			request.setAttribute("controleQualite"  , controleQualite);
 			dispatcher = request.getRequestDispatcher("servlet/Qualite/ficheQualite.jsp");
 			
 			
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			System.out.println("erreur");
 			request.setAttribute("erreur","La piece n'existe pas");
 			dispatcher = request.getRequestDispatcher("servlet/ScannerCodeBarre/scanner.jsp");			
 		}
-		dispatcher.forward( request, response );	
 		
-	
-	}
+		dispatcher.forward(request, response);}
 
 }

@@ -46,7 +46,7 @@ public class LancementNouvellePiece extends HttpServlet {
 		
 		//Piece p;
 		//lancement d'un assemblage
-		Assemblage a;
+		/*Assemblage a;
 		AssemblageDAO assemblageDao;
 		//PieceDAO pieceDao;
 		RequestDispatcher dispatcher;
@@ -64,7 +64,8 @@ public class LancementNouvellePiece extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		*/
+		requestD
 	}
 
 }

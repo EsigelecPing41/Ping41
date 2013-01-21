@@ -61,16 +61,25 @@ public class ValideFicheQualite extends HttpServlet {
 		RequestDispatcher dispatcher;
 		//recuperer la liste et la renvoyer
 		try {
+			System.out.println("1");
 			ControleQualiteDAO controleQualiteDao = ControleQualiteDAO.getInstance();
 			CritereQualiteDAO critereQualiteDao = CritereQualiteDAO.getInstance();
 			//Récupération du controle qualité rempli
+			System.out.println("2");
 			ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
+			
 			//Récupération des critère qualité
+			System.out.println("3");
+			System.out.println(controleQualite.getCQ_A_ID());
+			System.out.println(controleQualite.getCQ_ListCriteres());
 			List<CritereQualite> listeCritereQualite = controleQualite.getCQ_ListCriteres();
 			//Mise à jour du résultat du controle
+			System.out.println("4");
 			controleQualiteDao.modifierResultat(controleQualite.getCQ_ID(), controleQualite.getCQ_Resultat());
+			System.out.println("6");
 			for(CritereQualite critere : listeCritereQualite)
 			{
+				System.out.println("7");
 				//Mise à jour des critère de controle qualité
 				critereQualiteDao.modifierResultat(critere.getCrQ_ID(), critere.getCrQ_resultat());
 			}
@@ -79,8 +88,7 @@ public class ValideFicheQualite extends HttpServlet {
 			request.setAttribute("codeErreur", "0");
 			dispatcher = request.getRequestDispatcher("servlet/Qualite/index.html");
 		} catch (Exception e) {
-			System.out.println("Probleme");
-
+			System.out.println(e.toString());
 			request.setAttribute("enregistree", "0");
 			request.setAttribute("codeErreur", "1");
 			dispatcher = request.getRequestDispatcher("servlet/Qualite/index.html");

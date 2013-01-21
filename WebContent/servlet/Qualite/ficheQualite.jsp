@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="Modele.Piece"%> 
+<%@ page import="Modele.Assemblage"%> 
+<%@ page import="Modele.ControleQualite"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,8 +11,9 @@
 </head>
 <body>
  <% 
-	Piece piece = (Piece)request.getAttribute("piece");
-	if(piece== null){
+	Assemblage assemblage= (Assemblage)request.getAttribute("assemblage");
+ 	ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
+	if(assemblage== null){
 %>
 	Erreur avec la piece
 <%
@@ -20,18 +22,18 @@
 <center>
 <h1>Qualité</h1>
 <br><br>
-<form action="fiche_qualite.html" method="POST">
+<form action="valideFicheQualite" method="POST">
 <table class="tableau">
 	<tr>
 		<th>N° du Code Barre
 		</th>
-		<td><%=piece.getP_CodeBarre() %>
+		<td><%=assemblage.getA_CodeBarre() %>
 		</td>
 	</tr>
 	<tr>
-		<th>Nom de la piéce
+		<th>Nom de l'assemblage
 		</th>
-		<td><%=piece.getP_Nom() %>
+		<td><%=assemblage.getA_Designation()%>
 		</td>
 	</tr>
 	<tr>

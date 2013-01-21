@@ -1,7 +1,7 @@
 <%@
  page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+    <%@ page import="Modele.Piece"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -24,13 +24,13 @@
 	<center>
 	<h1>Métrologie</h1><br>
 	<p></p>
-	<form target="content" method="post" action="new_piece_metro?piece="+<%=piece%> >
+	<form target="content" method="post" action="enregistrerPieceMetrologie">
 	<table class="tableau">
 		<tr>
 			<th class="case"><b>Pièce</b></th>
 			<th class="case">N° code barre</th>
 			<td class="case"><%=piece.getP_CodeBarre() %></td>
-			<input type="hidden" name="num_piece" value=num_piece>
+			<input type="hidden" name="num_piece" value=<%=piece.getP_CodeBarre() %>>
 		</tr>
 		<tr>
 			<td rowspan="7"></th>
@@ -42,7 +42,7 @@
 		</tr>
 		<tr>
 			<th class="case">Nom de l'assemblage assossier à la pièce</th>
-			<td class="case"><%=piece.P_A_Nom() %></td>
+			<td class="case"><%=piece.getP_A_Nom() %></td>
 		</tr>
 		<tr>
 			<th class="case">Etat de la pièce</th>
@@ -86,5 +86,8 @@
 	</table>
 	</form>
 	</center>
+<%
+	}
+%>
 </body>
 </html>

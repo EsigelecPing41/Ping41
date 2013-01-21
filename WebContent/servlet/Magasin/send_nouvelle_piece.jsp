@@ -10,7 +10,7 @@
     <%@ page import= "java.text.DateFormat"%>
     <%--@ page import="java.util.Date"--%>
     <%@ page import="java.text.SimpleDateFormat"%>
-    <%@ page import = java.sql.Date %>
+    <%@ page import = "java.sql.Date" %>
     
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,34 +22,34 @@
 <body>
 <%
 
-int i=1;
-String error = "";
-if(request.getParameter("nomPiece") == null)
+	int i=1;
+	String error = "";
+	if(request.getParameter("nomPiece") == null)
 	{
 		error="<br> Veuillez rentrer le nom de la piece."+error;
 		i=0;
 	}
 
-	if(request.getParameter("nomApiece") == null)
+	if(request.getParameter("nomAPiece") == null)
 	{
 		error="<br> Veuillez rentrer le nom de l'assemblage auquel elle appartiendra."+error;
 		i=0;
 	}
 	if(request.getParameter("nomFournisseur") == null)
 	{
-		error="<br> Veuillez remplir tout les champs."+error;
+		error="<br> Veuillez remplir le champs fournisseur."+error;
 		i=0;
 	}
 	if(request.getParameter("dateLivraison") == null)
 	{
-		error ="<br> Veuillez remplir tout les champs."+error;
+		error ="<br> Veuillez remplir le champs date de livraison."+error;
 		i=0;
 	}
 	
 	if (i!=0)
 	{
 		String nom_piece = request.getParameter("nomPiece");
-		String nom_asspiece = request.getParameter("nomApiece");
+		String nom_asspiece = request.getParameter("nomAPiece");
 		String statut = request.getParameter("statut");
 		
 		Piece piece = new Piece(nom_piece, nom_asspiece, true);
@@ -65,12 +65,14 @@ if(request.getParameter("nomPiece") == null)
 		 
 		/*Date dateLivraison = new Date(request.getParameter("dateLivraison"));*/
 		BonLivraison bonLivraison = new BonLivraison(designation, Quantite, num_reference,num_dossier,fournisseur, dateLivraison);
-		
+		request.setAttribute("piece", piece);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("EnregistrerPieceMagasin");
 		dispatcher.forward( request, response );
 	}					 
 	else
 	{
+		HttpSession ses = request.getSession(true);
+		ses.setAttribute("error",error);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("magasin.jsp");
 		dispatcher.forward( request, response );
 	}

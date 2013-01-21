@@ -89,11 +89,12 @@ public class AssemblageDAO
 		PreparedStatement ps = null;
 		ResultSet rs=null;
 		ArrayList<Operation> listOperation= new ArrayList<Operation>();
-	
+		
 		//connexion a la base de donn�es
 		try 
 		{
-			ps = con.prepareStatement("SELECT * FROM Operation WHERE Op_A_Nom="+nomAssemblage);					
+			ps = con.prepareStatement("SELECT * FROM Operation WHERE Op_A_Nom=?");
+			ps.setString(1,nomAssemblage);
 			//on execute la requete 
 			rs=ps.executeQuery();
 			//on parcourt les lignes du resultat
@@ -105,6 +106,7 @@ public class AssemblageDAO
 				op = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
 				listOperation.add(op);
 			}
+			
 			return listOperation;
 		} 
 		catch (Exception e) 
@@ -150,14 +152,15 @@ public class AssemblageDAO
 		//connexion a la base de donnees
 		try 
 		{
-			ps = con.prepareStatement("SELECT * FROM Piece WHERE P_A_Nom="+nomAssemblage);					
+			ps = con.prepareStatement("SELECT * FROM Piece WHERE P_A_Nom=?");		
+			ps.setString(1,nomAssemblage);
 			//on execute la requete 
 			rs=ps.executeQuery();
 			//on parcourt les lignes du resultat
 			while(rs.next())
 			{
 				Piece piece;
-				piece = new Piece(rs.getInt("P_ID"), rs.getString("P_Nom"), rs.getString("P_CB"), rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire"));
+				piece = new Piece(rs.getInt("P_ID"), rs.getString("P_Nom"), rs.getString("P_CodeBarre"), rs.getString("P_A_Nom"),rs.getBoolean("P_Statut"),rs.getString("P_Commentaire"));
 				listPiece.add(piece);
 			}
 			return listPiece;
@@ -468,7 +471,7 @@ public class AssemblageDAO
 			PreparedStatement ps = null;
 			ResultSet rs=null;
 			Assemblage AssemblageRetourne = null;
-	
+			System.out.println("3");
 		
 			//connexion a la base de donnees
 			try 
@@ -647,7 +650,6 @@ public class AssemblageDAO
 			PreparedStatement ps = null;
 			ResultSet rs=null;
 			Assemblage AssemblageRetourne = null;
-	
 		
 			//connexion a la base de donnees
 			try 
@@ -659,6 +661,7 @@ public class AssemblageDAO
 				rs = ps.executeQuery();
 				if(rs.next())
 					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
+				return AssemblageRetourne;
 			}
 			catch (Exception e) 
 			{
@@ -686,6 +689,7 @@ public class AssemblageDAO
 					
 				}
 			}
+			
 			return AssemblageRetourne;
 		}
 		

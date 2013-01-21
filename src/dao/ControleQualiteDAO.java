@@ -272,8 +272,7 @@ public class ControleQualiteDAO
 				rs = ps.executeQuery();
 				while(rs.next())
 				{
-					listCritere = (ArrayList<CritereQualite>) getListCritereControle(rs.getInt("CQ_ID"));//récuperation des criteres
-													
+					listCritere = (ArrayList<CritereQualite>) getListCritereControle(rs.getInt("CQ_ID"));//récuperation des criteres							
 					ControleQualiteRetourne = new ControleQualite(rs.getInt("CQ_ID"),rs.getInt("CQ_O_ID"),rs.getInt("CQ_A_ID"),rs.getBoolean("CQ_Resultat"),listCritere);
 					
 				}
@@ -559,7 +558,9 @@ public class ControleQualiteDAO
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.prepareStatement("SELECT CQ_ListCriteres FROM ControleQualite WHERE CQ_ID=" +ID);		
+				ps = con.prepareStatement("SELECT CQ_ListCriteres FROM ControleQualite WHERE CQ_ID=?");
+				
+				ps.setInt(1,ID);
 					//on execute la requete 
 					rs = ps.executeQuery();
 					if(rs.next())
@@ -567,7 +568,9 @@ public class ControleQualiteDAO
 							String tableau[] = chaine.split(",");
 							for(int i=0; i< tableau.length; i++)
 							{
-								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_libelle=" +tableau[i]);		
+								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_libelle=?" );
+								System.out.println(tableau[i]);
+								ps.setString(1,tableau[i]);
 								//on execute la requete 
 								rs=ps.executeQuery();
 								//on parcourt les lignes du resultat

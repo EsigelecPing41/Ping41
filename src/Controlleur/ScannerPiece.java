@@ -64,7 +64,7 @@ public class ScannerPiece extends HttpServlet {
 				
 				LocalisationPiece locPiece = new LocalisationPiece(0, new Date(), 1, Integer.parseInt(lieu), Integer.parseInt(numPiece));
 				localDAO.ajouter(locPiece);
-				
+				System.out.println(lieu);
 				dispatcher = request.getRequestDispatcher("servlet/"+lieu);
 				dispatcher.forward( request, response );
 				

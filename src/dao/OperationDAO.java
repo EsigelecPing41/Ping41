@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Modele.EtatOperation;
 import Modele.Operation;
 
 public class OperationDAO 
@@ -35,14 +36,14 @@ public class OperationDAO
 	{
 			PreparedStatement ps = null;
 			int retour=0;
-		
+			EtatOperation etatOperation = Op.getOp_EO();
+			
 			//connexion a la base de donn�es
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO Operation (Op_A_Nom,Op_Libelle,Op_EO_ID) VALUES (?,?,?)");
-				ps.setString(1,Op.getOp_A_Nom());
-				ps.setString(2,Op.getOp_Libelle());
-				ps.setInt(3,Op.getOp_EO_ID());
+				ps = con.prepareStatement("INSERT INTO Operation (Op_Libelle,Op_EO_ID) VALUES (?,?)");
+				ps.setString(1,Op.getOp_Libelle());
+				ps.setInt(2,etatOperation.getE_ID());
 				
 				//on execute la requete 
 				retour=ps.executeUpdate();
@@ -68,6 +69,7 @@ public class OperationDAO
 		
 	}
 	
+	/**
 	/**
 	* Permet de modifier l'ID de l'assemblage d'une operation 
 	* @param ID de l'operation a modifier et nouvel ID Assemblage
@@ -109,14 +111,11 @@ public class OperationDAO
 		
 	}
 	
-
-	
-	/**
-	* Permet de modifier le nom d'une operation 
-	* @param ID de l'operation a modifier et nouveau nom
+	/* Permet de modifier le nom d'une operation 
+	* @param ID de l'operation � modifier et nouveau nom
 	* @return nombre de lignes modifi�es dans la table Operation
 	* */
-	public int modifierNom(int ID,String libelle)
+	public int modifier(int ID,String libelle)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -158,7 +157,7 @@ public class OperationDAO
 	* @param ID de l'operation � modifier et l'ID du nouvel etat
 	* @return nombre de lignes modifi�es dans la table Operation
 	* */
-	public int modifierEtat(int ID,int EO)
+	public int modifier(int ID,int EO)
 	{
 			PreparedStatement ps = null;
 			int retour=0;
@@ -272,17 +271,17 @@ public class OperationDAO
 	}	
 	
 		/**
-		 * Permet de recuperer une operation a partir de son ID
-		 * @param ID de l'operation a recuperer
+		 * Permet de r�cup�rer une operation � partir de son ID
+		 * @param ID de l'operation � r�cup�rer
 		 * @return l'operation
-		 * @return null si aucune operation ne correspond a cet id
+		 * @return null si aucune operation ne correspond � cet id
 		 */
 		public Operation getOperation(int ID)
 		{
 			PreparedStatement ps = null;
-			ResultSet rs=null;
+			ResultSet rs=null, result = null;
 			Operation OperationRetourne = null;
-	
+			EtatOperation etatOperation = null;
 		
 			//connexion a la base de donn�es
 			try 
@@ -293,7 +292,14 @@ public class OperationDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
+				{
+					ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+					ps.setInt(1, rs.getInt("Op_EO_ID"));
+					result = ps.executeQuery();
+					etatOperation = new EtatOperation(result.getInt("E_ID"),result.getString("E_Etat"));
+					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),etatOperation);
+				}
+					
 			}
 			catch (Exception e) 
 			{
@@ -333,8 +339,9 @@ public class OperationDAO
 		public Operation getOperation(String nom)
 		{
 			PreparedStatement ps = null;
-			ResultSet rs=null;
+			ResultSet rs=null, result = null;
 			Operation OperationRetourne = null;
+			EtatOperation etatOperation = null;
 	
 			//connexion a la base de donn�es
 			try 
@@ -345,8 +352,15 @@ public class OperationDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID"));
-			}
+				{
+					ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+					ps.setInt(1, rs.getInt("Op_EO_ID"));
+					result = ps.executeQuery();
+					etatOperation = new EtatOperation(result.getInt("E_ID"),result.getString("E_Etat"));
+					OperationRetourne = new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),etatOperation);
+				}
+				}
+					
 			catch (Exception e) 
 			{
 				e.printStackTrace();
@@ -383,8 +397,9 @@ public class OperationDAO
 		public List<Operation> getListOperation()
 		{
 			PreparedStatement ps = null;
-			ResultSet rs=null;
+			ResultSet rs=null, result = null;
 			List<Operation> ListeOperations = new ArrayList<Operation>();
+			EtatOperation etatOperation = null;
 		
 			//connexion a la base de donn�es
 			try 
@@ -396,7 +411,16 @@ public class OperationDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+				{
+					//rs.getInt("Op_EO_ID");
+					ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+					ps.setInt(1, rs.getInt("Op_EO_ID"));
+					result = ps.executeQuery();
+					etatOperation = new EtatOperation(result.getInt("E_ID"),result.getString("E_Etat"));
+					
+					ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),etatOperation));
+		
+				}
 			} 
 			catch (Exception e) 
 			{
@@ -435,8 +459,9 @@ public class OperationDAO
 		public List<Operation> getListOperationPiece(int ID_Piece)
 		{
 			PreparedStatement ps = null;
-			ResultSet rs=null;
+			ResultSet rs=null, result = null;
 			List<Operation> ListeOperations = new ArrayList<Operation>();
+			EtatOperation etatOperation = null;
 		
 			//connexion a la base de donn�es
 			try 
@@ -454,7 +479,12 @@ public class OperationDAO
 					//on parcourt les lignes du resultat
 					if(rs.next())
 					{
-						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+						ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+						ps.setInt(1, rs.getInt("Op_EO_ID"));
+						result = ps.executeQuery();
+						etatOperation = new EtatOperation(result.getInt("E_ID"),result.getString("E_Etat"));
+						
+						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),etatOperation));
 					}
 				}
 			} 
@@ -495,8 +525,9 @@ public class OperationDAO
 		public List<Operation> getListOperationAssemblage(int ID_Assemblage)
 		{
 			PreparedStatement ps = null;
-			ResultSet rs=null;
+			ResultSet rs=null, result = null;
 			List<Operation> ListeOperations = new ArrayList<Operation>();
+			EtatOperation etatOperation = null;
 		
 			//connexion a la base de donn�es
 			try 
@@ -514,7 +545,12 @@ public class OperationDAO
 					//on parcourt les lignes du resultat
 					if(rs.next())
 					{
-						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),rs.getInt("Op_EO_ID")));
+						
+						ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+						ps.setInt(1, rs.getInt("Op_EO_ID"));
+						result = ps.executeQuery();
+						etatOperation = new EtatOperation(result.getInt("E_ID"),result.getString("E_Etat"));
+						ListeOperations.add(new Operation(rs.getInt("Op_ID"),rs.getString("Op_A_Nom"),rs.getString("Op_Libelle"),etatOperation));
 					}
 				}
 			} 

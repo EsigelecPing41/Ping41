@@ -269,7 +269,7 @@ fieldset
 	String erreur = (String)ses.getAttribute("LIB_ERREUR");
 	if(erreur == "" || erreur== null){erreur="";}
 %>
-<center><br><img src="images/skf_logo_mini.png" width="60%"><br><br><br></center>
+<center><br><img src="images/skf_logo_mini.png" width="40%"><br><br><br></center>
 <form id="login" action="connexionOperateur" method="POST">
     <h1>Log In</h1>
    	<%=erreur %>

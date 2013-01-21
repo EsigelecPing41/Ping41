@@ -72,7 +72,6 @@
     <servlet-name>modifierPieceRD</servlet-name>
     <url-pattern>/modifierPieceRD</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>validerPieceRD</servlet-name>
     <servlet-class>Controlleur.ValiderPieceRD</servlet-class>
@@ -81,7 +80,6 @@
     <servlet-name>validerPieceRD</servlet-name>
     <url-pattern>/validerPieceRD</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>listePieceEnCours</servlet-name>
     <servlet-class>Controlleur.ListePieceEnCours</servlet-class>
@@ -203,11 +201,12 @@
     <url-pattern>/genererAssemblage</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>afficherCodeBarre</servlet-name>
-    <servlet-class>Controlleur.AfficherCodeBarre</servlet-class>
+    <servlet-name>rechercheDevellopement</servlet-name>
+    <servlet-class>Controlleur.RechercheDevellopement</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>afficherCodeBarre</servlet-name>
-    <url-pattern>/afficherCodeBarre</url-pattern>
+    <servlet-name>rechercheDevellopement</servlet-name>
+    <url-pattern>/rechercheDevellopement</url-pattern>
   </servlet-mapping>
+  
 </web-app>
