@@ -66,13 +66,21 @@ public class ValideFicheQualite extends HttpServlet {
 			CritereQualiteDAO critereQualiteDao = CritereQualiteDAO.getInstance();
 			//Récupération du controle qualité rempli
 			System.out.println("2");
+			System.out.println(request.getAttribute("1"));
 			ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
-			
 			//Récupération des critère qualité
 			System.out.println("3");
-			System.out.println(controleQualite.getCQ_A_ID());
-			System.out.println(controleQualite.getCQ_ListCriteres());
 			List<CritereQualite> listeCritereQualite = controleQualite.getCQ_ListCriteres();
+			//recuperer la liste des id critere dans des variable et mettre à jour le critereQualite.resultat
+			System.out.println("Taille : "+listeCritereQualite.size());
+			for(int i = 0; i< listeCritereQualite.size(); i++)
+			{
+				int id = (Integer)request.getAttribute(String.valueOf(listeCritereQualite.get(i).getCrQ_ID()));
+				System.out.println("Id :"+id);
+				//boolean result = Boolean.valueOf(request.getParameter(String.valueOf(listeCritereQualite.get(i).getCrQ_ID())));
+				//System.out.println(result);
+				//listeCritereQualite.get(i).setCrQ_resultat(result);
+			}
 			//Mise à jour du résultat du controle
 			System.out.println("4");
 			controleQualiteDao.modifierResultat(controleQualite.getCQ_ID(), controleQualite.getCQ_Resultat());

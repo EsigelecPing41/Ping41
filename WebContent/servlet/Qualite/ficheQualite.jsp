@@ -22,6 +22,9 @@
 	Erreur avec la piece
 <%
 	}else{
+		request.setAttribute("assemblage", assemblage);
+		request.setAttribute("controleQualite", controleQualite);
+		
 %>
 <center>
 <h1>Qualité</h1>
@@ -50,16 +53,20 @@
 <br>
 <br>
 <table class="tableau">
+	<tr><td>Nom  du test </td><td>Ok</td><td>Not ok</td></tr>
 	<%
 	
 	for(int i = 0; i<listCritere.size();i++)
 	{
 		%>
 	<tr>
-		<%=listCritere.get(i).getCrQ_libelle() %>
+		<th><%=listCritere.get(i).getCrQ_libelle() %></th>
+			<td><input type="radio" name="<%=listCritere.get(i).getCrQ_ID() %>" value ="1"></td>
+				<td><input type="radio" name="<%=listCritere.get(i).getCrQ_ID() %>" value ="0"></td>		
 	</tr>
 	<%} %>
 </table>
+
 <div id="manuel">
 <input type="submit" value="Valider"></a>
 </div>

@@ -485,7 +485,7 @@ public class AssemblageDAO
 				rs = ps.executeQuery();
 				if(rs.next())
 					
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
+					AssemblageRetourne = new Assemblage(rs.getString("A_CodeBarre"),rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
 			}
 			catch (Exception e) 
 			{
@@ -661,7 +661,7 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
+					AssemblageRetourne = new Assemblage(CB,rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
 				return AssemblageRetourne;
 			}
 			catch (Exception e) 

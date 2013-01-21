@@ -551,10 +551,12 @@ public class ControleQualiteDAO
 		public List<CritereQualite> getListCritereControle(int ID)
 		{
 			PreparedStatement ps = null;
+			PreparedStatement pp = null;
 			ResultSet rs=null;
+			ResultSet result = null;
 			String chaine = " ";
 			List<CritereQualite> retour=new ArrayList<CritereQualite>();
-		
+			CritereQualite critereQualite;
 			//connexion a la base de donn�es
 			try 
 			{
@@ -562,20 +564,23 @@ public class ControleQualiteDAO
 				
 				ps.setInt(1,ID);
 					//on execute la requete 
+					
 					rs = ps.executeQuery();
 					if(rs.next())
 						chaine = rs.getString("CQ_ListCriteres");
 							String tableau[] = chaine.split(",");
 							for(int i=0; i< tableau.length; i++)
 							{
-								ps = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_libelle=?" );
-								System.out.println(tableau[i]);
-								ps.setString(1,tableau[i]);
+								pp = con.prepareStatement("SELECT * FROM CritereQualite WHERE CrQ_libelle=?" );
+								pp.setString(1,tableau[i]);
 								//on execute la requete 
-								rs=ps.executeQuery();
+								result=pp.executeQuery();
 								//on parcourt les lignes du resultat
-								while(rs.next())
-									retour.add(new CritereQualite(rs.getInt("CrQ_ID"),rs.getString("CrQ_libelle"),rs.getBoolean("CrQ_resultat")));
+								while(result.next())
+								{
+									critereQualite =new CritereQualite(result.getInt("CrQ_ID"),result.getString("CrQ_libelle"),result.getBoolean("CrQ_resultat")); 
+									retour.add(critereQualite);
+								}
 							}
 			 } 
 			catch (Exception ee) 

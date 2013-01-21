@@ -77,6 +77,7 @@ public class FicheQualitePiece extends HttpServlet {
 			//Récupération des critère qualité du controle
 			System.out.println("3");
 			controleQualite.setCQ_ListCriteres(controleQualiteDAO.getListCritereControle(controleQualite.getCQ_ID()));
+			System.out.println(assemblage.getA_CodeBarre());
 			request.setAttribute("assemblage",assemblage);
 			request.setAttribute("controleQualite"  , controleQualite);
 			dispatcher = request.getRequestDispatcher("servlet/Qualite/ficheQualite.jsp");
