@@ -39,7 +39,7 @@ public class LocalisationAssemblageDAO
 			//connexion a la base de donnees
 			try 
 			{
-				ps = con.prepareStatement("INSERT INTO "+BDD_LOCALISATION_ASSEMBLAGE+" (LocA_Date ,LocA_O_ID ,LocA_L_ID,LocA_P_ID) VALUES (?,?,?,?)");
+				ps = con.prepareStatement("INSERT INTO "+BDD_LOCALISATION_ASSEMBLAGE+" (LocA_Date ,LocA_O_ID ,LocA_L_ID,LocA_A_ID) VALUES (?,?,?,?)");
 				ps.setDate(1,(java.sql.Date)la.getLA_Date());
 				ps.setInt(2,la.getLA_O_ID());
 				ps.setInt(3,la.getLA_L_ID());

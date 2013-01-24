@@ -73,11 +73,13 @@
 	
 	if (i!=0)
 	{
+		
+		String codeBarre = request.getParameter("codeBarre");
 		String nom_piece = request.getParameter("nomPiece");
 		String nom_asspiece = request.getParameter("nomAPiece");
 		//String statut = request.getParameter("statut");
 		
-		Piece piece = new Piece(nom_piece, nom_asspiece, true);
+		Piece piece = new Piece(nom_piece,codeBarre, nom_asspiece, true);
 		
 		String designation = request.getParameter("nomPiece");
 		String fournisseur = request.getParameter("nomFournisseur");

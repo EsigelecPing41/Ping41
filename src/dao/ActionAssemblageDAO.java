@@ -26,7 +26,7 @@ public class ActionAssemblageDAO {
 			con = connect.getConnection();	
 		}
 
-		public ActionAssemblageDAO getInstance() throws Exception
+		public static ActionAssemblageDAO getInstance() throws Exception
 		{
 			if(ActionAssemblageDAO.singleton==null)
 				singleton=new ActionAssemblageDAO();

@@ -9,21 +9,24 @@
 <head>
 <link rel="stylesheet" href="/SKFTraceability/css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Qualité</title>
+<title>Qualité 2</title>
 </head>
 <body>
  <% 
  	
 	Assemblage assemblage= (Assemblage)request.getAttribute("assemblage");
+
  	ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
-	ArrayList<CritereQualite> listCritere = (ArrayList<CritereQualite>)controleQualite.getCQ_ListCriteres();
  	if(assemblage== null){
 %>
 	Erreur avec la piece
 <%
 	}else{
 		request.setAttribute("assemblage", assemblage);
+	 	if(controleQualite!=null)
+	 	{
 		request.setAttribute("controleQualite", controleQualite);
+	 	}
 		
 %>
 <center>
@@ -55,7 +58,13 @@
 <table class="tableau">
 	<tr><td>Nom  du test </td><td>Ok</td><td>Not ok</td></tr>
 	<%
-	
+ 	if(controleQualite==null)
+ 	{
+	%><%=%><%
+ 	}
+ 	else
+ 	{
+ 		ArrayList<CritereQualite> listCritere = (ArrayList<CritereQualite>)controleQualite.getCQ_ListCriteres();
 	for(int i = 0; i<listCritere.size();i++)
 	{
 		%>
@@ -72,7 +81,7 @@
 </div>
 </form>
 </center>
-<% 
+<% }
 	}
 %>
 </body>

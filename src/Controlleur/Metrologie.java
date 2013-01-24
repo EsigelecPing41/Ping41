@@ -40,7 +40,7 @@ public class Metrologie extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		System.out.println("servlet : MagasinPOST");
+		System.out.println("servlet : MetroPOST");
 		RequestDispatcher dispatcher;
 		try {
 			PieceDAO pieceDAO = PieceDAO.getInstance();

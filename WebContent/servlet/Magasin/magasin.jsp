@@ -14,7 +14,7 @@
 <center>
 	<h1>MAGASIN</h1>
 	<br>
-	<form method="post" action="servlet/Magasin/send_nouvelle_piece.jsp" >
+	<form method="post" action="/SKFTraceability/servlet/Magasin/send_nouvelle_piece.jsp" >
 <%
 Piece piece = (Piece)request.getAttribute("piece");
 if(piece!=null )
@@ -32,7 +32,7 @@ else
 
 %>
 	<!--<a href="">Imprimer le code barre</a>-->
-<!-- 	<input type="hidden" value="<%=(String)ses.getAttribute("piece") %>" name= "codeBarre"> -->
+<!-- 	<input type="hidden" value="<%//(String)ses.getAttribute("piece") %>" name= "codeBarre"> -->
 	<%=error %>
 	<table class="tableau">
 		<tr>
@@ -78,7 +78,7 @@ else
 		</tr>
 	</table>
 	</form>
-	<%} %>
+	<%}%>
 </center>
 </body>
 </html>
