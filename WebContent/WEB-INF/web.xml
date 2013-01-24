@@ -208,4 +208,12 @@
     <servlet-name>rechercheDevellopement</servlet-name>
     <url-pattern>/rechercheDevellopement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>validerOperation</servlet-name>
+    <servlet-class>Controlleur.ValiderOperation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>validerOperation</servlet-name>
+    <url-pattern>/validerOperation</url-pattern>
+  </servlet-mapping>
 </web-app>
