@@ -10,11 +10,13 @@
 <link rel="stylesheet" href="/SKFTraceability/css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Qualité</title>
+<title>Qualité 2</title>
 </head>
 <body>
  <% 
  	
 	Assemblage assemblage= (Assemblage)request.getAttribute("assemblage");
+
  	ControleQualite controleQualite = (ControleQualite)request.getAttribute("controleQualite");
 	ArrayList<CritereQualite> listCritere = (ArrayList<CritereQualite>)controleQualite.getCQ_ListCriteres();
  	if(assemblage== null){
@@ -22,13 +24,19 @@
 	Erreur avec la piece
 <%
 	}else{
-		
+		request.setAttribute("assemblage", assemblage);
+		request.setAttribute("controleQualite", controleQualite);
+		request.setAttribute("assemblage", assemblage);
+	 	if(controleQualite!=null)
+	 	{
+		request.setAttribute("controleQualite", controleQualite);
+	 	}
 		
 %>
 <center>
 <h1>Qualité</h1>
 <br><br>
-<form action="valideControleQualite" method="POST">
+<form action="valideFicheQualite" method="POST">
 <table class="tableau">
 	<tr>
 		<th>N° du Code Barre
@@ -43,7 +51,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>
+		<th>Fiche Pv de contrôle
 		</th>
 		<td>
 		</td>
@@ -55,6 +63,13 @@
 	<tr><td>Nom  du test </td><td>Ok</td><td>Not ok</td></tr>
 	<%
 	
+ 	if(controleQualite==null)
+ 	{
+	%><%=%><%
+ 	}
+ 	else
+ 	{
+ 		ArrayList<CritereQualite> listCritere = (ArrayList<CritereQualite>)controleQualite.getCQ_ListCriteres();
 	for(int i = 0; i<listCritere.size();i++)
 	{
 		%>
@@ -67,17 +82,12 @@
 </table>
 
 <div id="manuel">
-<input type="hidden" name="test" value="test">
-<%
-	request.getSession().setAttribute("assemblage",assemblage);
-	request.getSession().setAttribute("controleQualite",controleQualite);
-
-%>
-<input type="submit" value="Valider">
+<input type="submit" value="Valider"></a>
 </div>
 </form>
 </center>
 <% 
+<% }
 	}
 %>
 </body>

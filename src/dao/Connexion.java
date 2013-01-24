@@ -7,7 +7,7 @@ public class Connexion
 	//SQL SERVER
 	//final static String url = "jdbc:mysql://localhost/__BDD__";
 	//Mysql
-	final static String url = "jdbc:sqlserver://ping-1bwmxxt13o:1433;database=skftraceability";
+	final static String url = "jdbc:sqlserver://10.20.0.103:1433;database=skftraceability";
 	final static String login="root";
 	final static String pass="root";
 	Connection con = null;

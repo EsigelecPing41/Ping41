@@ -65,11 +65,18 @@ public class EnregistrerPieceMetrologie extends HttpServlet {
 			}
 			System.out.println(stat);
 			int result = pieceDao.modifierStatut(p.getP_ID(),stat);
+			String result2 ="Action enregistrée";
 			RequestDispatcher dispatcher;
-			dispatcher = request.getRequestDispatcher("/Metrologie");
+			request.setAttribute("result", result2);
+			dispatcher = request.getRequestDispatcher("/servlet/Metrologie/result.jsp");
 			dispatcher.forward( request, response );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			String result2 ="Erreur lors de l'action";
+			request.setAttribute("result", result2);
+			RequestDispatcher dispatcher;
+			dispatcher = request.getRequestDispatcher("/servlet/Metrologie/result.jsp");
+			dispatcher.forward( request, response );
 			e.printStackTrace();
 		}
 	}

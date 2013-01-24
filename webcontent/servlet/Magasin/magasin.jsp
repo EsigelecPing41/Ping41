@@ -14,12 +14,12 @@
 <center>
 	<h1>MAGASIN</h1>
 	<br>
-	<form method="post" action="servlet/Magasin/send_nouvelle_piece.jsp" >
+	<form method="post" action="/SKFTraceability/servlet/Magasin/send_nouvelle_piece.jsp" >
 <%
 Piece piece = (Piece)request.getAttribute("piece");
-if(piece==null )
+if(piece!=null )
 {
-	%>Veuillez rentrer un code barre valide<%
+	%>Le <%=piece.getP_Nom()%> : <%=piece.getP_CodeBarre()%> est déja rentrée<%
 }
 else
 {
@@ -32,15 +32,13 @@ else
 
 %>
 	<!--<a href="">Imprimer le code barre</a>-->
-	<input type="hidden" value="<%=(String)ses.getAttribute("piece") %>" name= "codeBarre">
+<!-- 	<input type="hidden" value="<%//(String)ses.getAttribute("piece") %>" name= "codeBarre"> -->
 	<%=error %>
 	<table class="tableau">
 		<tr>
 			<th class="case">code barre</th>
-			<td class="case"><%=piece.getP_CodeBarre() %></td>
-			<input type="hidden" value="<%=piece%>" name="piece">
+			<td class="case"><input type="text" value="" name="codeBarre"></td>
 		</tr>
-			
 		<tr>
 			<th class="case">Nom de la pièce</th>
 			<td class="case"><input type="text" value="" name="nomPiece"></td>
@@ -80,7 +78,7 @@ else
 		</tr>
 	</table>
 	</form>
-	<%} %>
+	<%}%>
 </center>
 </body>
 </html>

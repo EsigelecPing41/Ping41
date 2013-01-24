@@ -41,7 +41,7 @@
 <form method="post" action="../../<%=action %>" >
 Numéro de série de la pièce :<br>
 <%=erreur %>
-<input type="text" name="num_piece"><a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../img/douchette.jpg" width="20px"></a>
+<input type="text" name="num_piece"><!-- <a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../img/douchette.jpg" width="20px"></a> -->
 <input type="hidden" name="Lieu" value="Magasin">
 
 <div id="scanner" style="display : none;background-color:grey;">

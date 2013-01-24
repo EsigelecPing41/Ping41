@@ -54,17 +54,31 @@ public class EnregistrerPieceMagasin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//
+		//System.out.println("EnregistrerPieceMagasin");
+		
 		Piece p = (Piece)request.getAttribute("piece");
+		//System.out.println("code barre"+p.getP_CodeBarre());
+		
 		PieceDAO pieceDao;
 		try {
 			pieceDao = PieceDAO.getInstance();
+			System.out.println(p);
 			int result = pieceDao.ajouter(p);
 			RequestDispatcher dispatcher;
-			dispatcher = request.getRequestDispatcher("Magasin/");
+			String result2 ="Pièce enregistrée";
+			request.setAttribute("result",result2);
+			dispatcher = request.getRequestDispatcher("servlet/Magasin/result.jsp");
 			dispatcher.forward( request, response );
+			System.out.println("ok");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			RequestDispatcher dispatcher;
+			String result2 ="Il y à eu un probléme avec la pièce";
+			request.setAttribute("result",result2);
+			dispatcher = request.getRequestDispatcher("result.jsp");
+			dispatcher.forward( request, response );
+			System.out.println("ko");
 		}
 		
 		

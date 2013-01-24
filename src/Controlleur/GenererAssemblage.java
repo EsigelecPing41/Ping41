@@ -1,4 +1,4 @@
-	package Controlleur;
+package Controlleur;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -44,9 +44,15 @@ public class GenererAssemblage extends HttpServlet {
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	response.setContentType("image/gif");
 	    	OutputStream out = response.getOutputStream();
+	    	//OutputStream out = response.getOutputStream();
 	    	HttpSession session = request.getSession();
 	    	System.out.println("genererassemblage.java");
 	    	Operateur operateur =(Operateur) session.getAttribute("utilisateur");
+	    	
+	    	Operateur operateur =(Operateur) session.getAttribute("sessionUtilisateur");
+	    	
+	    	System.out.println(operateur.getO_Nom());
+	    	
 	    	String designationPiece = (String)request.getAttribute("designation_de_la_piece");
 	    	String nDossierDeDefinition = (String) request.getAttribute("no_dossier_def");
 	    	String codeGPAO = (String) request.getAttribute("code_gpao");
@@ -62,8 +68,9 @@ public class GenererAssemblage extends HttpServlet {
 				assemblage = new Assemblage(no_serie,code_client,nDossierDeDefinition,codeGPAO,assemblageDAO.RecupererListeOperation(designationPiece), assemblageDAO.RecupererListePieces(designationPiece),ind_nomencl,designationPiece,ordre_de_fabrication,num_affaire);
 				assemblage.setA_NumSerie(assemblage.genererNumAssemblage()); 
 		        assemblage.setA_CodeBarre(assemblage.getA_NumSerie());
-		        
+			
 	    	
+		        //assemblageDAO.ajouter(assemblage);
 	    	//creation d'un nouvel assemblage
 	    	//aller chercher dans la base de donnée la liste des pièces et la liste des opérations
 	    	//mettre à jour le lieu 
@@ -79,6 +86,13 @@ public class GenererAssemblage extends HttpServlet {
 			    Date date = new Date();
 			    LocalisationAssemblage locAssemblage = new LocalisationAssemblage(0, date.now(), operateur.getO_ID(), lieu.getL_ID(), assemblage.getA_ID());
 			    locDAO.ajouter(locAssemblage);
+			    java.sql.Date dateNow = new java.sql.Date(System.currentTimeMillis());
+			    System.out.println(dateNow);
+			    System.out.println(lieu.getL_ID());
+			    System.out.println(assemblage.getA_ID());
+			    
+			    //LocalisationAssemblage locAssemblage = new LocalisationAssemblage(0, dateNow, operateur.getO_ID(), lieu.getL_ID(), assemblage.getA_ID());
+			    //locDAO.ajouter(locAssemblage);
 			    //l'assemblage est localisé à l'ordonnancement
 			    
 			} catch (Exception e) {
@@ -90,5 +104,7 @@ public class GenererAssemblage extends HttpServlet {
         	RequestDispatcher dispatcher;
         	dispatcher = request.getRequestDispatcher("afficherCodeBarre.jsp");
         	dispatcher.forward( request, response );
+        	//dispatcher = request.getRequestDispatcher("/servlet/Ordonnancement/afficherCodeBarre.jsp");
+        	//dispatcher.forward( request, response );
         	}
 }

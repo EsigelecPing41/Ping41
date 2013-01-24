@@ -23,7 +23,7 @@
 			String idService = (String)ses.getAttribute("id");
 		%>
 		<FRAME Noresize Scrolling="NO" SRC="listePieceParService?id=<%=idService%>" NAME="menu_gauche">
-		<FRAME Noresize Scrolling="NO" SRC="etatDouchette?etat=1" NAME="menu_gauche_bas">
+		<!-- <FRAME Noresize Scrolling="NO" SRC="etatDouchette?etat=1" NAME="menu_gauche_bas"> -->
 	</FRAMESET>
 	<% 
 		String dossier = (String)ses.getAttribute("dossier");

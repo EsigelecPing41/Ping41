@@ -12,6 +12,7 @@
 <%@ page import="Modele.Piece"%>
 <%@ page import="Modele.Assemblage"%> 
 <%@ page import="java.util.ArrayList"%> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +23,8 @@
 <body>
 <center>
 <form target="content" action="../content/metrologie.html" >
-Numéro de série de la piéce :<br><input type="text" name="num_piece"><a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="servlet/img/douchette.jpg" width="20px"></a>
+Numéro de série de la piéce :<br><input type="text" name="num_piece">
+<!-- <a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="servlet/img/douchette.jpg" width="20px"></a> -->
 <div id="scanner" style="display : none;background-color:grey;">
 Scanner le code bar<br><input type="submit" value="Simule la récupération via la douchette"></a><br><a href="javascript:document.getElementById('scanner').style.display='none';document.getElementById('manuel').style.display='block'">Annuler</a>
 </div>
