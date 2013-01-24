@@ -3,4 +3,3 @@
     
     <a href="Scanner">scanner une nouvelle piéce</a><br><br>
 <a href="Envoyer/">Envoyer piece</a>
-t'es qu'une enflure !

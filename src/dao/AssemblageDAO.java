@@ -485,7 +485,7 @@ public class AssemblageDAO
 				rs = ps.executeQuery();
 				if(rs.next())
 					
-					AssemblageRetourne = new Assemblage(rs.getString("A_CodeBarre"),rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
+					AssemblageRetourne = new Assemblage(rs.getString("A_CodeBarre"),rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
 			}
 			catch (Exception e) 
 			{
@@ -661,7 +661,10 @@ public class AssemblageDAO
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
-					AssemblageRetourne = new Assemblage(CB,rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
+				{
+					rs.getString("A_CodeClient");
+					AssemblageRetourne = new Assemblage(CB,rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire"));
+				}
 				return AssemblageRetourne;
 			}
 			catch (Exception e) 
@@ -701,7 +704,7 @@ public class AssemblageDAO
 		 * Permet de recuperer tous les assemblages de la table
 		 * @return la liste des assemblages
 		 */
-		/*public List<Assemblage> getListAssemblage()
+		public List<Assemblage> getListAssemblage()
 		{
 			PreparedStatement ps = null;
 			ResultSet rs=null;
@@ -717,7 +720,7 @@ public class AssemblageDAO
 				rs=ps.executeQuery();
 				//on parcourt les lignes du resultat
 				while(rs.next())
-					ListeAssemblage.add(new Assemblage(rs.getInt("A_ID"),rs.getString("A_NumSerie"),rs.getString("A_Nom"),rs.getString("A_CodeBarre"),rs.getString("A_CodeClient"),rs.getString("A_ListPieces"),rs.getString("ListOperations"),rs.getBoolean("A_Statut"),rs.getString("A_NumDossier"),rs.getString("A_CodeGPAO"),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire")));
+					ListeAssemblage.add(new Assemblage(rs.getString("A_CodeBarre"),rs.getInt("A_ID"),rs.getString("A_Nom"),rs.getString("A_NumSerie"),rs.getString("A_CodeClient"),rs.getString("A_numDossier"),rs.getString("A_CodeGPAO"),RecupererListeOperation(rs.getString("A_Nom")), RecupererListePieces(rs.getString("A_Nom")),rs.getString("A_IndNomenclature"),rs.getString("A_Designation"),rs.getString("A_Of"),rs.getString("A_NumAffaire")));
 			} 
 			catch (Exception e) 
 			{

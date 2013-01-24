@@ -9,7 +9,8 @@
 ******************************************************--%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="Modele.Piece"%> 
+<%@ page import="Modele.Piece"%>
+<%@ page import="Modele.Assemblage"%> 
 <%@ page import="java.util.ArrayList"%> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,18 +32,45 @@ Scanner le code bar<br><input type="submit" value="Simule la récupération via la
 <input type="submit" value="Valider"></a>
 </div>
 </form>
-<h2>Liste des pièces</h2>
-<table class="tableau">
 <% 
 	HttpSession ses = request.getSession(true);
-	ArrayList<Piece> pieces = (ArrayList<Piece>)ses.getAttribute("listePiece");
-	for ( int i=0; i<pieces.size(); i++ ) {
+	//si on est en prod ou avant
+	String lib = (String)ses.getAttribute("lib");
+	System.out.println(lib);
+	if(!lib.equals("Accueil") || !lib.equals("Aide"))
+	{
+		if(lib.equals("Qualite") || lib.equals("Production") || lib.equals("Expedition"))
+		{
+		
 %>
-		<tr>
-		<td class="case"> <a target="page" href="/SKFTraceability/chercherPiece?id=<%=pieces.get(i).getP_ID()%>"><%=pieces.get(i).getP_Nom()%></a> </td>
-		<td class="case"><%=pieces.get(i).getP_CodeBarre() %></td>
+<h2>Liste des assemblages</h2>
+<table class="tableau">
+<%	
+			ArrayList<Assemblage> assemblages = (ArrayList<Assemblage>)ses.getAttribute("listeAssemblage");
+			for ( int i=0; i<assemblages.size(); i++ ) {
+%>
+	 <tr>
+		<td class="case"> <a target="page" href="/SKFTraceability/chercherPiece?id=<%=assemblages.get(i).getA_ID()%>"><%=assemblages.get(i).getA_Nom()%></a> </td>
+		<td class="case"><%=assemblages.get(i).getA_CodeBarre() %></td>
 	</tr>
 <% 
+			}
+		}
+		else
+		{
+			ArrayList<Piece> pieces = (ArrayList<Piece>)ses.getAttribute("listePiece");
+			%>
+			<h2>Liste des pièces</h2>
+			<table class="tableau"><%
+			for ( int i=0; i<pieces.size(); i++ ) {
+			%>
+		 <tr>
+			<td class="case"> <a target="page" href="/SKFTraceability/chercherPiece?id=<%=pieces.get(i).getP_ID()%>"><%=pieces.get(i).getP_Nom()%></a> </td>
+			<td class="case"><%=pieces.get(i).getP_CodeBarre() %></td>
+		</tr>
+			<%
+				}	
+		}
 	}
 %>
 </table>

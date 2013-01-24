@@ -43,9 +43,11 @@ public class GenererAssemblage extends HttpServlet {
 	    }
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	response.setContentType("image/gif");
+	    	OutputStream out = response.getOutputStream();
 	    	//OutputStream out = response.getOutputStream();
 	    	HttpSession session = request.getSession();
 	    	System.out.println("genererassemblage.java");
+	    	Operateur operateur =(Operateur) session.getAttribute("utilisateur");
 	    	
 	    	Operateur operateur =(Operateur) session.getAttribute("sessionUtilisateur");
 	    	
@@ -67,6 +69,7 @@ public class GenererAssemblage extends HttpServlet {
 				assemblage.setA_NumSerie(assemblage.genererNumAssemblage()); 
 		        assemblage.setA_CodeBarre(assemblage.getA_NumSerie());
 			
+	    	
 		        //assemblageDAO.ajouter(assemblage);
 	    	//creation d'un nouvel assemblage
 	    	//aller chercher dans la base de donnée la liste des pièces et la liste des opérations
@@ -80,6 +83,9 @@ public class GenererAssemblage extends HttpServlet {
 	        	LocalisationAssemblageDAO locDAO =  LocalisationAssemblageDAO.getInstance();
 				LieuDAO lieuDAO =  LieuDAO.getInstance();
 			    Lieu lieu = lieuDAO.getLieu(4); // ordonnancement;
+			    Date date = new Date();
+			    LocalisationAssemblage locAssemblage = new LocalisationAssemblage(0, date.now(), operateur.getO_ID(), lieu.getL_ID(), assemblage.getA_ID());
+			    locDAO.ajouter(locAssemblage);
 			    java.sql.Date dateNow = new java.sql.Date(System.currentTimeMillis());
 			    System.out.println(dateNow);
 			    System.out.println(lieu.getL_ID());
@@ -96,6 +102,8 @@ public class GenererAssemblage extends HttpServlet {
 	        bb.setCode(assemblage.getA_CodeBarre());//numero de la piece.
         	request.setAttribute("codebarre", bb);
         	RequestDispatcher dispatcher;
+        	dispatcher = request.getRequestDispatcher("afficherCodeBarre.jsp");
+        	dispatcher.forward( request, response );
         	//dispatcher = request.getRequestDispatcher("/servlet/Ordonnancement/afficherCodeBarre.jsp");
         	//dispatcher.forward( request, response );
         	}

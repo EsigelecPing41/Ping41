@@ -57,12 +57,13 @@ public class FicheSuiveuse extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("servlet : FicheSuiveusePOST");
+		HttpSession se = request.getSession();
 		RequestDispatcher dispatcher;
 		try {
 			AssemblageDAO assemblageDAO = AssemblageDAO.getInstance();
-			request.setAttribute("assemblage",assemblageDAO.getAssemblage(request.getParameter("num_piece")));
+			se.setAttribute("assemblage",assemblageDAO.getAssemblage(request.getParameter("num_piece")));
 			OperationDAO operationDAO = OperationDAO.getInstance();
-			request.setAttribute("operation",operationDAO.getListOperationAssemblage(Integer.parseInt(request.getParameter("num_piece"))));
+			se.setAttribute("operation",operationDAO.getListOperationAssemblage(Integer.parseInt(request.getParameter("num_piece"))));
 			dispatcher = request.getRequestDispatcher("servlet/Production/fiche_suiveuse.jsp");
 			
 		} catch (Exception e) {

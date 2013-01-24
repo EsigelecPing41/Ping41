@@ -162,9 +162,8 @@ public class EtatOperationDAO
 			//connexion a la base de donnees
 			try 
 			{	
-				ps = con.prepareStatement("SELECT * FROM EtatOperation WHERE E_ID=?");
+				ps = con.prepareStatement("SELECT * FROM Etat_Operation WHERE E_ID=?");
 				ps.setInt(1,ID);
-							
 				//on execute la requete 
 				rs = ps.executeQuery();
 				if(rs.next())
