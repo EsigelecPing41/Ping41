@@ -5,7 +5,7 @@
 <%@ page import="Modele.Piece"%> 
 <html>
 <head>
-<link rel="stylesheet" href="../../../css/css.css" />
+<link rel="stylesheet" href="/SKFTraceability/css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>R&D</title>
 </head>
