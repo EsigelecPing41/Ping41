@@ -6,7 +6,7 @@
 
 <html>
 <head>
-<link rel="stylesheet" href="../../../css/css.css" />
+<link rel="stylesheet" href="/SKFTraceability/css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Métrologie</title>
 </head>
@@ -24,7 +24,7 @@
 	<center>
 	<h1>Métrologie</h1><br>
 	<p></p>
-	<form target="content" method="post" action="enregistrerPieceMetrologie">
+	<form method="post" action="enregistrerPieceMetrologie">
 	<table class="tableau">
 		<tr>
 			<th class="case"><b>Pièce</b></th>

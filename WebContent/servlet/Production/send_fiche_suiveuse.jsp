@@ -35,7 +35,12 @@
 		OperationDAO operationDao = OperationDAO.getInstance();
 		operationDao.getListOperation();
 	
-		List<ActionAssemblage> listaction=ActionAssemblageDAO.getListActionAssemblage(assemblage.getA_ID());
+		ActionAssemblageDAO actionAssemblageDAO = ActionAssemblageDAO.getInstance();
+		List<ActionAssemblage> listaction = actionAssemblageDAO.getListActionAssemblage(assemblage.getA_ID());
+		
+		
+		
+		//List<ActionAssemblage> listaction=ActionAssemblageDAO.getListActionAssemblage(assemblage.getA_ID());
 	  	
 		Iterator it = listaction.iterator();
 		
@@ -70,10 +75,10 @@
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 				Date date = sdf.parse(request.getParameter("Date"+i));
-				
+				java.sql.Date datesql = (java.sql.Date)date ;
 				
 				request.getParameter("etat"+i);
-				actionAssemblage.setAA_Date(date);
+				actionAssemblage.setAA_Date(datesql);
 				
 				//request.setAttribute("date",date);
 				dispatcher.forward( request, response );	

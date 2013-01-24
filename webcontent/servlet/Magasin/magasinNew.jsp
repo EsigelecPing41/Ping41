@@ -1,7 +1,6 @@
  <%@
  page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="Modele.Piece"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,17 +11,11 @@
 </head>
 <body>
 <center>
+
 	<h1>MAGASIN</h1>
 	<br>
 	<form method="post" action="servlet/Magasin/send_nouvelle_piece.jsp" >
 <%
-Piece piece = (Piece)request.getAttribute("piece");
-if(piece==null )
-{
-	%>Veuillez rentrer un code barre valide<%
-}
-else
-{
 	HttpSession ses = request.getSession(true);
 	String error = (String)ses.getAttribute("error");
 	if(error == null)
@@ -32,13 +25,9 @@ else
 
 %>
 	<!--<a href="">Imprimer le code barre</a>-->
-	<input type="hidden" value="<%=(String)ses.getAttribute("piece") %>" name= "codeBarre">
-	<%=error %>
 	<table class="tableau">
 		<tr>
-			<th class="case">code barre</th>
-			<td class="case"><%=piece.getP_CodeBarre() %></td>
-			<input type="hidden" value="<%=piece%>" name="piece">
+			<th colspan="2"><%=error %></th>
 		</tr>
 			
 		<tr>
@@ -80,7 +69,6 @@ else
 		</tr>
 	</table>
 	</form>
-	<%} %>
 </center>
 </body>
 </html>
