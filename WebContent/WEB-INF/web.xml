@@ -121,12 +121,12 @@
     <url-pattern>/ficheSuiveuse</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>valideFicheQualite</servlet-name>
-    <servlet-class>Controlleur.ValideFicheQualite</servlet-class>
+    <servlet-name>valideControleQualite</servlet-name>
+    <servlet-class>Controlleur.ValideControleQualite</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>valideFicheQualite</servlet-name>
-    <url-pattern>/valideFicheQualite</url-pattern>
+    <servlet-name>valideControleQualite</servlet-name>
+    <url-pattern>/valideControleQualite</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>envoyerPiece</servlet-name>
@@ -207,5 +207,5 @@
   <servlet-mapping>
     <servlet-name>rechercheDevellopement</servlet-name>
     <url-pattern>/rechercheDevellopement</url-pattern>
-  </servlet-mapping>    
+  </servlet-mapping>
 </web-app>

@@ -22,14 +22,13 @@
 	Erreur avec la piece
 <%
 	}else{
-		request.setAttribute("assemblage", assemblage);
-		request.setAttribute("controleQualite", controleQualite);
+		
 		
 %>
 <center>
 <h1>Qualité</h1>
 <br><br>
-<form action="valideFicheQualite" method="POST">
+<form action="valideControleQualite" method="POST">
 <table class="tableau">
 	<tr>
 		<th>N° du Code Barre
@@ -44,7 +43,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Fiche Pv de contrôle
+		<th>
 		</th>
 		<td>
 		</td>
@@ -68,7 +67,13 @@
 </table>
 
 <div id="manuel">
-<input type="submit" value="Valider"></a>
+<input type="hidden" name="test" value="test">
+<%
+	request.getSession().setAttribute("assemblage",assemblage);
+	request.getSession().setAttribute("controleQualite",controleQualite);
+
+%>
+<input type="submit" value="Valider">
 </div>
 </form>
 </center>
