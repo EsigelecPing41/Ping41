@@ -1,4 +1,4 @@
-package Controlleur;
+	package Controlleur;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class GenererAssemblage extends HttpServlet {
 				assemblage = new Assemblage(no_serie,code_client,nDossierDeDefinition,codeGPAO,assemblageDAO.RecupererListeOperation(designationPiece), assemblageDAO.RecupererListePieces(designationPiece),ind_nomencl,designationPiece,ordre_de_fabrication,num_affaire);
 				assemblage.setA_NumSerie(assemblage.genererNumAssemblage()); 
 		        assemblage.setA_CodeBarre(assemblage.getA_NumSerie());
-			
+		        
 	    	
 	    	//creation d'un nouvel assemblage
 	    	//aller chercher dans la base de donnée la liste des pièces et la liste des opérations

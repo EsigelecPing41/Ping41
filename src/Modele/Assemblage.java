@@ -38,8 +38,9 @@ public class Assemblage
     	this.A_ListOperations = operations;
     	this.A_ListPieces= listPiece;
     }
-    public Assemblage(String codeBarre,int id,String A_NumSerie, String CodeClient,String A_NumDossier,String A_CodeGPAO,ArrayList<Operation> operations,ArrayList<Piece> pieces,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
+    public Assemblage(String codeBarre,int id,String nom,String A_NumSerie, String CodeClient,String A_NumDossier,String A_CodeGPAO,ArrayList<Operation> operations,ArrayList<Piece> pieces,String A_IndNomenclature,String A_Designation ,String A_Of,String A_NumAffaire)
     {
+    	this.A_Nom = nom;
     	this.A_CodeBarre = codeBarre;
     	this.A_ID = id;
     	this.A_NumSerie= A_NumSerie;
@@ -69,6 +70,7 @@ public class Assemblage
     	this.A_Of=A_Of;
     	this.A_NumAffaire=A_NumAffaire;
     }
+    
     
     public int getA_ID() 
     {

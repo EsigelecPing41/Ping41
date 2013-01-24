@@ -10,7 +10,7 @@
 <h1>Expédition</h1>
 <br>
 
-<form action="Suivi/">
+<form action="../../envoyerPiece" method="POST">
 Numéro de série de la piéce :<br><input type="text" name="num_piece"><a href="javascript:document.getElementById('scanner').style.display='block';document.getElementById('manuel').style.display='none'"><img src="../img/douchette.jpg" width="20px"></a>
 <div id="scanner" style="display : none;background-color:grey;">
 Scanner le code bar<br><input type="submit" value="Simule la récupération via la douchette"></a><br><a href="javascript:document.getElementById('scanner').style.display='none';document.getElementById('manuel').style.display='block'">Annuler</a>
@@ -24,8 +24,8 @@ Scanner le code bar<br><input type="submit" value="Simule la récupération via la
 
 
 
-<a href="Scanner">scanner une nouvelle piéce</a><br><br>
-<a href="Envoyer/">Envoyer piéce</a>
+<a href="Scanner">scanner une nouvelle pièce</a><br><br>
+<a href="Envoyer/">Envoyer pièce</a>
 </center>
 </body>
 </html>
