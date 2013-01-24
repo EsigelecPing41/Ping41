@@ -15,6 +15,7 @@ import dao.LocalisationAssemblageDAO;
 
 import Modele.ActionAssemblage;
 import Modele.Assemblage;
+import Modele.EtatOperation;
 import Modele.LocalisationAssemblage;
 import Modele.LocalisationPiece;
 import Modele.Operateur;
@@ -48,6 +49,18 @@ public class ValiderOperation extends HttpServlet {
 		//ajouter action assemblage
 		for(Operation o: listOp)
 		{
+			int valueOP = (Integer)request.getAttribute("etat"+o.getOp_ID());
+			EtatOperation eo;
+			if(valueOP == 1)
+			{
+				eo = new EtatOperation("fait");
+				o.setOp_EO(eo);
+			}
+			else 
+			{
+				eo = new EtatOperation("pasFait");
+				o.setOp_EO(eo);
+			}
 			try {
 			ActionAssemblage aa = new ActionAssemblage(assemblage.getA_ID(),op.getO_ID(),o.getOp_ID(),5,date);
 			ActionAssemblageDAO actionAssemblage = ActionAssemblageDAO.getInstance();
